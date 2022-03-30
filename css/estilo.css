@@ -12,6 +12,9 @@ H2{
     height: 500px;
 }
 
+.row{
+    margin: 5px;
+}
 .card{
     box-shadow: 0px 1px 10px rgba(0,0,0,.2);
     cursor: pointer;
