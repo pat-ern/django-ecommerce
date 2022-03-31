@@ -31,5 +31,18 @@ H2{
 }
 
 .barra-lateral{
-    background-color:antiquewhite;
+    background-color: antiquewhite;
+    animation-name: ejemplo;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
 }
+
+@keyframes ejemplo {
+    from {background-color: antiquewhite;}
+    to {background-color:aquamarine;}
+  }
+
+#info-contacto{
+    background-color: antiquewhite;
+  }
