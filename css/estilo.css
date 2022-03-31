@@ -1,28 +1,35 @@
+@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Literata);
+
 *{
-    margin: 0;
+    margin: 10;
     padding: 0;
 }
 
-H2{
+body {
+    font-family: 'Crimson Pro', serif;
+    font-size:  19px;
+}
+
+h2{
     text-align: center;
 }
 
-
-.row{
+.row {
     margin: 5px;
 }
-.card{
+
+.card {
     box-shadow: 0px 1px 10px rgba(0,0,0,.2);
     cursor: pointer;
     transition: all 400ms ease;
 }
 
-.card:hover{
+.card:hover {
     box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
     transform: translateY(-2%);
 }
 
-.card-title{
+.card-title {
     text-align: center;
 }
 
@@ -39,6 +46,17 @@ H2{
     to {background-color:aquamarine;}
   }
 
-#info-contacto{
-    background-color: antiquewhite;
-  }
+nav, footer{
+    background-color: #dde6d5;
+    font-weight: bold;
+}
+
+.nav-item {
+    font-size: 22px;
+}
+
+footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

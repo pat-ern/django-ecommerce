@@ -10,7 +10,7 @@
 <body>
 
   <!-- Menu Responsivo OK -->
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <nav class="navbar navbar-expand-md navbar-light bg-green-100">
     <div class="container-fluid">
       
       <a class="navbar-brand" href="#">
@@ -52,50 +52,37 @@
             <a class="nav-link">Contacto</a>
           </li>
         </ul>
+
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Buscar">
           <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
+
       </div>
     </div>
   </nav>
 
   <!-- Carousel --> 
   <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
       <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
+    
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="./img/carousel01.jpg" class="d-block w-100" alt="Plantas">
-
-        <!-- Agregué subtitulos (tiene que ir dentro de la clase carousel-caption). -->
-        <div class="carousel-caption">
-          <h3>¡PLANTAS CON DESCUENTO!</h3>
-          <p>Revisa las ofertas que tenemos para ti.</p>
-        </div>
-
       </div>
-
       <div class="carousel-item">
         <img src="./img/carousel02.jpg" class="d-block w-100" alt="Tierra">
-        <div class="carousel-caption">
-          <h3>¡TIERRA!</h3>
-          <p>¡Revisa las ofertas que tenemos para ti!</p>
-        </div>
       </div>
-
       <div class="carousel-item">
         <img src="./img/carousel03.png" class="d-block w-100" alt="Jardin">
-        <div class="carousel-caption">
-          <h3>¡JARDIN!</h3>
-          <p>¡Revisa las ofertas que tenemos para ti!</p>
-        </div>
       </div>
-
     </div>
+
     <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -104,6 +91,7 @@
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
+
   </div>
 
   <!-- Tarjetas (agregar imagenes y descripcion)--> 
@@ -214,12 +202,13 @@
       <br>barra<br>
     </div>
 
-    <div id="info-contacto">
-    <p>Aqui va la info y rrss</p>
-    </div>
-
   </div>
-  
+
+  <footer class="footer mt-auto py-3">
+    <div class="container">
+      <span class="text-muted">© Semillas 2022</span>
+    </div>
+  </footer>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
