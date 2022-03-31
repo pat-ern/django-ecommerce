@@ -49,14 +49,7 @@ h2{
 nav, footer{
     background-color: #dde6d5;
     font-weight: bold;
-}
-
-.nav-item {
     font-size: 22px;
 }
 
-footer {
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
+
