@@ -80,7 +80,6 @@ footer {
 .filtros {
     background-color: #e6ece0;
     margin-top: 20px;
-    margin-bottom: 10px;
     padding-top: 15px;
     border-radius: 5px;
     /*min-width: 250px;*/
@@ -104,11 +103,33 @@ footer {
     min-width: 100px;
     background-color: #87b177;
     font-size: 20px;
+    color: white;
 
+}
+
+.btn:hover {
+    background-color: white;
+    color: #87b177;
 }
 
 .dropdown-item {
-    font-size: 20px;
+    font-size: 18px;
 }
 
+.nav-item {
+    border-radius: 5px;
+}
+
+.nav-item:hover {
+    background-color: white;
+
+}
+
+/*Mostrar contenido dropdown on hover */
+@media all and (min-width: 768px) {
+    .navbar .nav-item .dropdown-menu{ display: none; }
+    .navbar .nav-item:hover .nav-link{   }
+    .navbar .nav-item:hover .dropdown-menu{ display: block; }
+    .navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
 
