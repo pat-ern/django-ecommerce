@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro&family=Literata);
+@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+
 
 * {
     padding: 0;
@@ -7,13 +8,20 @@
 
 body {
     font-family: 'Crimson Pro', serif;
-    font-size:  19px;
+    font-size:  22px;
+    background-color: #F8FBF6;
+
 }
 
 .nav-item:hover{
     background-color:#cadeb8;
     border-radius: 5px;
 }
+
+label {
+    font-size: 15px;
+}
+
 
 .row {
     margin: 5px;
@@ -23,6 +31,8 @@ body {
     box-shadow: 0px 1px 10px rgba(0,0,0,.4);
     cursor: pointer;
     transition: all 400ms ease;
+    background-color: #e6ece0;
+
 }
 
     .card:hover {
@@ -38,15 +48,10 @@ body {
     background-color:#dde6d5;
     position: fixed;
     right: 10px;
-    top: 80px;
-    bottom: 60px;
+    top: 120px;
+    bottom: 80px;
     border-radius: 5px;
 }
-
-    .barra-lateral H5{
-        padding: 10px;
-        text-align: justify;
-    }
 
 .carousel-item img{
     margin-top: 10px;
@@ -54,27 +59,99 @@ body {
 }
 
 
-nav, footer{
-    background-color: #dde6d5;
+/*
+header {
+    position: sticky;
+    width: 100%;
+    top: 0;
+}*/
+
+nav {
+    background-color: #f8f6ef;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
 }
 
-footer ul{
-    margin: 0;
-    padding: 0;
-    list-style: none;
+footer {
+    background-color: #d5f0c5;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-    footer ul li{
-        display: inline-block;
-    }
+footer {
+    /*
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    */
+    color: black;
+    padding-left: 30px;
+    padding-right: 30px;
+}
 
-        footer ul li a{
-            display: block;
-            padding: 5px;
-            transition: all 0.2s;
-        }
+.navbar-brand {
+    font-size:34px;
+    font-family: 'Crimson Pro', serif;
+}
+
+#navbarlogo {
+    background-color: #deefd8;
+}
+
+.filtros {
+    background-color: #f8f6ef;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-radius: 5px;
+    /*min-width: 250px;*/
+
+}
+
+.barra-lateral {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+
+#filtros-productos-slides {
+    padding: 5;
+    margin-bottom: 0px;
+
+}
+
+.btn {
+    min-width: 100px;
+    background-color: #87b177;
+    font-size: 20px;
+    color: white;
+
+}
+
+.btn:hover {
+    background-color: white;
+    color: #87b177;
+}
+
+.dropdown-item {
+    font-size: 18px;
+}
+
+.nav-item {
+    border-radius: 5px;
+}
+
+.nav-item:hover {
+    background-color: white;
+
+}
+
+/*Mostrar contenido dropdown on hover */
+@media all and (min-width: 768px) {
+    .navbar .nav-item .dropdown-menu{ display: none; }
+    .navbar .nav-item:hover .dropdown-menu{ display: block; }
+    .navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
 
             footer ul li a:hover{
                 cursor: pointer;
