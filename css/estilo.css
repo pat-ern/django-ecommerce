@@ -7,12 +7,18 @@
 
 body {
     font-family: 'Crimson Pro', serif;
-    font-size:  19px;
+    font-size:  22px;
+
 }
 
-h2{
+h2 {
     text-align: center;
 }
+
+label {
+    font-size: 15px;
+}
+
 
 .row {
     margin: 5px;
@@ -22,6 +28,8 @@ h2{
     box-shadow: 0px 1px 10px rgba(0,0,0,.2);
     cursor: pointer;
     transition: all 400ms ease;
+    background-color: #e6ece0;
+
 }
 
 .card:hover {
@@ -46,10 +54,61 @@ h2{
     to {background-color:aquamarine;}
   }
 
+/*
+header {
+    position: sticky;
+    width: 100%;
+    top: 0;
+}*/
+
 nav, footer{
-    background-color: #dde6d5;
+    background-color: #e6ece0;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
+}
+
+footer {
+    /*
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    */
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.filtros {
+    background-color: #e6ece0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top: 15px;
+    border-radius: 5px;
+    /*min-width: 250px;*/
+
+}
+
+.barra-lateral {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+
+#filtros-productos-slides {
+    padding: 5;
+    margin-bottom: 0px;
+
+}
+
+.btn {
+    min-width: 100px;
+    background-color: #87b177;
+    font-size: 20px;
+
+}
+
+.dropdown-item {
+    font-size: 20px;
 }
 
 
