@@ -10,6 +10,7 @@ body {
     font-family: 'Crimson Pro', serif;
     font-size:  22px;
     background-color: #F8FBF6;
+    margin-bottom: 100px;
 
 }
 
@@ -76,6 +77,9 @@ footer {
     color: black;
     padding-left: 30px;
     padding-right: 30px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 .navbar-brand {
@@ -88,7 +92,7 @@ footer {
 }
 
 .filtros {
-    background-color: #f8f6ef;
+    background-color: #f3f6f4;
     margin-top: 20px;
     padding-top: 15px;
     border-radius: 5px;
