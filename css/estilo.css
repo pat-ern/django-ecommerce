@@ -44,18 +44,29 @@ label {
     text-align: center;
 }
 
-.barra-lateral{
-    background-color:#dde6d5;
+
+.barra-lateral .carousel-item img{
     position: fixed;
-    right: 10px;
     top: 120px;
-    bottom: 80px;
+    right: 20px;
+    margin-top: 10px;
     border-radius: 5px;
 }
 
-.carousel-item img{
-    margin-top: 10px;
-    border-radius: 5px;
+@media screen and (min-width:1000px){
+    .barra-pie{
+        display: none;
+    }
+    
+}
+
+@media screen and (max-width: 1000px) {
+    .barra-lateral{
+        display: none;
+    }
+    .barra-pie{
+        display: block;
+    }
 }
 
 
@@ -149,11 +160,31 @@ footer {
 /*Mostrar contenido dropdown on hover */
 @media all and (min-width: 768px) {
     .navbar .nav-item .dropdown-menu{ display: none; }
+    .navbar .nav-item:hover .nav-link{   }
     .navbar .nav-item:hover .dropdown-menu{ display: block; }
     .navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
 
-            footer ul li a:hover{
-                cursor: pointer;
-                transform: translateY(-2%);
-            }
+
+/*Conocenos*/
+#principal{
+    grid-area: principal;
+}
+#imag{
+    grid-area: imag;
+}
+#todos{
+    grid-area: todos;
+}
+#mision-vision{
+    grid-area: mision-vision;
+}
+
+.contenido{
+    display: grid;
+    padding: 2%;
+    grid-template-areas: "principal" "imag";
+}
+#personal{
+    border-radius: 70%;
+}
