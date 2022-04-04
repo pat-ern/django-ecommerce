@@ -157,16 +157,37 @@ label {
     
 }
 
-.barra-pie{
-        border-radius: 5px;
-    }
-
 @media screen and (max-width: 1200px) {
+    .tarjetas{
+        width: 80%;
+    }
     .barra-lateral{
         display: none;
     }
     .barra-pie{
         display: inline;
+    }
+}
+
+@media screen and (max-width: 1120px){
+    .tarjetas{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 905px){
+    .tarjetas{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .tarjetas{
+        width: 60%;
+        min-width: 200px;
+    }
+    .filtros{
+        min-width: 300px;
     }
 }
 
@@ -205,10 +226,17 @@ footer {
     grid-area: mision-vision;
 }
 
-.contenido{
+.historia{
     display: grid;
     padding: 2%;
-    grid-template-areas: "principal" "imag";
+    grid-template-areas: "principal todos";
+}
+
+.mi-vi{
+    display: grid;
+    padding: 2%;
+    margin: 2%;
+    grid-template-areas: "imag mision-vision";
 }
 #personal{
     border-radius: 70%;
