@@ -19,13 +19,13 @@ nav {
     font-size: 20px;
 }
 
+
 .navbar-brand {
     font-size:34px;
-    font-family: 'Crimson Pro', serif;
 }
 
 #navbarlogo {
-    background-color: #edf4d2;
+    background-color: #d9ead3;
 }
 
 .btn {
@@ -171,7 +171,7 @@ label {
 }
 
 footer {
-    background-color: #edf4d2;
+    background-color: #d9ead3;
     font-weight: bold;
     font-size: 20px;
     color: black;
