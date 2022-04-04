@@ -32,6 +32,7 @@ label {
     cursor: pointer;
     transition: all 400ms ease;
     background-color: #e6ece0;
+    min-height: 350px;
 
 }
 
