@@ -213,31 +213,9 @@ footer {
 
 
 /*Conocenos*/
-#principal{
-    grid-area: principal;
+#todos {
+    text-align: center;
 }
-#imag{
-    grid-area: imag;
-}
-#todos{
-    grid-area: todos;
-}
-#mision-vision{
-    grid-area: mision-vision;
-}
-
-.historia{
-    display: grid;
-    padding: 2%;
-    grid-template-areas: "principal todos";
-}
-
-.mi-vi{
-    display: grid;
-    padding: 2%;
-    margin: 2%;
-    grid-template-areas: "imag mision-vision";
-}
-#personal{
-    border-radius: 70%;
-}
+    #todos img {
+        border-radius: 50%;
+    }
