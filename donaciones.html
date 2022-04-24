@@ -90,10 +90,47 @@
         </nav>
         </header>
 
-        <div class="container">
-            <form action="" method="post" name="donacion">
+        <div class="container" id="formulario">
+            <div class="row g-4">
+                <div class="col" id="donativos">
+                    <h1>Donaci&oacute;n</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, numquam explicabo? Dolore illo nesciunt odit fugit. Dolorum natus eum iure quas sapiente perspiciatis esse</p>
+                </div>
+                <div class="col">
+                    <form action="index.html" enctype="multipart/form-data" method="GET" name="miForm">
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre:" id="miDor">
+                            <label for="nombre">Ingrese su nombre:</label>
+                        </div>
 
-            </form>
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" name="apellido" placeholder="Ingrese su apellido:" id="miDor">
+                            <label for="apellido">Ingrese su apellido:</label>
+                        </div>
+
+                        <div class="mb-3 form-floating">
+                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese su dirección:" id="miDor">
+                            <label for="nombre">Direcci&oacute;n:</label>
+                        </div>
+
+                        <div class="mb-3 form-floating">
+                            <input type="number" class="form-control" name="nombre" placeholder="Ingrese su nombre:" id="miDor">
+                            <label for="nombre">Cantidad a donar:</label>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="aporte_mensual">
+                            <label for="aporte_mensual" class="form-check-label">Aportar mensualmente</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Donar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+            
         </div>
 
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-bottom">

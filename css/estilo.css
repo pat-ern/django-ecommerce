@@ -178,6 +178,12 @@ label {
     .tarjetas{
         width: 70%;
     }
+    .imagen_conocenos{
+        display: none;
+    }
+    .col-8 {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 767px){
@@ -212,9 +218,15 @@ footer {
 
 
 /*Conocenos*/
-#todos {
+.imagen_conocenos {
     text-align: center;
+    line-height: 350px;
 }
-    #todos img {
+    #trabajadores {
         border-radius: 50%;
     }
+
+/*Donaciones*/
+#formulario {  
+    background-image: url("https://blog.oxfamintermon.org/wp-content/uploads/2017/10/donaciones-ong.jpg");
+}
