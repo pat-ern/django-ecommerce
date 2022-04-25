@@ -90,41 +90,51 @@
         </nav>
         </header>
 
-        <div class="container" id="formulario">
+        <div class="container" id="donaciones">
             <div class="row g-4">
                 <div class="col" id="donativos">
-                    <h1>¿Donde va tu donaci&oacute;n?</h1>
-                    <p>Tus donativos son para ayudar a la fundación sin fines de lucro "La chacrita".</p><br>
-                    <p>¡Cualquier valor puede hacer la diferencia!</p>
+                    <h1>¿Donde va tu donaci&oacute;n?</h1><br>
+                    <h3>Tus donativos son para ayudar a la fundación sin fines de lucro "La chacrita".</h3>
+                    <h3>¡Cualquier valor puede hacer la diferencia!</h3>
                 </div>
                 <div class="col-12 col-lg-5 ">
-                    <form action="index.html" enctype="multipart/form-data" method="GET" name="miForm">
-                        <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese su nombre:" id="miDor">
-                            <label for="nombre">Ingrese su nombre:</label>
+                    <form action="" enctype="multipart/form-data" method="GET" name="formulario" id="formulario">
+                        <div class="mb-3 form-floating" id="grupo_nombre">
+                            <input type="text" class="form-control" name="nombre" placeholder="Nombre:" id="nombre">
+                            <label for="nombre">Nombre:</label>
+                            <img src="./img/iconos/cancelar.png" class="img_error">
+                            <p class="error_formulario"> ¡El nombre es invalido!</p>
+                        </div>
+
+                        <div class="mb-3 form-floating" id="grupo_email">
+                            <input type="email" class="form-control" name="email" placeholder="E-mail:" id="email">
+                            <label for="email">E-mail:</label>
+                            <img src="./img/iconos/cancelar.png" class="img_error">
+                            <p class="error_formulario"> ¡El email es invalido!</p>
+                        </div>
+
+                        <div class="mb-3 form-floating" id="grupo_celular">
+                            <input type="number" class="form-control" name="celular" placeholder="celular: " id="celular">
+                            <label for="celular">Celular:</label>
+                            <img src="./img/iconos/cancelar.png" class="img_error">
+                            <p class="error_formulario"> ¡El numero de celular debe contener al menos 9 digitos!</p>
                         </div>
 
                         <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" name="apellido" placeholder="Ingrese su apellido:" id="miDor">
-                            <label for="apellido">Ingrese su apellido:</label>
-                        </div>
-
-                        <div class="mb-3 form-floating">
-                            <input type="text" class="form-control" name="nombre" placeholder="Ingrese su dirección:" id="miDor">
-                            <label for="nombre">Direcci&oacute;n:</label>
-                        </div>
-
-                        <div class="mb-3 form-floating">
-                            <input type="number" class="form-control" name="nombre" placeholder="Ingrese su nombre:" id="miDor">
-                            <label for="nombre">Cantidad a donar:</label>
+                            <input type="number" class="form-control" name="donativo" placeholder="Cantidad a donativo:" id="miDor">
+                            <label for="donativo">Cantidad a donar:</label>
                         </div>
 
                         <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="aporte_mensual">
+                            <input class="form-check-input" type="checkbox" value="" id="aporte_mensual" name="aporte_mensual">
                             <label for="aporte_mensual" class="form-check-label">Aportar mensualmente</label>
                         </div>
+                        <div class="mb-2 form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="informe_mensual" name="informe_mensual">
+                            <label for="informe_mensual" class="form-check-label">Recibir informe mensual</label>
+                        </div>
 
-                        <div class="mb-3">
+                        <div class="mb-2" id="donar">
                             <button type="submit" class="btn btn-primary">Donar</button>
                         </div>
                     </form>
@@ -158,6 +168,8 @@
 
         <!-- Option 1: Bootstrap Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+        <script src="./js/validaciones.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     </body>
 </html>
