@@ -31,12 +31,13 @@ inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
+*/
 
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
 });
-*/
 
-$("#donar").click(function() {
-    alert("enviado!");
-})
+
+$("#enviar").click(function() {
+    alert("Enviado");
+});
