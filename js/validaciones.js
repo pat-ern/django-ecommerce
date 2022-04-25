@@ -1,4 +1,4 @@
-/*
+/**/
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input')
 
@@ -12,17 +12,18 @@ const validarFormulario = (e) => {
     switch (e.target.name){
         case "nombre":
             if(expresiones.nombre.test(e.target.value)){
-                document.getElementsByClassName("error_formulario").classList.remove("error-activo");
-                document.getElementsByClassName("img_error").classList.remove("error-icon");
+                console.log("valor valido");
+                document.getElementById("grupo_nombre").classList.remove("error-activo");
+                document.getElementById("grupo_nombre").classList.remove("error-icon");
             }else{
-                document.getElementsById("grupo_nombre").classList.add("error-activo");
+                console.log("valor invalido");
+                document.getElementById("grupo_nombre").classList.add("error-activo");
+                document.getElementById("grupo_nombre").classList.add("error-icon");
             }
         break;
         case "email":
-
         break;
         case "celular":
-
         break;
     }
 }
@@ -31,7 +32,6 @@ inputs.forEach((input) => {
     input.addEventListener('keyup', validarFormulario);
     input.addEventListener('blur', validarFormulario);
 });
-*/
 
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();

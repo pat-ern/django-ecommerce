@@ -236,23 +236,28 @@ form{
     padding-bottom: 1px;
 }
 
-.error_formulario{
+#grupo_nombre p, .error_formulario{
     font-size: 15px;
     color: red;
     display: none;
 }
 
-    .error_formulario error-activo{
+    .error-activo, #grupo_nombre .error-activo p {
+        font-size: 15px;
+        color: red;
         display: block;
     }
     
-.img_error{
+#grupo_nombre img, #grupo_email img, #grupo_celular img {
     position: absolute;
     right: 10px;
     top: 25px;
     opacity: 0;
 }
-    .img_error error-icon{
+    #grupo_nombre .error-icon img{
+        position: absolute;
+        right: 10px;
+        top: 25px;
         opacity: 1;
     }
 
