@@ -5,7 +5,7 @@ const inputs = document.querySelectorAll('#formulario input')
 const expresiones = {
     nombre: /^[a-zA-ZÁ-ÿ\s]{2,40}$/, //letras y espacios
     correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9]+\[a-zA-Z0-9-.]+$/, //letras y espacios puede llevar acentos
-    telefono: /^\d{8,11}$/ // 8 a 11 numeros
+    telefono: /^\d{8,11}$/ // 8 a 11 digitos
 };
 
 const validarFormulario = (e) => {
