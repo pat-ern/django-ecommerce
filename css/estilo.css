@@ -227,7 +227,7 @@ footer {
 /*Donaciones*/
 
 #donativos {
-    background-image: url("https://blog.oxfamintermon.org/wp-content/uploads/2017/10/donaciones-ong.jpg");
+    background-image: url(img/donacion-bg.jpg);
 }
 
 #formulario{
