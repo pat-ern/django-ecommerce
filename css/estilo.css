@@ -57,7 +57,6 @@ nav {
 /*Mostrar contenido dropdown on hover */
 @media all and (min-width: 768px) {
     .navbar .nav-item .dropdown-menu{ display: none; }
-    .navbar .nav-item:hover .nav-link{   }
     .navbar .nav-item:hover .dropdown-menu{ display: block; }
     .navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
@@ -157,16 +156,43 @@ label {
     
 }
 
-.barra-pie{
-        border-radius: 5px;
-    }
-
 @media screen and (max-width: 1200px) {
+    .tarjetas{
+        width: 80%;
+    }
     .barra-lateral{
         display: none;
     }
     .barra-pie{
         display: inline;
+    }
+}
+
+@media screen and (max-width: 1120px){
+    .tarjetas{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 905px){
+    .tarjetas{
+        width: 70%;
+    }
+    .imagen_conocenos{
+        display: none;
+    }
+    .col-8 {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .tarjetas{
+        width: 60%;
+        min-width: 200px;
+    }
+    .filtros{
+        min-width: 300px;
     }
 }
 
@@ -182,8 +208,6 @@ footer {
     bottom: 0;
 }
 
-
-
 .descripcion-producto {
     text-align: justify;
     text-justify: inter-word;
@@ -192,24 +216,56 @@ footer {
 
 
 /*Conocenos*/
-#principal{
-    grid-area: principal;
+.imagen_conocenos {
+    text-align: center;
+    line-height: 350px;
 }
-#imag{
-    grid-area: imag;
-}
-#todos{
-    grid-area: todos;
-}
-#mision-vision{
-    grid-area: mision-vision;
+    #trabajadores {
+        border-radius: 50%;
+    }
+
+/*Donaciones*/
+
+#donativos {
+    background-image: url(img/donacion-bg.jpg);
 }
 
-.contenido{
-    display: grid;
-    padding: 2%;
-    grid-template-areas: "principal" "imag";
+#formulario{
+    background-color:#d9ead3;
+    padding: 20px;
+    padding-bottom: 1px;
 }
-#personal{
-    border-radius: 70%;
+
+#grupo_nombre p, .error_formulario{
+    font-size: 15px;
+    color: red;
+    display: none;
+}
+
+    .error-activo, #grupo_nombre .error-activo p {
+        font-size: 15px;
+        color: red;
+        display: block;
+    }
+    
+#grupo_nombre img, #grupo_email img, #grupo_celular img {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+    opacity: 0;
+}
+    #grupo_nombre .error-icon img{
+        position: absolute;
+        right: 10px;
+        top: 25px;
+        opacity: 1;
+    }
+
+#donar{
+    text-align: center;
+}
+
+#collapseOne .form-check-input:checked{
+    background-color: #87b177;
+    border-color: darkgreen;
 }
