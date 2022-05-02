@@ -225,7 +225,7 @@ footer {
 /*Donaciones*/
 
 #donativos {
-    background-image: url(img/donacion-bg.jpg);
+    background-image: url("img/donacion-bg.jpg");
 }
 
 #formulario{
