@@ -157,9 +157,6 @@ label {
 }
 
 @media screen and (max-width: 1200px) {
-    .tarjetas{
-        width: 80%;
-    }
     .barra-lateral{
         display: none;
     }
@@ -168,6 +165,7 @@ label {
     }
 }
 
+/*
 @media screen and (max-width: 1120px){
     .tarjetas{
         width: 75%;
@@ -195,7 +193,7 @@ label {
         min-width: 300px;
     }
 }
-
+*/
 footer {
     background-color: #d9ead3;
     font-weight: bold;
