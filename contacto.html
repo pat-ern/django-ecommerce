@@ -106,7 +106,7 @@
                     <h3>Escribenos y te responderemos a la brevedad.</h3>
                 </div>
                 <div class="col-12 col-lg-5 ">
-                    <form action="" enctype="multipart/form-data" method="GET" name="formulario" id="formulario">
+                    <form action="" enctype="multipart/form-data" method="POST" name="formulario" id="formulario">
                         <fieldset>
 
 
@@ -118,7 +118,7 @@
                             </div>
 
                             <div class="mb-3 form-floating" id="grupo_nombre">
-                                <input type="text" class="form-control" name="asunto" placeholder="Nombre:" id="asunto" minlength="2" required>
+                                <input type="text" class="form-control" name="asunto" placeholder="Asunto:" id="asunto" minlength="8" required>
                                 <label for="asunto">Asunto:</label>
                                 <img src="./img/iconos/cancelar.png">
                                 <p> ¡El nombre es invalido!</p>
@@ -126,12 +126,12 @@
 							
 							  <div class="form-group">
 								<label for="exampleFormControlTextarea1">Escribenos...</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+								<textarea class="form-control" id="exampleFormControlTextarea1" cols="50" rows="5" required></textarea>
 							  </div>
 							
                             <div class="mb-2 form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="informe_mensual" name="informe_mensual" required>
-                                <label for="informe_mensual" class="form-check-label">Recibir informacion y ofertas en tu correo</label>
+                                <input class="form-check-input" type="checkbox" value="" id="informe_mensual" name="informe_mensual">
+                                <label for="informe_mensual" class="form-check-label">Recibir informacion y ofertas en al correo</label>
                             </div>
 
                             <div class="mb-2">
