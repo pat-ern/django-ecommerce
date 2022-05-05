@@ -1,0 +1,118 @@
+@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+
+*{
+    margin: 10;
+    padding: 0;
+}
+
+body {
+    font-family: 'Crimson Pro', serif;
+    font-size:  22px;
+    margin-bottom: 100px;
+
+}
+
+nav {
+    background-color: #f3f6f4;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.navbar-brand {
+    font-size:34px;
+}
+
+#navbarlogo {
+    background-color: #d9ead3;
+}
+
+.btn {
+    min-width: 100px;
+    background-color: #87b177;
+    font-size: 20px;
+    color: white;
+
+}
+
+.btn:hover {
+    background-color: white;
+    color: #87b177;
+}
+
+.dropdown-item {
+    font-size: 18px;
+}
+
+.nav-item {
+    border-radius: 5px;
+}
+
+.nav-item:hover {
+    background-color: white;
+
+}
+
+/*Mostrar contenido dropdown on hover */
+@media all and (min-width: 768px) {
+    .navbar .nav-item .dropdown-menu{ display: none; }
+    .navbar .nav-item:hover .dropdown-menu{ display: block; }
+    .navbar .nav-item .dropdown-menu{ margin-top:0; }
+}
+
+h2 {
+    text-align: center;
+}
+
+label {
+    font-size: 15px;
+}
+
+
+.row {
+    margin: 5px;
+}
+
+footer {
+    background-color: #d9ead3;
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.descripcion-producto {
+    text-align: justify;
+    text-justify: inter-word;
+    font-size: 20px;
+}
+
+/*Conocenos*/
+
+#mision_vision{
+    display: none;
+    }
+
+.imagen_conocenos {
+    text-align: center;
+    line-height: 350px;
+}
+#trabajadores {
+    border-radius: 50%;
+}
+
+#efecto_mision_vision:hover{
+    border-radius: 5px;
+    background-color: #d9ead3;
+    transition-duration: 1s;
+}
+
+#efecto_nuestra_historia:hover{
+    border-radius: 5px;
+    background-color: #d9ead3;
+    transition-duration: 1s;
+}
