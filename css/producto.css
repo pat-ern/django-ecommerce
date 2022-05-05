@@ -16,7 +16,7 @@ body {
 nav {
     background-color: #f3f6f4;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 
@@ -31,7 +31,7 @@ nav {
 .btn {
     min-width: 100px;
     background-color: #87b177;
-    font-size: 20px;
+    font-size: 22px;
     color: white;
 }
 
@@ -43,7 +43,7 @@ nav {
 /*esto es nuevo*/
 .headers {
     padding: 5px;
-    font-size: 20px;
+    font-size: 22px;
     margin-top: 20px;
 }
 
@@ -51,7 +51,7 @@ nav {
 .mostrar-comentarios {
     color: black;
     width: 100%;
-    font-size: 25px;
+    font-size: 26px;
 }
 
 /*esto es nuevo*/
@@ -213,7 +213,7 @@ label {
 footer {
     background-color: #d9ead3;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
     color: black;
     padding-left: 30px;
     padding-right: 30px;
@@ -225,7 +225,7 @@ footer {
 .descripcion-producto {
     text-align: justify;
     text-justify: inter-word;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 
@@ -248,6 +248,11 @@ footer {
     background-color:#d9ead3;
     padding: 20px;
     padding-bottom: 1px;
+}
+
+#commentForm textarea, #commentForm input{
+    font-size: 22px;
+
 }
 
 #grupo_nombre p, .error_formulario{
