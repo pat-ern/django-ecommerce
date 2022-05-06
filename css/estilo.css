@@ -211,47 +211,6 @@ footer {
     font-size: 20px;
 }
 
-/*Donaciones*/
-
-#donativos {
-    background-image: url("img/donacion-bg.jpg");
-}
-
-#formulario{
-    background-color:#d9ead3;
-    padding: 20px;
-    padding-bottom: 1px;
-}
-
-#grupo_nombre p, .error_formulario{
-    font-size: 15px;
-    color: red;
-    display: none;
-}
-
-    .error-activo, #grupo_nombre .error-activo p {
-        font-size: 15px;
-        color: red;
-        display: block;
-    }
-    
-#grupo_nombre img, #grupo_email img, #grupo_celular img {
-    position: absolute;
-    right: 10px;
-    top: 25px;
-    opacity: 0;
-}
-    #grupo_nombre .error-icon img{
-        position: absolute;
-        right: 10px;
-        top: 25px;
-        opacity: 1;
-    }
-
-#donar{
-    text-align: center;
-}
-
 #collapseOne .form-check-input:checked{
     background-color: #87b177;
     border-color: darkgreen;
