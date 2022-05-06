@@ -93,7 +93,7 @@ label {
 }
 
 .form-check-label {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .card {
@@ -147,14 +147,14 @@ label {
 
 }
 
-@media screen and (min-width:1150px){
+@media screen and (min-width:1170px){
     .barra-pie{
         display: none;
     }
     
 }
 
-@media screen and (max-width:1150px) {
+@media screen and (max-width:1170px) {
     .barra-lateral{
         display: none;
     }
@@ -202,7 +202,6 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
-    margin: 0px;
 }
 
 .descripcion-producto {
@@ -215,3 +214,40 @@ footer {
     background-color: #87b177;
     border-color: darkgreen;
 }
+
+/*Estilo Api*/
+
+#contenedor {
+    border-radius: 5%;
+}
+
+#caja1, #caja2, #caja3 {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 10%;
+    width: 200px;
+    height: 130px;
+}
+
+#caja1 {
+    background: #5eaca3; 
+    color:azure;    
+}
+#caja2 {
+    background: #5b8cb7;  
+    color:azure;    
+    font-size: 23px;
+}
+#caja3 {
+    background: #5eac7d;
+    color:azure;    
+}
+
+@media screen and (max-width:768px) {
+    #contenedor{
+        display: none;
+    }
+}
+
+/**/
+
