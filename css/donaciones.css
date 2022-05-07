@@ -92,9 +92,11 @@ footer {
 }
 
 /*donaciones*/
+/* 
+imagen de fondo
 #donativos {
     background-image: url("img/donacion-bg.jpg");
-}
+}*/
 
 #formulario{
     background-color:#d9ead3;
@@ -136,6 +138,11 @@ footer {
 }
 
 .formulario_grupo_incorrecto .formulario_input{
+    border: 3px solid red;
+    border-radius: 5px;
+}
+
+.borde_error_simple{
     border: 3px solid red;
     border-radius: 5px;
 }

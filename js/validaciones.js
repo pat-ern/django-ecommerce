@@ -4,14 +4,16 @@ const inputs = document.querySelectorAll('#formulario input')
 
 const expresiones = {
     nombre: /^[a-zA-ZÁ-ÿ\s]{2,40}$/, //letras y espacios
-    correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, //letras y espacios puede llevar acentos
-    telefono: /^\d{9,11}$/ // 9 a 11 digitos
+    email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, //letras y espacios puede llevar acentos
+    celular: /^\d{9,11}$/ // 9 a 11 digitos
 };
+
+const donacion = document.getElementById("donativo");
 
 const campos = {
     nombre: false,
-    correo: false,
-    telefono: false
+    email: false,
+    celular: false
 }
 
 const validarFormulario = (e) => {
@@ -20,10 +22,17 @@ const validarFormulario = (e) => {
             validarCampo(expresiones.nombre, e.target, e.target.name);
         break;
         case "email":
-            validarCampo(expresiones.correo, e.target, e.target.name);
+            validarCampo(expresiones.email, e.target, e.target.name);
         break;
         case "celular":
-            validarCampo(expresiones.telefono, e.target, e.target.name);
+            validarCampo(expresiones.celular, e.target, e.target.name);
+        break;
+        case "donativo":
+            if(donacion.value>=1000){
+                document.getElementById("donativo").classList.remove("borde_error_simple");
+            }else{
+                document.getElementById("donativo").classList.add("borde_error_simple");
+            }
         break;
     }
 }
@@ -43,19 +52,12 @@ inputs.forEach((input) => {
     input.addEventListener('blur', validarFormulario);
 });
 
+
 formulario.addEventListener('submit', (e) => {
     e.preventDefault(); //  Previene que se envie
 
 
-    console.log(campos.nombre);
-    
-    console.log(campos.correo); // Es falso incluso cuando esta correcto, hay que mejorarlo o nunca entrará al if 
-    
-    console.log(campos.telefono);
-    
-
-
-    if(campos.nombre && campos.correo && campos.telefono){
+    if(campos.nombre && campos.email && campos.celular && donacion.value>=1000){
         formulario.reset();
         alert("Se envio correctamente");
     }
