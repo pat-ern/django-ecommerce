@@ -60,14 +60,6 @@ nav {
     .navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
 
-h2 {
-    text-align: center;
-}
-
-label {
-    font-size: 15px;
-}
-
 
 .row {
     margin: 5px;
@@ -93,6 +85,10 @@ footer {
 
 /*Conocenos*/
 
+.cel{
+    display: none;
+}
+
 #mision_vision{
     display: none;
     }
@@ -105,14 +101,38 @@ footer {
     border-radius: 50%;
 }
 
-#efecto_mision_vision:hover{
+.efecto_nuestra_historia, #efecto_mision_vision{
     border-radius: 5px;
-    background-color: #d9ead3;
-    transition-duration: 1s;
+    border: 3px solid;
+    border-color: black;
+    background: #b4e391;
+    background: -moz-linear-gradient(top, #b4e391 0%, #80e638 50%, #b4e391 100%);
+    background: -webkit-linear-gradient(top, #b4e391 0%,#80e638 50%,#b4e391 100%);
+    background: linear-gradient(to bottom, #b4e391 0%,#80e638 50%,#b4e391 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 );
+    
+
 }
 
-#efecto_nuestra_historia:hover{
+#efecto_mision_vision:hover, .efecto_nuestra_historia:hover{
     border-radius: 5px;
-    background-color: #d9ead3;
-    transition-duration: 1s;
+    background: #99e261;
+    background: -moz-linear-gradient(top, #99e261 0%, #7ce02a 9%, #56c103 51%, #7ce02a 92%, #87e241 100%);
+    background: -webkit-linear-gradient(top, #99e261 0%,#7ce02a 9%,#56c103 51%,#7ce02a 92%,#87e241 100%);
+    background: linear-gradient(to bottom, #99e261 0%,#7ce02a 9%,#56c103 51%,#7ce02a 92%,#87e241 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99e261', endColorstr='#87e241',GradientType=0 );
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+@media screen and (max-width:768px) {
+    #trabajadores, #adm{
+        display: none;
+    }
+    .cel{
+        display: block;
+    }
+    .pc{
+        display: none;
+    }
 }

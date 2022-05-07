@@ -10,13 +10,13 @@
     <script>
       $(document).ready(function(){
         $("#efecto_mision_vision").click(function(){
-          $("#mision_vision").show(1500);
-          $("#nuestra_historia").hide(1500);
+          $("#mision_vision").show(400);
+          $("#nuestra_historia").hide(300);
         });
 
-        $("#efecto_nuestra_historia").click(function(){
-          $("#nuestra_historia").show(1500);
-          $("#mision_vision").hide(1500);
+        $(".efecto_nuestra_historia").click(function(){
+          $("#nuestra_historia").show(400);
+          $("#mision_vision").hide(300);
         });
       });
       </script>
@@ -103,7 +103,7 @@
 
     <div id="nuestra_historia">
       <div class="row g-4">
-        <div class="col col-8">
+        <div class="col-12 col-md-8">
           <div id="principal">
             <h1>Nuestra historia</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, numquam explicabo? Dolore illo nesciunt odit fugit. Dolorum natus eum iure quas sapiente perspiciatis esse enim sunt impedit velit, inventore optio!</p>
@@ -111,10 +111,12 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, numquam explicabo? Dolore illo nesciunt odit fugit. Dolorum natus eum iure quas sapiente perspiciatis esse enim sunt impedit velit, inventore optio!</p>
           </div>
         </div>
-        <div class="col col-4">
-          <div class="imagen_conocenos" id="efecto_mision_vision">
-            <h1>Misi&oacute;n y visi&oacute;n</h1>
-            <img src="./img/personas-vivero.webp" id="trabajadores" alt="conocenos" width="70%">
+        <div class="col-12 col-md-4">
+          <div class="imagen_conocenos" >
+            <img src="./img/personas-vivero.webp" id="trabajadores" width="70%">
+            <div id="efecto_mision_vision">
+              <h1> Ver misi&oacute;n y visi&oacute;n</h1>
+            </div>
           </div>
         </div>
       </div>
@@ -122,18 +124,28 @@
 
     <div id="mision_vision">
       <div class="row g-4">
-        <div class="col col-4">
-          <div class="imagen_conocenos" id="efecto_nuestra_historia">
-            <h1>Nuestra historia</h1>
-            <img src="./img/emp-viveros.jpg" id="adm" alt="conocenos" width="90%">
+        <div class="col-12 col-md-4">
+          <div class="imagen_conocenos pc" >
+            <img src="./img/emp-viveros.jpg" id="adm" width="90%">
+            <div class="efecto_nuestra_historia">
+              <h1>Ver nuestra historia</h1>
+            </div>
           </div>
         </div>
-        <div class="col col-8">
+        <div class="col-12 col-md-8">
           <div>
             <h1>Misi&oacute;n</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, numquam explicabo? Dolore illo nesciunt odit fugit. Dolorum natus eum iure quas sapiente perspiciatis esse enim sunt impedit velit, inventore optio!</p>
             <h1>Visi&oacute;n</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, numquam explicabo? Dolore illo nesciunt odit fugit. Dolorum natus eum iure quas sapiente perspiciatis esse enim sunt impedit velit, inventore optio!</p>
+          </div>
+        </div>
+        <div class="col cel">
+          <div class="imagen_conocenos" >
+            <img src="./img/emp-viveros.jpg" id="adm" width="90%">
+            <div class="efecto_nuestra_historia">
+              <h1>Ver nuestra historia</h1>
+            </div>
           </div>
         </div>
       </div>
