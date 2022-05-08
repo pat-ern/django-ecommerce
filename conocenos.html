@@ -10,13 +10,13 @@
     <script>
       $(document).ready(function(){
         $("#efecto_mision_vision").click(function(){
-          $("#mision_vision").show(400);
-          $("#nuestra_historia").hide(300);
+          $("#mision_vision").slideToggle(1000);
+          $("#nuestra_historia").slideToggle(1000);
         });
 
         $(".efecto_nuestra_historia").click(function(){
-          $("#nuestra_historia").show(400);
-          $("#mision_vision").hide(300);
+          $("#nuestra_historia").slideToggle(1000);
+          $("#mision_vision").slideToggle(1000);
         });
       });
       </script>

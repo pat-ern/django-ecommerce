@@ -1,3 +1,19 @@
+$(document).ready(function(){
+
+    $("#btn-toggle").click(function(){
+        $("#div-comentarios").slideToggle(1000);
+      });
+
+    $("#comentario-txt").blur(function() {
+        $("#comentario-txt").valid();
+      });
+
+    $("#usuario-txt").blur(function() {
+        $("#usuario-txt").valid();
+    });
+
+});
+
 //Creacion de un arreglo en javascript
 const comentarios = []; // permite almacenar objetos
 
@@ -33,5 +49,14 @@ document.querySelector("#enviar-btn").addEventListener("click", ()=> {
         entrada.usuario = usuario;
         comentarios.push(entrada);
         cargarComentarios();
+        alert("Comentario enviado.");
+    } else {
+        alert("Debes ingresar todos los campos.");
     }
+});
+
+const commentForm = document.getElementById('commentForm');
+
+commentForm.addEventListener('submit', (e) => {
+    e.preventDefault(); //  Previene que se envie
 });
