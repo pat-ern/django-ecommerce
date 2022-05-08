@@ -150,3 +150,12 @@ imagen de fondo
 .formulario_grupo_btn_enviar{
     text-align: center;
 }
+
+#enviar{
+    background: #99e261;
+    background: -moz-linear-gradient(top, #99e261 0%, #7ce02a 9%, #56c103 51%, #7ce02a 92%, #87e241 100%);
+    background: -webkit-linear-gradient(top, #99e261 0%,#7ce02a 9%,#56c103 51%,#7ce02a 92%,#87e241 100%);
+    background: linear-gradient(to bottom, #99e261 0%,#7ce02a 9%,#56c103 51%,#7ce02a 92%,#87e241 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99e261', endColorstr='#87e241',GradientType=0 );
+    color: white;
+}
