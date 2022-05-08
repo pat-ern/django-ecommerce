@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Crimson Pro', serif;
-    font-size:  22px;
+    font-size:  20px;
     margin-bottom: 100px;
 
 }
@@ -10,7 +10,7 @@ body {
 nav {
     background-color: #f3f6f4;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .navbar-brand {
@@ -24,7 +24,7 @@ nav {
 .btn {
     min-width: 100px;
     background-color: #87b177;
-    font-size: 22px;
+    font-size: 20px;
     color: white;
 }
 
@@ -36,7 +36,7 @@ nav {
 /*esto es nuevo*/
 .headers {
     padding: 5px;
-    font-size: 22px;
+    font-size: 20px;
     margin-top: 20px;
 }
 
@@ -75,7 +75,7 @@ nav {
 footer {
     background-color: #d9ead3;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
     color: black;
     padding-left: 30px;
     padding-right: 30px;
@@ -118,7 +118,7 @@ footer {
 }
 
 #commentForm textarea, #commentForm input{
-    font-size: 22px;
+    font-size: 20px;
 
 }
 
