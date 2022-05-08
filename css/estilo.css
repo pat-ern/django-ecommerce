@@ -5,20 +5,13 @@ body {
     font-size:  22px;
 }
 
-nav {
-    background-color: #f3f6f4;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-
-.navbar-brand {
-    font-size:34px;
-}
+/*Logo Superior*/
 
 #navbarlogo {
     background-color: #d9ead3;
 }
+
+/*Boton Mi Cuenta*/
 
 .btn {
     min-width: 100px;
@@ -33,17 +26,22 @@ nav {
     color: #7FA78D;
 }
 
-.dropdown-item {
-    font-size: 18px;
+/*Menu desplegable*/
+
+nav {
+    background-color: #f3f6f4;
+    font-weight: bold;
+    font-size: 20px;
 }
 
-.nav-item {
+#navbarSupportedContent ul > li > a:hover {
+    color: #558F67;
+    background-color: white;
     border-radius: 5px;
 }
 
-.nav-item:hover {
-    background-color: white;
-
+.dropdown-item {
+    font-size: 18px;
 }
 
 /*Mostrar contenido dropdown on hover */
@@ -60,7 +58,6 @@ h2 {
 label {
     font-size: 15px;
 }
-
 
 .row {
     margin: 5px;
