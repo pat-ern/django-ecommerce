@@ -1,8 +1,15 @@
 @import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
 
+*{
+    margin: 10;
+    padding: 0;
+}
+
 body {
     font-family: 'Crimson Pro', serif;
-    font-size:  22px;
+    font-size:  20px;
+    margin-bottom: 100px;
+
 }
 
 nav {
@@ -128,19 +135,23 @@ label {
     border-radius: 5px;
 }
 
-.barra-lateral .carousel-item img {
+.barra-lateral .carousel-item img{
+    align-content: center;
     position: fixed;
     top: 139px;
-    right: 30px;
+    right: 20px;
     margin-top: 10px;
     border-radius: 5px;
-    height: 440px;
+    width: 260px;
+    height: auto;
+
 }
 
 @media screen and (min-width:1170px){
     .barra-pie{
         display: none;
     }
+    
 }
 
 @media screen and (max-width:1170px) {
@@ -149,13 +160,6 @@ label {
     }
     .barra-pie{
         display: inline;
-    }
-}
-
-@media only screen and (min-width: 767px) and (max-width: 1170px) {
-	.col-7 {
-        flex: 0 0 auto;
-        width: 68.33333333%;
     }
 }
 
@@ -198,11 +202,6 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
-}
-
-.py-3{
-    padding-top: 0rem!important;
-    padding-bottom: 0rem!important;
 }
 
 .descripcion-producto {
