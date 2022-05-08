@@ -18,7 +18,6 @@ body {
     background-color: #7FA78D;
     font-size: 20px;
     color: white;
-
 }
 
 .btn:hover {
@@ -216,6 +215,10 @@ footer {
 #collapseOne .form-check-input:checked{
     background-color: #87b177;
     border-color: darkgreen;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0);
 }
 
 /*Estilo Api*/

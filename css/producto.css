@@ -4,8 +4,29 @@ body {
     font-family: 'Crimson Pro', serif;
     font-size:  20px;
     margin-bottom: 100px;
-
 }
+
+/*Logo Superior*/
+
+#navbarlogo {
+    background-color: #d9ead3;
+}
+
+/*Boton Mi Cuenta*/
+
+.btn {
+    min-width: 100px;
+    background-color: #7FA78D;
+    font-size: 20px;
+    color: white;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #7FA78D;
+}
+
+/*Menu desplegable*/
 
 nav {
     background-color: #f3f6f4;
@@ -13,24 +34,14 @@ nav {
     font-size: 20px;
 }
 
-.navbar-brand {
-    font-size:34px;
-}
-
-#navbarlogo {
-    background-color: #d9ead3;
-}
-
-.btn {
-    min-width: 100px;
-    background-color: #87b177;
-    font-size: 20px;
-    color: white;
-}
-
-.btn:hover {
+#navbarSupportedContent ul > li > a:hover {
+    color: #558F67;
     background-color: white;
-    color: #87b177;
+    border-radius: 5px;
+}
+
+.dropdown-item {
+    font-size: 18px;
 }
 
 /*esto es nuevo*/
@@ -48,19 +59,6 @@ nav {
 }
 /*esto es nuevo*/
 
-.dropdown-item {
-    font-size: 18px;
-}
-
-.nav-item {
-    border-radius: 5px;
-}
-
-.nav-item:hover {
-    background-color: white;
-
-}
-
 /*Mostrar contenido dropdown on hover */
 @media all and (min-width: 768px) {
     .navbar .nav-item .dropdown-menu{ display: none; }
@@ -75,7 +73,7 @@ nav {
 footer {
     background-color: #d9ead3;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
     color: black;
     padding-left: 30px;
     padding-right: 30px;
@@ -93,65 +91,4 @@ footer {
     text-align: justify;
     text-justify: inter-word;
     font-size: 20px;
-}
-
-
-/*Conocenos*/
-.imagen_conocenos {
-    text-align: center;
-    line-height: 350px;
-}
-    #trabajadores {
-        border-radius: 50%;
-    }
-
-/*Donaciones*/
-
-#donativos {
-    background-image: url("img/donacion-bg.jpg");
-}
-
-#formulario{
-    background-color:#d9ead3;
-    padding: 20px;
-    padding-bottom: 1px;
-}
-
-#commentForm textarea, #commentForm input{
-    font-size: 20px;
-
-}
-
-#grupo_nombre p, .error_formulario{
-    font-size: 15px;
-    color: red;
-    display: none;
-}
-
-    .error-activo, #grupo_nombre .error-activo p {
-        font-size: 15px;
-        color: red;
-        display: block;
-    }
-    
-#grupo_nombre img, #grupo_email img, #grupo_celular img {
-    position: absolute;
-    right: 10px;
-    top: 25px;
-    opacity: 0;
-}
-    #grupo_nombre .error-icon img{
-        position: absolute;
-        right: 10px;
-        top: 25px;
-        opacity: 1;
-    }
-
-#donar{
-    text-align: center;
-}
-
-#collapseOne .form-check-input:checked{
-    background-color: #87b177;
-    border-color: darkgreen;
 }
