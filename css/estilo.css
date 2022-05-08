@@ -134,7 +134,8 @@ label {
     right: 30px;
     margin-top: 10px;
     border-radius: 5px;
-    height: 440px;
+    width: 250px;
+    height: auto;
 }
 
 @media screen and (min-width:1170px){
