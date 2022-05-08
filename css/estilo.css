@@ -137,6 +137,10 @@ label {
     height: 440px;
 }
 
+.carousel-item{
+    transition: transform 0s ease;
+}
+
 @media screen and (min-width:1170px){
     .barra-pie{
         display: none;
@@ -191,7 +195,7 @@ label {
 footer {
     background-color: #d9ead3;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
     color: black;
     padding-left: 30px;
     padding-right: 30px;

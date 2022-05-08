@@ -1,23 +1,16 @@
 @import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
 
-*{
-    margin: 10;
-    padding: 0;
-}
-
 body {
     font-family: 'Crimson Pro', serif;
     font-size:  22px;
-    margin-bottom: 100px;
-
+    margin-bottom: 70px;
 }
 
 nav {
     background-color: #f3f6f4;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
 }
-
 
 .navbar-brand {
     font-size:34px;
@@ -60,10 +53,6 @@ nav {
     .navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
 
-h2 {
-    text-align: center;
-}
-
 label {
     font-size: 15px;
 }
@@ -76,13 +65,18 @@ label {
 footer {
     background-color: #d9ead3;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
     color: black;
     padding-left: 30px;
     padding-right: 30px;
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+.py-3{
+    padding-top: 0rem!important;
+    padding-bottom: 0rem!important;
 }
 
 .descripcion-producto {
@@ -92,17 +86,23 @@ footer {
 }
 
 /*donaciones*/
-/* 
-imagen de fondo
-#donativos {
-    background-image: url("img/donacion-bg.jpg");
-}*/
+
+.container{
+    border: 2px;
+    background: #fefcea;
+    background: -moz-linear-gradient(top,  #fefcea 0%, #d6f1bc 50%, #fefcea 100%);
+    background: -webkit-linear-gradient(top,  #fefcea 0%,#d6f1bc 50%,#fefcea 100%);
+    background: linear-gradient(to bottom,  #fefcea 0%,#d6f1bc 50%,#fefcea 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#fefcea',GradientType=0 );    
+}
 
 #formulario{
     background-color:#d9ead3;
     padding: 20px;
     padding-bottom: 1px;
     border-radius: 5px;
+    border: 3px solid rgb(63, 108, 69);
+    box-shadow: 13px 13px rgba(74, 122, 80, 0.581);
 }
 
 .formulario_input{
