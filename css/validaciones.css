@@ -1,95 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+/* MAIN */
 
-body {
-    font-family: 'Crimson Pro', serif;
-    font-size:  22px;
-    margin-bottom: 70px;
-}
-
-nav {
-    background-color: #f3f6f4;
-    font-weight: bold;
-    font-size: 22px;
-}
-
-.navbar-brand {
-    font-size:34px;
-}
-
-#navbarlogo {
-    background-color: #d9ead3;
-}
-
-.btn {
-    min-width: 100px;
-    background-color: #87b177;
-    font-size: 20px;
-    color: white;
-
-}
-
-.btn:hover {
-    background-color: white;
-    color: #87b177;
-}
-
-.dropdown-item {
-    font-size: 18px;
-}
-
-.nav-item {
-    border-radius: 5px;
-}
-
-.nav-item:hover {
-    background-color: white;
-
-}
-
-/*Mostrar contenido dropdown on hover */
-@media all and (min-width: 768px) {
-    .navbar .nav-item .dropdown-menu{ display: none; }
-    .navbar .nav-item:hover .dropdown-menu{ display: block; }
-    .navbar .nav-item .dropdown-menu{ margin-top:0; }
-}
-
-label {
-    font-size: 15px;
-}
-
-
-.row {
-    margin: 5px;
-}
-
-footer {
-    background-color: #d9ead3;
-    font-weight: bold;
-    font-size: 22px;
-    color: black;
-    padding-left: 30px;
-    padding-right: 30px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.py-3{
-    padding-top: 0rem!important;
-    padding-bottom: 0rem!important;
-}
-
-.descripcion-producto {
-    text-align: justify;
-    text-justify: inter-word;
-    font-size: 20px;
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0,0,0);
-}
-
-/*donaciones*/
+/* Formularios y validaciones */
 
 .container{
     border: 2px;
@@ -114,10 +25,10 @@ footer {
     transition: 1s ease all;
 }
 
-    .formulario_input:focus{
-        border: 3px solid #abf291;
-        outline: none;
-    }
+.formulario_input:focus{
+    border: 3px solid #abf291;
+    outline: none;
+}
 
 .error_formulario{
     font-size: 15px;

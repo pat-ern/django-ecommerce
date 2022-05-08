@@ -1,91 +1,6 @@
-@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+/* MAIN */
 
-body {
-    font-family: 'Crimson Pro', serif;
-    font-size:  20px;
-    margin-bottom: 100px;
-}
-
-/*Logo Superior*/
-
-#navbarlogo {
-    background-color: #d9ead3;
-}
-
-/*Boton Mi Cuenta*/
-
-.btn {
-    min-width: 100px;
-    background-color: #7FA78D;
-    font-size: 20px;
-    color: white;
-}
-
-.btn:hover {
-    background-color: white;
-    color: #7FA78D;
-}
-
-/*Menu desplegable*/
-
-nav {
-    background-color: #f3f6f4;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-#navbarSupportedContent ul > li > a:hover {
-    color: #558F67;
-    background-color: white;
-    border-radius: 5px;
-}
-
-.dropdown-item {
-    font-size: 18px;
-}
-
-/*esto es nuevo*/
-.headers {
-    padding: 5px;
-    font-size: 20px;
-    margin-top: 20px;
-}
-
-
-.mostrar-comentarios {
-    color: black;
-    width: 100%;
-    font-size: 26px;
-}
-/*esto es nuevo*/
-
-/*Mostrar contenido dropdown on hover */
-@media all and (min-width: 768px) {
-    .navbar .nav-item .dropdown-menu{ display: none; }
-    .navbar .nav-item:hover .dropdown-menu{ display: block; }
-    .navbar .nav-item .dropdown-menu{ margin-top:0; }
-}
-
-.row {
-    margin: 5px;
-}
-
-footer {
-    background-color: #d9ead3;
-    font-weight: bold;
-    font-size: 22px;
-    color: black;
-    padding-left: 30px;
-    padding-right: 30px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-.py-3{
-    padding-top: 0rem!important;
-    padding-bottom: 0rem!important;
-}
+/* Seccion Producto */
 
 .descripcion-producto {
     text-align: justify;
@@ -93,6 +8,16 @@ footer {
     font-size: 20px;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0,0,0);
+/* Seccion Comentarios */
+
+.mostrar-comentarios {
+    color: black;
+    width: 100%;
+    font-size: 26px;
+}
+
+.headers {
+    padding: 5px;
+    font-size: 20px;
+    margin-top: 20px;
 }
