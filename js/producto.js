@@ -25,11 +25,13 @@ const cargarComentarios = ()=>{
 
 //Agregar un listener para el evento click
 document.querySelector("#enviar-btn").addEventListener("click", ()=> {
-    let comentario = document.querySelector("#comentario-txt").value;
-    let usuario = document.querySelector("#usuario-txt").value;
-    let entrada = {}; // objeto, permite definir muchas propiedades
-    entrada.comentario = comentario;
-    entrada.usuario = usuario;
-    comentarios.push(entrada);
-    cargarComentarios();
+    if ($("#comentario-txt").valid() && $("#usuario-txt").valid()){
+        let comentario = document.querySelector("#comentario-txt").value;
+        let usuario = document.querySelector("#usuario-txt").value;
+        let entrada = {}; // objeto, permite definir muchas propiedades
+        entrada.comentario = comentario;
+        entrada.usuario = usuario;
+        comentarios.push(entrada);
+        cargarComentarios();
+    }
 });
