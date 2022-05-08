@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
     $("#btn-toggle").click(function(){
         $("#div-comentarios").slideToggle(1000);
       });
