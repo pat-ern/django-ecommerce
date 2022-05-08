@@ -92,3 +92,7 @@ footer {
     text-justify: inter-word;
     font-size: 20px;
 }
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0,0,0);
+}
