@@ -1,0 +1,30 @@
+#contacto, #donaciones{
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,  #eaf1e8 50%,#ffffff 100%);  
+}
+
+#donativos {
+    text-align: center;
+}
+
+#formulario{
+    background-color:#f3f6f4;
+    padding: 20px;
+    padding-bottom: 1px;
+    border-radius: 10px;
+    border: 2px solid rgba(111, 119, 108, 0.329);
+    box-shadow: 12px 12px rgba(80, 114, 84, 0.527);
+}
+
+.formulario_input{
+    border-radius: 5px;
+    transition: 1s ease all;
+}
+
+/* Boton Enviar */
+
+.formulario_grupo_btn_enviar{
+    text-align: center;
+}

@@ -2,8 +2,8 @@
 
 body {
     font-family: 'Crimson Pro', serif;
-    font-size:  22px;
-    margin-bottom: 70px;
+    font-size:  23px;
+    margin-bottom: 50px;
 }
 
 /* HEADER */
@@ -21,6 +21,7 @@ body {
     background-color: #7FA78D;
     font-size: 20px;
     color: white;
+    border: none;
 }
 
 .btn:hover {
@@ -33,7 +34,7 @@ body {
 nav {
     background-color: #f3f6f4;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 #navbarSupportedContent ul > li > a:hover {
@@ -66,6 +67,10 @@ label {
 .row {
     margin: 5px;
 }
+
+textarea {
+    resize: none;
+ }
 
 /* FOOTER */
 

@@ -1,21 +1,37 @@
 /* MAIN */
 
-.cel{
-    display: none;
+#mision-vision, #nuestra-historia{
+    margin-top: 10px;
+    border: 0px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,  #eaf1e8 50%,#ffffff 100%);
 }
 
-#mision_vision{
-    display: none;
-    }
+#conocenos-texto {
+    font-size: 0.8em;
+}
 
-.imagen_conocenos {
+.mision-img, .historia-img {
     text-align: center;
-    line-height: 350px;
-}
-#trabajadores {
-    border-radius: 50%;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
+.btn-mision, .btn-historia {
+    min-width: 100px;
+    background-color: #a5a5a5;
+    font-size: 20px;
+    color: white;
+    border: none;
+}
+
+.btn-mision:hover, .btn-historia:hover {
+    background-color: white;
+    color: #7FA78D;
+}
+
+/*
 .efecto_nuestra_historia, #efecto_mision_vision{
     border-radius: 5px;
     border: 3px solid;
@@ -36,16 +52,4 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99e261', endColorstr='#87e241',GradientType=0 );
     transition-duration: 0.5s;
     cursor: pointer;
-}
-
-@media screen and (max-width:768px) {
-    #trabajadores, #adm{
-        display: none;
-    }
-    .cel{
-        display: block;
-    }
-    .pc{
-        display: none;
-    }
-}
+}*/

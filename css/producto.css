@@ -10,14 +10,23 @@
 
 /* Seccion Comentarios */
 
-.mostrar-comentarios {
-    color: black;
-    width: 100%;
-    font-size: 26px;
+#div-comentarios {
+    margin: 0px;
 }
 
-.headers {
-    padding: 5px;
-    font-size: 20px;
-    margin-top: 20px;
+.mostrar-comentarios, .texto-titulo-comentar {
+    color: black;
+    width: 100%;
+    font-size: 25px;
+    margin: 0px;
+}
+
+.div-titulo-comentar {
+    padding-bottom: 0px;
+    font-size: 25px;
+    margin-top: 9px;
+}
+
+#commentForm {
+    padding: 15px;
 }

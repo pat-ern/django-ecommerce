@@ -1,7 +1,14 @@
 $(document).ready(function(){
+    $("#div-comentarios").hide();
+    $("#cuerpo-comentar").hide();
+
     $("#btn-toggle").click(function(){
-        $("#div-comentarios").slideToggle(1000);
+        $("#div-comentarios").slideToggle(800);
       });
+
+    $("#btn-toggle-2").click(function(){
+        $("#cuerpo-comentar").slideToggle(400);
+    });
 
     $("#comentario-txt").blur(function() {
         $("#comentario-txt").valid();
@@ -47,7 +54,10 @@ document.querySelector("#enviar-btn").addEventListener("click", ()=> {
         entrada.comentario = comentario;
         entrada.usuario = usuario;
         comentarios.push(entrada);
-        cargarComentarios();
+        cargarComentarios();        
+        $("#comentario-txt").val('');
+        $("#usuario-txt").val('');
+        $("#cuerpo-comentar").hide();
         alert("Comentario enviado.");
     } else {
         alert("Debes ingresar todos los campos.");
