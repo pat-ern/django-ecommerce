@@ -57,6 +57,16 @@ nav {
     .navbar .nav-item .dropdown-menu{ margin-top:0; }
 }
 
+/* MAIN */
+
+label {
+    font-size: 17px;
+}
+
+.row {
+    margin: 5px;
+}
+
 /* FOOTER */
 
 footer {
@@ -74,10 +84,4 @@ footer {
 .py-3{
     padding-top: 0rem!important;
     padding-bottom: 0rem!important;
-}
-
-/* OTROS */
-
-.row {
-    margin: 5px;
 }
