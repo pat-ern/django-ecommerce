@@ -29,6 +29,7 @@
 .btn-mision:hover, .btn-historia:hover {
     background-color: white;
     color: #7FA78D;
+    font-weight: bold;
 }
 
 /*

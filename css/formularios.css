@@ -28,3 +28,7 @@
 .formulario_grupo_btn_enviar{
     text-align: center;
 }
+
+#asunto{
+    height: 60px;
+}

@@ -4,7 +4,7 @@ const inputs = document.querySelectorAll('#formulario input')
 const expresiones = {
     nombre: /^[a-zA-ZÁ-ÿ\s]{2,40}$/, //  letras y espacios
     email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, //  formato correo
-    celular: /^\d{9,11}$/, // 9 a 11 digitos
+    celular: /^\d{9}$/, // 9 digitos
     frases: /^[a-zA-ZÁ-ÿ\s]{4,400}$/, //  letras y espacios 
 };
 
