@@ -1,0 +1,70 @@
+{% extends 'app/base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/producto.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'app/js/producto.js' %}"></script>
+<script src="{% static 'app/js/jqueryvalidate.js' %}"></script>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="fotos-producto col-12 col-md-6 col-lg-5">
+      <div class="foto-producto text-dark m-2 p-2">
+        <img src="{% static 'app/img/productos/alysum.jpg' %}" class="card-img-top img-fluid" alt="...">
+      </div>
+    </div>
+    <div class="container col-12 col-md-6 col-lg-7">
+      <h3 style="padding-top: 5px; font-weight: bold; color: #444444;">Lobularia maritima</h3>
+      <hr>
+      <h4>Descripción:</h4>
+      <p class="descripcion-producto">Lobularia maritima, commonly called sweet alyssum, is one of the easiest annuals to grow. It is a mat-forming plant that produces spreading mounds of well-branched stems clad with linear, lance-shaped, gray-green leaves (to 1” long). Plants typically grow 3-9” tall to 12” wide. Dense clusters of sweetly fragrant, tiny, white 4-petaled flowers cover the foliage mounds from spring to early summer. Flowering is often so profuse as to totally hide the foliage.</p>
+      <h3>$5.490</h3>
+      <button type="button" class="btn me-2">Añadir al carrito</button>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="d-grid gap-2 col text-center">
+  <button type="button" class="btn bg-light btn-lg mostrar-comentarios" id="btn-toggle">Mostrar/Ocultar Comentarios</button>
+</div>
+<div class="container-fluid comentarios" id="div-comentarios">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-7">
+      <table class="table mt-4">
+        <thead>
+          <tr class="bg-light">
+            <th>Comentario</th>
+            <th>Usuario</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-tbody">
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-md-6 col-lg-5 seccion-comentar">
+      <form class="form-group" id="commentForm" method="get" action="">
+        <div class="card-head bg-light text-center div-titulo-comentar">
+          <button type="button" class="btn bg-light text-sucess texto-titulo-comentar" id="btn-toggle-2" style="font-weight: bold;">Comentar</button>
+        </div>
+        <div id="cuerpo-comentar">
+          <div class="mb-3 mt-3">
+            <textarea class="form-control" palceholder="Deja tu comentario..." id="comentario-txt" cols="30" rows="3" style="font-size:18px;" required></textarea>
+          </div>
+          <div class="mb-3">
+            <input class="form-control" type="text" id="usuario-txt" placeholder="Usuario..." style="font-size:18px;" required >
+          </div>
+          <div style="text-align: center;">
+          <button type="submit" id="enviar-btn" class="btn btn-success me-0">Enviar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
