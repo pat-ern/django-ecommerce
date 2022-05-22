@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block titulo %}
+<title>La Chacrita</title>
+{% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'app/css/index.css'%}"/>
 {% endblock %}
@@ -11,7 +15,7 @@
 {% endblock %}
 
 {% block contenido %}
-<div class="row"> <!-- ROW -->
+<div class="row">
   <!--FILTROS-->
   <div class="filtros col-md-auto">
 
@@ -128,35 +132,35 @@
       <div class="custom-control custom-checkbox image-checkbox">
         <input type="checkbox" class="custom-control-input" id="unaestrella">
         <label class="custom-control-label" for="unaestrella">
-          <img src="img/rating-stars/1.jpg" alt="#" class="img-fluid" width="130" height="23">
+          <img src="{% static 'app/img/rating-stars/1.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
         </label>
       </div>
       
       <div class="custom-control custom-checkbox image-checkbox">
         <input type="checkbox" class="custom-control-input" id="dosestrellas">
         <label class="custom-control-label" for="dosestrellas">
-          <img src="img/rating-stars/2.jpg" alt="#" class="img-fluid" width="130" height="23">
+          <img src="{% static 'app/img/rating-stars/2.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
         </label>
       </div>
 
       <div class="custom-control custom-checkbox image-checkbox">
         <input type="checkbox" class="custom-control-input" id="tresestrellas">
         <label class="custom-control-label" for="tresestrellas">
-          <img src="img/rating-stars/3.jpg" alt="#" class="img-fluid" width="130" height="23">
+          <img src="{% static 'app/img/rating-stars/3.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
         </label>
       </div>
       
       <div class="custom-control custom-checkbox image-checkbox">
         <input type="checkbox" class="custom-control-input" id="cuatroestrellas">
         <label class="custom-control-label" for="cuatroestrellas">
-          <img src="img/rating-stars/4.jpg" alt="#" class="img-fluid" width="130" height="23">
+          <img src="{% static 'app/img/rating-stars/4.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
         </label>
       </div>
       
       <div class="custom-control custom-checkbox image-checkbox">
         <input type="checkbox" class="custom-control-input" id="cincoestrellas">
         <label class="custom-control-label" for="cincoestrellas">
-          <img src="img/rating-stars/5.jpg" alt="#" class="img-fluid" width="130" height="23">
+          <img src="{% static 'app/img/rating-stars/5.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
         </label>
       </div>
       
@@ -268,39 +272,37 @@
       </div>
     </div><br>
   </div>
-  <!--BARRA LATERAL-->
+  <!--BANER LATERAL-->
   <div class="barra-lateral">
     <!--CARRUSEL-->
     <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <a title="conocenos" href="./conocenos.html"><img src="./img/banner1.png" class="d-block" alt="Conocenos" width="20%" height="60%"></a>
+          <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/banner1.png' %}" class="d-block" alt="Conocenos" width="20%" height="60%"></a>
         </div>
         <div class="carousel-item">
-          <a title="donacion" href="./donaciones.html"><img src="./img/banner2.png" class="d-block" alt="Donaciones" width="20%" height="60%"></a>
+          <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/banner2.png' %}" class="d-block" alt="Donaciones" width="20%" height="60%"></a>
         </div>
         <div class="carousel-item">
-          <a title="contacto" href="./contacto.html"><img src="./img/banner3.png" class="d-block" alt="Contacto" width="20%" height="60%"></a>
+          <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/banner3.png' %}" class="d-block" alt="Contacto" width="20%" height="60%"></a>
         </div>
       </div>
     </div>
   </div>
-
 </div> 
-<!--Carrusel al pie de pagina-->
 <div class="row">
 <div class="barra-pie" style="width: 60%;height: 60%;">
   <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
     
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <a title="conocenos" href="./conocenos.html"><img src="./img/bottom1.png" class="d-block w-100" alt="Conocenos"></a>
+        <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/bottom1.png' %}" class="d-block w-100" alt="Conocenos"></a>
       </div>
       <div class="carousel-item">
-        <a title="donacion" href="./donaciones.html"><img src="./img/bottom2.png" class="d-block w-100" alt="Donaciones"></a>
+        <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/bottom2.png' %}" class="d-block w-100" alt="Donaciones"></a>
       </div>
       <div class="carousel-item">
-        <a title="contacto" href="./contacto.html"><img src="./img/bottom3.png" class="d-block w-100" alt="Contacto"></a>
+        <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/bottom3.png' %}" class="d-block w-100" alt="Contacto"></a>
       </div>
     </div>
   </div>

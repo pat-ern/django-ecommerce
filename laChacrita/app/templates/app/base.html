@@ -9,7 +9,8 @@
     {% block css %}
     {% endblock %}
     <link rel="stylesheet" href="{% static 'app/css/estilo.css'%}"/>
-    <title>La Chacrita</title>
+    {% block titulo %}
+    {% endblock %}
   </head>
   <body>
     <header>
@@ -82,14 +83,10 @@
         </div>
       </nav>
     </header>
-
     <main class="container-fluid " id="contenido">  
-
         {% block contenido %}
         {% endblock %}
-        
     </main>
-
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-bottom">
       
       <div class="col-md-4 d-flex align-items-center">
