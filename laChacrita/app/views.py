@@ -1,26 +1,20 @@
 from errno import EADDRNOTAVAIL
 from django.shortcuts import render
+from .models import Producto
 
 # INDEX
 
 desc = "Lobularia maritima, commonly called sweet alyssum, is one of the easiest annuals to grow. It is a mat-forming plant that produces spreading mounds of well-branched stems clad with linear, lance-shaped, gray-green leaves (to 1” long). Plants typically grow 3-9” tall to 12” wide. Dense clusters of sweetly fragrant, tiny, white 4-petaled flowers cover the foliage mounds from spring to early summer. Flowering is often so profuse as to totally hide the foliage."
 
-class Producto:
-    def __init__(self, nombre, descripcion, precio):
-        self.nombre = nombre
-        self.descripcion = descripcion
-        self.precio = precio
-        super().__init__()
-
-producto1 = Producto("Lobularia", desc, 5970)
-producto2 = Producto("Tijera Castellari", desc, 40000)
-producto3 = Producto("Bay Laurel", desc, 25800)
-producto4 = Producto("Jaula Soporte", desc, 20490)
-producto5 = Producto("Cesta Gardeners", desc, 30790)
-producto6 = Producto("Lavanda Azul", desc, 11290)
-producto7 = Producto("Marigold", desc, 8350, )
-producto8 = Producto("Arbol Durazno", desc, 29900)
-producto9 = Producto("Semilla de Zinnia", desc, 9500)
+producto1 = Producto(1, "Lobularia", 5970, desc)
+producto2 = Producto(2, "Tijera Castellari", 40000, desc)
+producto3 = Producto(3, "Bay Laurel", 25800, desc)
+producto4 = Producto(4, "Jaula Soporte", 20490, desc)
+producto5 = Producto(5, "Cesta Gardeners", 30790, desc)
+producto6 = Producto(6, "Lavanda Azul", 11290, desc)
+producto7 = Producto(7, "Marigold", 8350, desc)
+producto8 = Producto(8, "Arbol Durazno", 29900, desc)
+producto9 = Producto(9, "Semilla de Zinnia", 9500, desc)
 
 contexto = {"producto1" : producto1,
             "producto2" : producto2,
