@@ -12,6 +12,11 @@
 
 {% block js %}
 <script src="{% static 'app/js/api.js' %}"></script> 
+<script>
+  function obtenerProducto(id){
+    window.location.href = "/producto/"+id+"/"
+  }
+</script>
 {% endblock %}
 
 {% block contenido %}
@@ -194,7 +199,7 @@
       {% for p in productos %}
       <div class="col">
         <div class="card text-dark mb-2">
-          <a href="{% url 'producto' %}">
+          <a href="#" onclick="obtenerProducto({{p.id}})">
             {% if p.imagen %} 
             <img src="{{ p.imagen.url }}" class="card-img-top" alt="...">
             {% endif %}
@@ -207,6 +212,10 @@
       </div>
       {% endfor %}
     </div><br>
+  </div>
+
+  <div>
+    {% include 'app/paginator.html' %}
   </div>
 
   <!--BANER LATERAL-->

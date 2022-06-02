@@ -8,3 +8,4 @@ django-flat-theme==1.1.4
 Pillow==9.1.1
 six==1.16.0
 sqlparse==0.4.2
+django-crispy-forms

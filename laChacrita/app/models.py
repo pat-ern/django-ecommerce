@@ -80,14 +80,15 @@ class AsuntoContacto(models.Model):
 
 class Contacto(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id contacto")
-    correo = models.CharField(max_length=50)
-    texto = models.TextField(max_length=500)
-    checkOfertas = models.BooleanField()
-    fecha = models.DateField()
+    nombre = models.CharField(max_length=50)
+    correo = models.EmailField(max_length=50)
+    mensaje = models.TextField(max_length=500)
+    checkOfertas = models.BooleanField(verbose_name="Recibir informacion")
+    fecha = models.DateField(auto_now_add = True)
     asunto = models.ForeignKey(AsuntoContacto, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.id
+        return self.nombre
 
 # TIPO DONACION
 

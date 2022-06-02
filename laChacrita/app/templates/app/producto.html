@@ -19,15 +19,15 @@
   <div class="row">
     <div class="fotos-producto col-12 col-md-6 col-lg-5">
       <div class="foto-producto text-dark m-2 p-2">
-        <img src="{% static 'app/img/productos/alysum.jpg' %}" class="card-img-top img-fluid" alt="...">
+        <img src="{{ producto.imagen.url }}" class="card-img-top img-fluid" alt="...">
       </div>
     </div>
     <div class="container col-12 col-md-6 col-lg-7">
-      <h3 style="padding-top: 5px; font-weight: bold; color: #444444;">{{producto1.nombre}}</h3>
+      <h3 style="padding-top: 5px; font-weight: bold; color: #444444;">{{producto.nombre}}</h3>
       <hr>
       <h4>Descripción:</h4>
-      <p class="descripcion-producto">{{producto1.descripcion}}</p>
-      <h3>${{producto1.precio}}</h3>
+      <p class="descripcion-producto">{{producto.descripcion}}</p>
+      <h3>${{producto.precio}}</h3>
       <button type="button" class="btn me-2">Añadir al carrito</button>
     </div>
   </div>
