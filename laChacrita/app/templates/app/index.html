@@ -13,7 +13,7 @@
 {% block js %}
 <script src="{% static 'app/js/api.js' %}"></script> 
 <script>
-  function obtenerProducto(id){
+  function abrirProducto(id){
     window.location.href = "/producto/"+id+"/"
   }
 </script>
@@ -199,7 +199,7 @@
       {% for p in productos %}
       <div class="col">
         <div class="card text-dark mb-2">
-          <a href="#" onclick="obtenerProducto({{p.id}})">
+          <a href="#" onclick="abrirProducto({{p.id}})">
             {% if p.imagen %} 
             <img src="{{ p.imagen.url }}" class="card-img-top" alt="...">
             {% endif %}
