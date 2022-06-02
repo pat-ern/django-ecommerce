@@ -13,9 +13,31 @@
 {% block js %}
 <script src="{% static 'app/js/api.js' %}"></script> 
 <script>
+
   function abrirProducto(id){
     window.location.href = "/producto/"+id+"/"
   }
+
+  function optionsSelected(me){
+
+      alert(me.value);
+      $.ajax({
+        type: "GET",
+        url: '',
+        data: {
+            "result": me.value,
+        },
+        dataType: "json",
+        success: function (data) {
+            // any process in data
+            alert("successfull")
+        },
+        failure: function () {
+            alert("failure");
+        }
+      })
+  }
+
 </script>
 {% endblock %}
 
@@ -41,42 +63,14 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="encabezadocategorias" data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="semillas" checked>
-              <label class="form-check-label" for="semillas">
-                Semillas
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="plantasflores" checked>
-              <label class="form-check-label" for="plantasflores">
-                Plantas y flores
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="tierra" checked>
-              <label class="form-check-label" for="tierra">
-                Tierra
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="maceteros" checked>
-              <label class="form-check-label" for="maceteros">
-                Maceteros
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="herramientas" checked>
-              <label class="form-check-label" for="herramientas">
-                Herramientas
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="accesorios" checked>
-              <label class="form-check-label" for="accesorios">
-                Accesorios
-              </label>
-            </div>
+            {% for cat in categorias %}
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{cat.idCategoria}}" id="{{cat.nombreCategoria}}" onclick="return optionsSelected(this)" checked>
+                <label class="form-check-label" for="{{cat.nombreCategoria}}">
+                  {{cat.nombreCategoria}}
+                </label>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>

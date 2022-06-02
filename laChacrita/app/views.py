@@ -1,26 +1,38 @@
 from errno import EADDRNOTAVAIL
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Producto
+from .models import CategoriaProducto, Producto
 from django.core.paginator import Paginator
 from django.http import Http404
 from .forms import ContactoForm, ProductoForm
 from django.contrib import messages
+from django.urls import reverse
+from django.views.generic import ListView
 
 # INDEX
 
 def index(request):
-    productos = Producto.objects.all()
+    
+    categorias = CategoriaProducto.objects.all()
+    
+    #
+    unchecked = request.GET.get('result', None)
+    print(unchecked)
+    #
+    productos = Producto.objects.exclude(categoria=unchecked)
+    print(len(productos))
+
     page = request.GET.get('page', 1)
+
     try:
         paginator = Paginator(productos, 6)
         productos = paginator.page(page)
     except:
         raise Http404
 
-
     data = {
         "productos" : productos,
-        "paginator" : paginator
+        "paginator" : paginator,
+        "categorias" : categorias
     }
     return render(request, 'app/index.html', data)
 
