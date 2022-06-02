@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from .models import Producto
 from django.core.paginator import Paginator
 from django.http import Http404
-from .forms import ContactoForm
+from .forms import ContactoForm, ProductoForm
 from django.contrib import messages
 
 # INDEX
@@ -31,6 +31,41 @@ def producto(request, id):
         'producto' : prod
     }
     return render(request, 'app/producto.html', data)
+
+# CONOCENOS
+def agregarProducto(request):
+    data = {
+        'form': ProductoForm()
+    }
+    
+    if request.method == 'POST':
+        formulario = ProductoForm(data=request.POST, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Tu producto se agregó correctamente.")
+            #data["mensaje"] = "Contacto enviado."
+            return redirect(to="index")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/producto/agregar.html', data)
+
+# CONOCENOS
+def modificarProducto(request):
+    productos = Producto.objects.all()
+    page = request.GET.get('page', 1)
+    try:
+        paginator = Paginator(productos, 10)
+        productos = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        "productos" : productos,
+        "paginator" : paginator
+    }
+    
+    return render(request, 'app/producto/modificar.html', data)
 
 # CONOCENOS
 def conocenos(request):
