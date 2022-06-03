@@ -1,6 +1,6 @@
 from errno import EADDRNOTAVAIL
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import CategoriaProducto, Producto
+from .models import CategoriaProducto, FiltroPrecios, Producto
 from django.core.paginator import Paginator
 from django.http import Http404
 from .forms import ContactoForm, ProductoForm
@@ -13,6 +13,7 @@ from django.views.generic import ListView
 def index(request):
     
     categorias = CategoriaProducto.objects.all()
+    precios = FiltroPrecios.objects.all()
     
     #
     unchecked = request.GET.get('result', None)
@@ -32,7 +33,8 @@ def index(request):
     data = {
         "productos" : productos,
         "paginator" : paginator,
-        "categorias" : categorias
+        "categorias" : categorias,
+        "precios" : precios
     }
     return render(request, 'app/index.html', data)
 

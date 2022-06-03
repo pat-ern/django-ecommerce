@@ -41,6 +41,15 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+class FiltroPrecios(models.Model):
+    id = models.IntegerField(primary_key=True)
+    descripcion = models.CharField(max_length=50)
+    min = models.IntegerField()
+    max = models.IntegerField()
+
+    def __str__(self):
+        return self.descripcion
+
 # CALIFICACION 
 
 class Calificacion(models.Model):

@@ -63,14 +63,16 @@
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="encabezadocategorias" data-bs-parent="#accordionExample">
           <div class="accordion-body">
+            
             {% for cat in categorias %}
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="{{cat.idCategoria}}" id="{{cat.nombreCategoria}}" onclick="return optionsSelected(this)" checked>
+                <input class="form-check-input" type="radio" name="categorias" value="{{cat.idCategoria}}" id="{{cat.nombreCategoria}}" onclick="return optionsSelected(this)">
                 <label class="form-check-label" for="{{cat.nombreCategoria}}">
                   {{cat.nombreCategoria}}
                 </label>
               </div>
             {% endfor %}
+
           </div>
         </div>
       </div>
@@ -83,37 +85,16 @@
           </button>
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="encabezadoprecios" data-bs-parent="#accordionExample">
+          
           <div class="accordion-body">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioPrecios1" checked>
-              <label class="form-check-label" for="flexRadioPrecios1">
-                Todos los precios
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioPrecios2">
-              <label class="form-check-label" for="flexRadioPrecios2">
-                Hasta $5000
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioPrecios3">
-              <label class="form-check-label" for="flexRadioPrecios3">
-                $5000 a $20000
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioPrecios4">
-              <label class="form-check-label" for="flexRadioPrecios4">
-                $20000 a $50000
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioPrecios5">
-              <label class="form-check-label" for="flexRadioPrecios5">
-                $50000 o más
-              </label>
-            </div>
+            {% for pre in precios %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="precios" value="{{pre.id}}" id="{{pre.descripcion}}">
+                <label class="form-check-label" for="{{pre.descripcion}}">
+                  {{pre.descripcion}}
+                </label>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>
