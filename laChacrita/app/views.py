@@ -1,25 +1,42 @@
 from errno import EADDRNOTAVAIL
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import CategoriaProducto, FiltroPrecios, Producto
+from .models import CategoriaProducto, FiltroPrecios, Producto, Snippet
 from django.core.paginator import Paginator
 from django.http import Http404
 from .forms import ContactoForm, ProductoForm
 from django.contrib import messages
 from django.urls import reverse
-from django.views.generic import ListView
+from .filters import SnippetFilter
+from django.views.generic import ListView, DetailView
+from django.views import View
+
+class SnippetListView(ListView):
+    
+    model = Snippet
+    template_name = 'app/snippet_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        context['filter'] = SnippetFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+class SnippetDetailView(DetailView):
+
+    model = Snippet
+    template_name = 'app/snippet_detail.html'
+
 
 # INDEX
-
 def index(request):
     
     categorias = CategoriaProducto.objects.all()
     precios = FiltroPrecios.objects.all()
-    
-    #
-    unchecked = request.GET.get('result', None)
-    print(unchecked)
-    #
-    productos = Producto.objects.exclude(categoria=unchecked)
+    productos = Producto.objects.all()
+
+    arr0 = [1,2,3,4,5]
+    arr0.remove(1) # categoria por id que deseo mostrar
+
+    productos = Producto.objects.exclude(categoria__in=arr0)
     print(len(productos))
 
     page = request.GET.get('page', 1)

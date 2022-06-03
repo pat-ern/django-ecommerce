@@ -1,0 +1,24 @@
+
+{% extends 'app/base2.html' %}
+{% load bootstrap %}
+
+{% block title %}Snippet List{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <form method="GET">
+        {{ filter.form | bootstrap}}
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <hr>
+    <ul>
+        {% for snippet in filter.qs %}
+          <li>
+            <a href="{% url 'detail' snippet.id %}">{{ snippet.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+</div>
+
+{% endblock content %}

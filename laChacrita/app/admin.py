@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CategoriaProducto, Usuario, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoDonacion, Donacion, FiltroPrecios
+from .models import CategoriaProducto, Usuario, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoDonacion, Donacion, FiltroPrecios, Snippet
 
 # Register your models here.
 
@@ -26,3 +26,4 @@ admin.site.register(Contacto)
 admin.site.register(TipoDonacion, TipoDonacionAdmin)
 admin.site.register(Donacion)
 admin.site.register(FiltroPrecios)
+admin.site.register(Snippet)
