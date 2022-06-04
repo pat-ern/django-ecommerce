@@ -9,6 +9,17 @@ class ContactoForm(forms.ModelForm):
     class Meta:
         model = Contacto
         fields = ["nombre", "correo", "mensaje", "checkOfertas", "asunto"]
+
+        widgets = {
+            'mensaje' : forms.Textarea(attrs={
+                'rows':5, 
+                'cols':20
+            }),
+        }
+        labels = {
+            'nombre': 'Nombre y apellido',
+            'correo': 'Correo electr&oacute;nico',
+        }
         
 class ProductoForm(forms.ModelForm):
     
@@ -27,5 +38,6 @@ class ProductoForm(forms.ModelForm):
             }),
         }
         labels = {
+            'nombre': 'Nombre del producto',
             'imagen': 'Imagen del producto',
         }

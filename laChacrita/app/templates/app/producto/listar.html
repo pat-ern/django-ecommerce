@@ -51,8 +51,8 @@
                     <td>{{p.nombre}}</td>
                     <td>{{p.categoria}}</td>
                     <td>{{p.precio}}</td>
-                    <td style="text-align:center;"><a href="#"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
-                    <a href="#"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
+                    <td style="text-align:center;"> <a href="{% url 'modificar_producto' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
+                    <a href="#" onclick="eliminarProducto({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
                 </tr>
                 {% endfor%}
         </table>
