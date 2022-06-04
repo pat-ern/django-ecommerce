@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CategoriaProducto, Usuario, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoDonacion, Donacion, FiltroPrecios, Snippet
+from .models import CategoriaProducto, Usuario, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoDonacion, Donacion, FiltroPrecios
 
 # Register your models here.
 
@@ -7,7 +7,6 @@ class ProductoAdmin(admin.ModelAdmin):
     list_display = ["nombre", "precio"]
     list_editable = ["precio"]
     search_fields = ["nombre"]
-    #list_filter = [""]
     list_per_page = 20
 
 class AsuntoAdmin(admin.ModelAdmin):
@@ -26,4 +25,3 @@ admin.site.register(Contacto)
 admin.site.register(TipoDonacion, TipoDonacionAdmin)
 admin.site.register(Donacion)
 admin.site.register(FiltroPrecios)
-admin.site.register(Snippet)

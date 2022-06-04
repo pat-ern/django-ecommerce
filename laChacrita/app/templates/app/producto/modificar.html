@@ -17,15 +17,13 @@
 {% block contenido %}
 {% load crispy_forms_tags %}
 <main class="container">
-        <table class="table table-bordered mt-4" id="categorias">
+        <table class="table mt-4" id="categorias">
             <thead class="table-success">
                 <tr>
-                    <th scope="col">Nombre</th>
+                    <th scope="col">Nombre Producto</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Precio</th>
-                    <th scope="col">Calificacion</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th scope="col" style="text-align:center;">Acci&oacute;n</th>
                 </tr>
             </thead>
                 {% for p in productos %}
@@ -33,15 +31,14 @@
                     <td>{{p.nombre}}</td>
                     <td>{{p.categoria}}</td>
                     <td>{{p.precio}}</td>
-                    <td>{{p.puntuacionProm}}</td>
-                    <td><a href="#">Modificar</a></td>
-                    <td><a href="#">Eliminar</a></td>
+                    <td style="text-align:center;"><a href="#"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
+                    <a href="#"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
                 </tr>
                 {% endfor%}
         </table>
         
     <div>
-        {% include 'app/paginator.html' %}
+        {% include 'app/snippets/paginator2.html' %}
     </div>
 
 </main>  

@@ -1,22 +1,30 @@
 import django_filters
-from .models import Snippet
+from .models import Producto
 
-class SnippetFilter(django_filters.FilterSet):
+class IndexFilter(django_filters.FilterSet):
 
     CHOICES = (
         ('ascending', 'Ascendente'),
         ('descending', 'Descendente')
     )
 
-    ordering = django_filters.ChoiceFilter(label='Ordering', choices=CHOICES, method='filter_by_order')
+    ordering = django_filters.ChoiceFilter(label='Ordenar por precio', choices=CHOICES, method='filter_by_order')
 
     class Meta:
-        model = Snippet
+        model = Producto
         fields = {
-            'title':['icontains'],
-            'body':['icontains'],
+            'nombre':['icontains'],
+            'categoria':['exact'],
+            'precio':['lt','gt'],
         }
 
     def filter_by_order(self, queryset, name, value):
-        expression = 'created' if value == 'ascending' else '-created'
+        expression = 'precio' if value == 'ascending' else '-precio'
         return queryset.order_by(expression)
+
+'''    def __init__(self, data, *args, **kwargs):
+        data = data.copy()
+        data.setdefault('nombre', '')
+        data.setdefault('categoria', '')
+        data.setdefault('precio', '')
+        super().__init__(data, *args, **kwargs)'''

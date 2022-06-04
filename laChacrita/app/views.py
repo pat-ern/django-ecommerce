@@ -1,59 +1,35 @@
-from errno import EADDRNOTAVAIL
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import CategoriaProducto, FiltroPrecios, Producto, Snippet
 from django.core.paginator import Paginator
 from django.http import Http404
-from .forms import ContactoForm, ProductoForm
 from django.contrib import messages
-from django.urls import reverse
-from .filters import SnippetFilter
-from django.views.generic import ListView, DetailView
-from django.views import View
+from django.views.generic import ListView
 
-class SnippetListView(ListView):
+from .filters import IndexFilter
+from .forms import ContactoForm, ProductoForm
+from .models import Producto
+
+# INDEX
+class FilteredIndex(ListView):
     
-    model = Snippet
-    template_name = 'app/snippet_list.html'
+    filterset_class = None
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) 
-        context['filter'] = SnippetFilter(self.request.GET, queryset=self.get_queryset())
+        filter = IndexFilter(self.request.GET, queryset=self.get_queryset())
+        context['filter'] = filter
         return context
 
-class SnippetDetailView(DetailView):
+class Index(FilteredIndex):
 
-    model = Snippet
-    template_name = 'app/snippet_detail.html'
-
-
-# INDEX
-def index(request):
-    
-    categorias = CategoriaProducto.objects.all()
-    precios = FiltroPrecios.objects.all()
-    productos = Producto.objects.all()
-
-    arr0 = [1,2,3,4,5]
-    arr0.remove(1) # categoria por id que deseo mostrar
-
-    productos = Producto.objects.exclude(categoria__in=arr0)
-    print(len(productos))
-
-    page = request.GET.get('page', 1)
-
-    try:
-        paginator = Paginator(productos, 6)
-        productos = paginator.page(page)
-    except:
-        raise Http404
-
-    data = {
-        "productos" : productos,
-        "paginator" : paginator,
-        "categorias" : categorias,
-        "precios" : precios
-    }
-    return render(request, 'app/index.html', data)
+    model = Producto
+    filterset_class = IndexFilter
+    paginate_by= 6
+    template_name= 'app/index.html'
 
 # PRODUCTO
 def producto(request, id):
@@ -74,8 +50,7 @@ def agregarProducto(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Tu producto se agregó correctamente.")
-            #data["mensaje"] = "Contacto enviado."
-            return redirect(to="index")
+            return redirect(to="modificar_producto")
         else:
             data["form"] = formulario
     
@@ -83,7 +58,7 @@ def agregarProducto(request):
 
 # CONOCENOS
 def modificarProducto(request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
     try:
         paginator = Paginator(productos, 10)
@@ -113,7 +88,6 @@ def contacto(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Gracias por contactarte con nosotros")
-            #data["mensaje"] = "Contacto enviado."
             return redirect(to="index")
         else:
             data["form"] = formulario

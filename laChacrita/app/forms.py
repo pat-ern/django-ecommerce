@@ -21,6 +21,10 @@ class ProductoForm(forms.ModelForm):
                 'class': 'form-control',
                 'placeholder': 'lorem ipsum',
             }),
+            'descripcion' : forms.Textarea(attrs={
+                'rows':5, 
+                'cols':20
+            }),
         }
         labels = {
             'imagen': 'Imagen del producto',
