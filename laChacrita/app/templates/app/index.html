@@ -18,160 +18,48 @@
     window.location.href = "/producto/"+id+"/"
   }
 
-  function optionsSelected(me){
-
-      alert(me.value);
-      $.ajax({
-        type: "GET",
-        url: '',
-        data: {
-            "result": me.value,
-        },
-        dataType: "json",
-        success: function (data) {
-            // any process in data
-            alert("successfull")
-        },
-        failure: function () {
-            alert("failure");
-        }
-      })
-  }
-
 </script>
 {% endblock %}
 
+{% load bootstrap %}
+{% load mytags %}
 {% block contenido %}
+
 <div class="row">
+  
   <!--FILTROS-->
   <div class="filtros col-md-auto">
-
-    <div>
-      <form class="d-flex">
-        <input class="form-control mb-3 " type="search" placeholder="Buscar" aria-label="Buscar" id="busqueda" required>
+    
+      <form class="form-control" method="GET">
+      {{ filter.form|bootstrap}}
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+      </div>
       </form>
+  <hr>
+    <!--API-->
+  <div class="container" id="contenedor">
+    <div id="caja2">
+      <p id="ubicacion" style="font-weight: bold; margin-bottom: 0px;"></p>
+      <img id="icono-animado" src="" alt="" height="80" width="80">
     </div>
-
-    <div class="accordion mb-3" id="accordionExample">
-
-      <!--CATEGORIAS-->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="encabezadocategorias">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Categorías
-          </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="encabezadocategorias" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-            
-            {% for cat in categorias %}
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="categorias" value="{{cat.idCategoria}}" id="{{cat.nombreCategoria}}" onclick="return optionsSelected(this)">
-                <label class="form-check-label" for="{{cat.nombreCategoria}}">
-                  {{cat.nombreCategoria}}
-                </label>
-              </div>
-            {% endfor %}
-
-          </div>
-        </div>
-      </div>
-
-      <!--PRECIOS-->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="encabezadoprecios">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            Precios
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="encabezadoprecios" data-bs-parent="#accordionExample">
-          
-          <div class="accordion-body">
-            {% for pre in precios %}
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="precios" value="{{pre.id}}" id="{{pre.descripcion}}">
-                <label class="form-check-label" for="{{pre.descripcion}}">
-                  {{pre.descripcion}}
-                </label>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-      <!--PUNTUACION-->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            Puntuación
-          </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-    
-      <div class="custom-control custom-checkbox image-checkbox">
-        <input type="checkbox" class="custom-control-input" id="unaestrella">
-        <label class="custom-control-label" for="unaestrella">
-          <img src="{% static 'app/img/rating-stars/1.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
-        </label>
-      </div>
-      
-      <div class="custom-control custom-checkbox image-checkbox">
-        <input type="checkbox" class="custom-control-input" id="dosestrellas">
-        <label class="custom-control-label" for="dosestrellas">
-          <img src="{% static 'app/img/rating-stars/2.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
-        </label>
-      </div>
-
-      <div class="custom-control custom-checkbox image-checkbox">
-        <input type="checkbox" class="custom-control-input" id="tresestrellas">
-        <label class="custom-control-label" for="tresestrellas">
-          <img src="{% static 'app/img/rating-stars/3.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
-        </label>
-      </div>
-      
-      <div class="custom-control custom-checkbox image-checkbox">
-        <input type="checkbox" class="custom-control-input" id="cuatroestrellas">
-        <label class="custom-control-label" for="cuatroestrellas">
-          <img src="{% static 'app/img/rating-stars/4.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
-        </label>
-      </div>
-      
-      <div class="custom-control custom-checkbox image-checkbox">
-        <input type="checkbox" class="custom-control-input" id="cincoestrellas">
-        <label class="custom-control-label" for="cincoestrellas">
-          <img src="{% static 'app/img/rating-stars/5.jpg' %}" alt="#" class="img-fluid" width="130" height="23">
-        </label>
-      </div>
-      
-          </div>
-        </div>
-      </div>
-
+    <div id="caja1">
+        <p id="temperatura-valor" style="font-weight: bold;"></p>
+        <p id="temperatura-descripcion"></p>
     </div>
-
-    <div id="contenedor">
-      <div id="caja2">
-        <p id="ubicacion" style="font-weight: bold; margin-bottom: 0px;"></p>
-        <img id="icono-animado" src="" alt="" height="80" width="80">
-      </div>
-      <div id="caja1">
-          <p id="temperatura-valor" style="font-weight: bold;"></p>
-          <p id="temperatura-descripcion"></p>
-      </div>
-      <div id="caja3">
-          <p>Veloc. del Viento</p>
-          <p id="viento-velocidad"></p>
-      </div>
+    <div id="caja3">
+        <p>Veloc. del Viento</p>
+        <p id="viento-velocidad"></p>
     </div>
-    
   </div>
-  
+  <hr>
+  </div>
+
   <!--TARJETAS-->
   {% load humanize %}
   <div class="tarjetas col-7 justify-content-md-center">
     <div class="row row-cols-1 row-cols-sm-auto row-cols-md-2 row-cols-lg-3 g-3">
-      {% for p in productos %}
+      {% for p in page_obj %}
       <div class="col">
         <div class="card text-dark mb-2">
           <a href="#" onclick="abrirProducto({{p.id}})">
@@ -187,11 +75,10 @@
       </div>
       {% endfor %}
     </div><br>
+    {% include 'app/snippets/paginator.html' %}
   </div>
 
-  <div>
-    {% include 'app/paginator.html' %}
-  </div>
+
 
   <!--BANER LATERAL-->
   <div class="barra-lateral">

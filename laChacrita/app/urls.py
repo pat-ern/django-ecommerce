@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import index, producto, conocenos, contacto, donaciones, agregarProducto, listarProducto, modificarProducto, eliminarProducto
+from .views import producto, conocenos, contacto, donaciones, agregarProducto, listarProducto, modificarProducto, eliminarProducto
+from . import views
 
 urlpatterns = [
-    path('', index, name="index"),
+    path('', views.Index.as_view(), name='index'),
     path('producto/<id>/', producto, name="producto"), 
     path('conocenos/', conocenos, name="conocenos"), 
     path('contacto/', contacto, name="contacto"), 

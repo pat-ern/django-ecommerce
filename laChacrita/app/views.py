@@ -1,52 +1,62 @@
-from errno import EADDRNOTAVAIL
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import CategoriaProducto, FiltroPrecios, Producto
 from django.core.paginator import Paginator
-from django.http import Http404
-from .forms import ContactoForm, ProductoForm
+from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import ListView
 
+from .filters import IndexFilter
+from .forms import ContactoForm, ProductoForm, CalificacionForm
+from .models import Calificacion, Producto
+
 # INDEX
-
-def index(request):
+class FilteredIndex(ListView):
     
-    categorias = CategoriaProducto.objects.all()
-    precios = FiltroPrecios.objects.all()
-    
-    #
-    unchecked = request.GET.get('result', None)
-    print(unchecked)
-    #
-    productos = Producto.objects.exclude(categoria=unchecked)
-    print(len(productos))
+    filterset_class = None
 
-    page = request.GET.get('page', 1)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
 
-    try:
-        paginator = Paginator(productos, 6)
-        productos = paginator.page(page)
-    except:
-        raise Http404
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) 
+        filter = IndexFilter(self.request.GET, queryset=self.get_queryset())
+        context['filter'] = filter
+        return context
 
-    data = {
-        "productos" : productos,
-        "paginator" : paginator,
-        "categorias" : categorias,
-        "precios" : precios
-    }
-    return render(request, 'app/index.html', data)
+class Index(FilteredIndex):
+
+    model = Producto
+    filterset_class = IndexFilter
+    paginate_by= 6
+    template_name= 'app/index.html'
 
 # PRODUCTO
 def producto(request, id):
-    prod = get_object_or_404(Producto, id=id)
+    comentarios = Calificacion.objects.filter(idProducto=id)
+    producto = get_object_or_404(Producto, id=id)
     data = {
-        'producto' : prod
+        'producto' : producto,
+        'form': CalificacionForm(),
+        'comentarios': comentarios
     }
+
+    if request.method == 'POST':
+        formulario = CalificacionForm(data=request.POST)
+        if formulario.is_valid():
+            obj = formulario.save(commit=False)
+            obj.idProducto = producto.id
+            obj.save()
+            messages.success(request, "Comentario enviado.")
+            def handler404(request, *args, **argv):
+                return HttpResponseRedirect(reverse("producto"))
+        else:
+            data["form"] = formulario
+
     return render(request, 'app/producto.html', data)
 
-# CONOCENOS
+# AGREGAR PRODUCTO
 def agregarProducto(request):
     data = {
         'form': ProductoForm()
@@ -57,16 +67,15 @@ def agregarProducto(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Tu producto se agregó correctamente.")
-            #data["mensaje"] = "Contacto enviado."
-            return redirect(to="index")
+            return redirect(to="modificar_producto")
         else:
             data["form"] = formulario
     
     return render(request, 'app/producto/agregar.html', data)
 
-# CONOCENOS
+# LISTAR
 def listarProducto(request):
-    productos = Producto.objects.all()
+    productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
     try:
         paginator = Paginator(productos, 10)
@@ -81,7 +90,7 @@ def listarProducto(request):
     
     return render(request, 'app/producto/listar.html', data)
 
-# CONOCENOS > MODIFICAR
+# MODIFICAR
 def modificarProducto(request, id):
     
     producto = get_object_or_404(Producto,id=id)
@@ -101,13 +110,12 @@ def modificarProducto(request, id):
     
     return render(request, 'app/producto/modificar.html', data)
 
-# CONOCENOS > ELIMINAR
+# ELIMINAR
 def eliminarProducto(request, id):
     producto = get_object_or_404(Producto, id=id)    
     producto.delete()
     messages.success(request, "Producto eliminado correctamente.")
     return redirect(to="listar_producto")
-
 
 # CONOCENOS
 def conocenos(request):
@@ -124,7 +132,6 @@ def contacto(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Gracias por contactarte con nosotros")
-            #data["mensaje"] = "Contacto enviado."
             return redirect(to="index")
         else:
             data["form"] = formulario
