@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'colorfield', #admin interface
     'django.contrib.humanize', #filtro
     'crispy_forms',
+    'django_filters',
+    'widget_tweaks',
+    'bootstrapform',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

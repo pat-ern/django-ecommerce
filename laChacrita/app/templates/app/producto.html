@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block contenido %}
+{% load crispy_forms_tags %}
 {% load humanize %}
 <div class="container-fluid">
   <div class="row">
@@ -43,31 +44,41 @@
       <table class="table mt-4">
         <thead>
           <tr class="bg-light">
-            <th>Comentario</th>
             <th>Usuario</th>
+            <th>Puntuacion</th>
+            <th>Comentario</th>
           </tr>
         </thead>
         <tbody id="tabla-tbody">
+          {% for c in comentarios %}
+            <tr>
+              <td>{{c.idUsuario}}</td>
+              <td>{{c.puntuacion}}</td>
+              <td>{{c.comentario}}</td>
+            </tr>
+          {% endfor%}
         </tbody>
       </table>
     </div>
     <div class="col-12 col-md-6 col-lg-5 seccion-comentar">
-      <form class="form-group" id="commentForm" method="get" action="">
+
+
+
+      <form action="" class="form-group" id="commentForm" method="POST" action="">
         <div class="card-head bg-light text-center div-titulo-comentar">
           <button type="button" class="btn bg-light text-sucess texto-titulo-comentar" id="btn-toggle-2" style="font-weight: bold;">Comentar</button>
         </div>
-        <div id="cuerpo-comentar">
-          <div class="mb-3 mt-3">
-            <textarea class="form-control" palceholder="Deja tu comentario..." id="comentario-txt" cols="30" rows="3" style="font-size:18px;" required></textarea>
-          </div>
-          <div class="mb-3">
-            <input class="form-control" type="text" id="usuario-txt" placeholder="Usuario..." style="font-size:18px;" required >
-          </div>
-          <div style="text-align: center;">
-          <button type="submit" id="enviar-btn" class="btn btn-success me-0">Enviar</button>
-          </div>
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-flex justify-content-end mb-2 formulario_grupo_btn_enviar">
+            <button type="reset" class="btn btn-primary mt-1" id="limpiar">Limpiar</button>
+            &nbsp;
+            <button type="submit" class="btn btn-primary mt-1" id="enviar">Enviar</button>
         </div>
       </form>
+
+
+
     </div>
   </div>
 </div>

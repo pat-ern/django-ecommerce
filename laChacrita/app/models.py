@@ -2,17 +2,7 @@ from enum import unique
 from tabnanny import verbose
 from django.db import models
 
-# CATEGORIA PRODUCTO
-
-class CategoriaProducto(models.Model):
-    idCategoria = models.IntegerField(primary_key=True, verbose_name="Id categoria")
-    nombreCategoria = models.CharField(max_length=50, verbose_name="Nombre de categoria")
-
-    def __str__(self):
-        return self.nombreCategoria
-
 # USUARIO
-    
 class Usuario(models.Model):
     rut = models.IntegerField(primary_key=True)
     dv = models.CharField(max_length=1)
@@ -21,13 +11,20 @@ class Usuario(models.Model):
     direccion = models.CharField(max_length=100)
     correo = models.CharField(max_length=100)
     fechaNacimiento = models.DateField()
-    fechaRegistro = models.DateField()
+    fechaRegistro = models.DateField(auto_now_add = True)
 
     def __str__(self):
         return self.nombre
 
-# PRODUCTO
+# CATEGORIA PRODUCTO
+class CategoriaProducto(models.Model):
+    idCategoria = models.IntegerField(primary_key=True, verbose_name="Id categoria")
+    nombreCategoria = models.CharField(max_length=50, verbose_name="Nombre de categoria")
 
+    def __str__(self):
+        return self.nombreCategoria
+
+# PRODUCTO
 class Producto(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
@@ -41,30 +38,30 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-class FiltroPrecios(models.Model):
-    id = models.IntegerField(primary_key=True)
-    descripcion = models.CharField(max_length=50)
-    min = models.IntegerField()
-    max = models.IntegerField()
-
-    def __str__(self):
-        return self.descripcion
+    class Meta:
+        ordering = ('nombre',)
 
 # CALIFICACION 
+opciones_calificacion = [
+    [0,"1"],
+    [1,"2"],
+    [2,"3"],
+    [3,"4"],
+    [4,"5"]
+]
 
 class Calificacion(models.Model):
-    idCalificacion = models.AutoField(primary_key=True)
-    idProducto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    idUsuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    puntuacion = models.IntegerField()
+    id = models.AutoField(primary_key=True)
+    idProducto = models.IntegerField()
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    puntuacion = models.IntegerField(choices=opciones_calificacion)
     comentario = models.TextField(max_length=500)
-    fecha = models.DateField()
+    fecha = models.DateField(auto_now_add = True)
 
     def __str__(self):
-        return self.idProducto
+        return self.comentario
 
 # COMPRA-PRODUCTO
-
 class CompraProducto(models.Model):
     idCompra = models.AutoField(primary_key=True)
     idProducto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -77,7 +74,6 @@ class CompraProducto(models.Model):
         return self.idCompra
 
 # ASUNTO CONTACTO
-
 class AsuntoContacto(models.Model):
     id = models.IntegerField(primary_key=True, verbose_name="Id asunto")
     nombre = models.CharField(max_length=50, verbose_name="Nombre asunto")
@@ -86,7 +82,6 @@ class AsuntoContacto(models.Model):
         return self.nombre
 
 # CONTACTO
-
 class Contacto(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id contacto")
     nombre = models.CharField(max_length=50)
@@ -100,7 +95,6 @@ class Contacto(models.Model):
         return self.nombre
 
 # TIPO DONACION
-
 class TipoDonacion(models.Model):
     id = models.IntegerField(primary_key=True, verbose_name="Id tipo de donacion")
     nombre = models.CharField(max_length=50, verbose_name="Nombre tipo de donacion")
@@ -109,7 +103,6 @@ class TipoDonacion(models.Model):
         return self.nombre
 
 # DONACION
-
 class Donacion(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id donacion")
     nombre = models.CharField(max_length=100)
