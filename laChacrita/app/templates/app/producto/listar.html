@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Listar Productos</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/validaciones.css' %}">
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'app/js/validaciones.js' %}"></script>
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"warning",
+            "showCancelButton":true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#558F67",
+            "cancelButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href="/eliminar/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+<main class="container">
+        <table class="table mt-4" id="categorias">
+            <thead class="table-success">
+                <tr>
+                    <th scope="col">Nombre Producto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col" style="text-align:center;">Acci&oacute;n</th>
+                </tr>
+            </thead>
+                {% for p in productos %}
+                <tr>
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.categoria}}</td>
+                    <td>{{p.precio}}</td>
+                    <td style="text-align:center;"> <a href="{% url 'modificar_producto' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
+                    <a href="#" onclick="eliminarProducto({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
+                </tr>
+                {% endfor%}
+        </table>
+        
+    <div>
+        {% include 'app/snippets/paginator2.html' %}
+    </div>
+
+</main>  
+{% endblock %}

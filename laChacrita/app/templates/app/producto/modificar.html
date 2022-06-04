@@ -16,33 +16,26 @@
 
 {% block contenido %}
 {% load crispy_forms_tags %}
-<main class="container">
-        <table class="table table-bordered mt-4" id="categorias">
-            <thead class="table-success">
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Categoria</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Calificacion</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-                {% for p in productos %}
-                <tr>
-                    <td>{{p.nombre}}</td>
-                    <td>{{p.categoria}}</td>
-                    <td>{{p.precio}}</td>
-                    <td>{{p.puntuacionProm}}</td>
-                    <td><a href="#">Modificar</a></td>
-                    <td><a href="#">Eliminar</a></td>
-                </tr>
-                {% endfor%}
-        </table>
-        
-    <div>
-        {% include 'app/paginator.html' %}
-    </div>
-
+<main class="container" id="contacto">
+    <div class="row g-4">
+        <div class="col" id="donativos">
+            <h1 class="mt-3" style="font-weight: bold; color: #444444;">Modificar Producto</h1>
+            <img class="m-4"src="{% static 'app/img/ico/modificar.png' %}" alt="" width="200" height="auto">
+            <br>
+            <p>En esta secci&oacute;n puedes modificar tus productos.</p> 
+            <p>Asegurate de solo cambiar la informaci&oacute;n necesaria.</p>
+        </div>
+        <div class="col-12 col-lg-5 ">
+            <form action="" method="POST" enctype="multipart/form-data" name="formulario" id="formulario">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="d-flex justify-content-end mb-2 formulario_grupo_btn_enviar">
+                    <button type="reset" class="btn btn-primary mt-1" id="calcelar">Cancelar</button>
+                    &nbsp;
+                    <button type="submit" class="btn btn-primary mt-1" id="enviar">Modificar</button>
+                </div>
+            </form>
+        </div>
+    </div><br>
 </main>  
 {% endblock %}

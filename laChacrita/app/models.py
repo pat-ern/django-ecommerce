@@ -41,7 +41,11 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-class Snippet(models.Model):
+    class Meta:
+        ordering = ('nombre',)
+
+
+'''class Snippet(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -50,7 +54,7 @@ class Snippet(models.Model):
         return self.title
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('created',)'''
 
 class FiltroPrecios(models.Model):
     id = models.IntegerField(primary_key=True)
