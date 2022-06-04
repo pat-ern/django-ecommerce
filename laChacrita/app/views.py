@@ -39,7 +39,7 @@ def producto(request, id):
     }
     return render(request, 'app/producto.html', data)
 
-# CONOCENOS
+# AGREGAR PRODUCTO
 def agregarProducto(request):
     data = {
         'form': ProductoForm()
@@ -56,8 +56,8 @@ def agregarProducto(request):
     
     return render(request, 'app/producto/agregar.html', data)
 
-# CONOCENOS
-def modificarProducto(request):
+# LISTAR
+def listarProducto(request):
     productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
     try:
@@ -71,7 +71,34 @@ def modificarProducto(request):
         "paginator" : paginator
     }
     
+    return render(request, 'app/producto/listar.html', data)
+
+# MODIFICAR
+def modificarProducto(request, id):
+    
+    producto = get_object_or_404(Producto,id=id)
+    
+    data = {
+        'form': ProductoForm(instance=producto)
+    }
+    
+    if request.method == 'POST':
+        formulario = ProductoForm(data=request.POST, instance=producto, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Tu producto se modificó correctamente.")
+            return redirect(to="listar_producto")
+        else:
+            data["form"] = formulario
+    
     return render(request, 'app/producto/modificar.html', data)
+
+# ELIMINAR
+def eliminarProducto(request, id):
+    producto = get_object_or_404(Producto, id=id)    
+    producto.delete()
+    messages.success(request, "Producto eliminado correctamente.")
+    return redirect(to="listar_producto")
 
 # CONOCENOS
 def conocenos(request):
