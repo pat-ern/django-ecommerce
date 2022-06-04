@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.contrib import messages
+from django.urls import reverse
 from django.views.generic import ListView
 
 from .filters import IndexFilter
-from .forms import ContactoForm, ProductoForm
-from .models import Producto
+from .forms import ContactoForm, ProductoForm, CalificacionForm
+from .models import Calificacion, Producto
 
 # INDEX
 class FilteredIndex(ListView):
@@ -33,10 +34,26 @@ class Index(FilteredIndex):
 
 # PRODUCTO
 def producto(request, id):
-    prod = get_object_or_404(Producto, id=id)
+    comentarios = Calificacion.objects.filter(idProducto=id)
+    producto = get_object_or_404(Producto, id=id)
     data = {
-        'producto' : prod
+        'producto' : producto,
+        'form': CalificacionForm(),
+        'comentarios': comentarios
     }
+
+    if request.method == 'POST':
+        formulario = CalificacionForm(data=request.POST)
+        if formulario.is_valid():
+            obj = formulario.save(commit=False)
+            obj.idProducto = producto.id
+            obj.save()
+            messages.success(request, "Comentario enviado.")
+            def handler404(request, *args, **argv):
+                return HttpResponseRedirect(reverse("producto"))
+        else:
+            data["form"] = formulario
+
     return render(request, 'app/producto.html', data)
 
 # AGREGAR PRODUCTO

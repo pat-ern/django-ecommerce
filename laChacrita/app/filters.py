@@ -21,10 +21,3 @@ class IndexFilter(django_filters.FilterSet):
     def filter_by_order(self, queryset, name, value):
         expression = 'precio' if value == 'ascending' else '-precio'
         return queryset.order_by(expression)
-
-'''    def __init__(self, data, *args, **kwargs):
-        data = data.copy()
-        data.setdefault('nombre', '')
-        data.setdefault('categoria', '')
-        data.setdefault('precio', '')
-        super().__init__(data, *args, **kwargs)'''
