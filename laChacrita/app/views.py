@@ -34,7 +34,7 @@ class Index(FilteredIndex):
 
 # PRODUCTO
 def producto(request, id):
-    comentarios = Calificacion.objects.filter(idProducto=id)
+    comentarios = Calificacion.objects.filter(idProducto=id).order_by('-id')
     producto = get_object_or_404(Producto, id=id)
     data = {
         'producto' : producto,
@@ -50,7 +50,7 @@ def producto(request, id):
             obj.save()
             messages.success(request, "Comentario enviado.")
             def handler404(request, *args, **argv):
-                return HttpResponseRedirect(reverse("producto"))
+                return redirect('producto')
         else:
             data["form"] = formulario
 

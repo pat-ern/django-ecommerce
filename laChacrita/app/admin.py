@@ -11,7 +11,7 @@ class ProductoAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class AsuntoAdmin(admin.ModelAdmin):
-    list_display = ["id", "nombre"]
+    list_display = ["nombre", "id"]
     ordering = ('id',)
 
 class TipoDonacionAdmin(admin.ModelAdmin):
@@ -19,15 +19,23 @@ class TipoDonacionAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class CalificacionAdmin(admin.ModelAdmin):
-    list_display = ["id", "usuario", "comentario", "puntuacion"]
-    ordering = ('id',)
+    list_display = ["comentario", "idProducto", "usuario", "puntuacion"]
+    ordering = ('-id',)
+
+class CategoriaProductoAdmin(admin.ModelAdmin):
+    list_display = ["nombreCategoria", "idCategoria"]
+    ordering = ('idCategoria',)
+
+class ContactoAdmin(admin.ModelAdmin):
+    list_display = ["asunto", "correo", "fecha"]
+    ordering = ('-fecha',)
 
 admin.site.register(Usuario)
-admin.site.register(CategoriaProducto)
+admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Calificacion, CalificacionAdmin)
 admin.site.register(CompraProducto)
 admin.site.register(AsuntoContacto, AsuntoAdmin)
-admin.site.register(Contacto)
+admin.site.register(Contacto, ContactoAdmin)
 admin.site.register(TipoDonacion, TipoDonacionAdmin)
 admin.site.register(Donacion)

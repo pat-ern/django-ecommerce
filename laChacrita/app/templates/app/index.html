@@ -25,40 +25,39 @@
 {% load mytags %}
 {% block contenido %}
 
+<!--CONTENIDO SUPERIOR-->
 <div class="row">
   
   <!--FILTROS-->
   <div class="filtros col-md-auto">
-    
       <form class="form-control" method="GET">
       {{ filter.form|bootstrap}}
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-primary mt-2">Buscar</button>
       </div>
       </form>
-  <hr>
-    <!--API-->
-  <div class="container" id="contenedor">
-    <div id="caja2">
-      <p id="ubicacion" style="font-weight: bold; margin-bottom: 0px;"></p>
-      <img id="icono-animado" src="" alt="" height="80" width="80">
-    </div>
-    <div id="caja1">
-        <p id="temperatura-valor" style="font-weight: bold;"></p>
-        <p id="temperatura-descripcion"></p>
-    </div>
-    <div id="caja3">
-        <p>Veloc. del Viento</p>
-        <p id="viento-velocidad"></p>
-    </div>
-  </div>
-  <hr>
+      <hr>
+      <!--API-->
+      <div class="container" id="contenedor">
+        <div id="caja2">
+          <p id="ubicacion" style="font-weight: bold; margin-bottom: 0px;"></p>
+          <img id="icono-animado" src="" alt="" height="80" width="80">
+        </div>
+        <div id="caja1">
+            <p id="temperatura-valor" style="font-weight: bold;"></p>
+            <p id="temperatura-descripcion"></p>
+        </div>
+        <div id="caja3">
+            <p>Veloc. del Viento</p>
+            <p id="viento-velocidad"></p>
+        </div>
+      </div>
   </div>
 
   <!--TARJETAS-->
-  {% load humanize %}
   <div class="tarjetas col-7 justify-content-md-center">
     <div class="row row-cols-1 row-cols-sm-auto row-cols-md-2 row-cols-lg-3 g-3">
+      {% load humanize %}
       {% for p in page_obj %}
       <div class="col">
         <div class="card text-dark mb-2">
@@ -78,9 +77,7 @@
     {% include 'app/snippets/paginator.html' %}
   </div>
 
-
-
-  <!--BANER LATERAL-->
+  <!--CARRUSEL LATERAL-->
   <div class="barra-lateral">
     <!--CARRUSEL-->
     <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
@@ -97,23 +94,28 @@
       </div>
     </div>
   </div>
+  
 </div> 
+
+<!--CARRUSEL INFERIOR-->
 <div class="row">
-<div class="barra-pie" style="width: 60%;height: 60%;">
-  <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
-    
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/bottom1.png' %}" class="d-block w-100" alt="Conocenos"></a>
-      </div>
-      <div class="carousel-item">
-        <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/bottom2.png' %}" class="d-block w-100" alt="Donaciones"></a>
-      </div>
-      <div class="carousel-item">
-        <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/bottom3.png' %}" class="d-block w-100" alt="Contacto"></a>
+  <div class="barra-pie" style="width: 60%;height: 60%;">
+
+    <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/bottom1.png' %}" class="d-block w-100" alt="Conocenos"></a>
+        </div>
+        <div class="carousel-item">
+          <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/bottom2.png' %}" class="d-block w-100" alt="Donaciones"></a>
+        </div>
+        <div class="carousel-item">
+          <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/bottom3.png' %}" class="d-block w-100" alt="Contacto"></a>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
-</div>
+
 {% endblock %}

@@ -25,6 +25,12 @@ class CalificacionForm(forms.ModelForm):
         model = Calificacion
         fields = ["usuario", "puntuacion", "comentario"]
 
+        widgets = {
+            'comentario' : forms.Textarea(attrs={
+                'rows':5, 
+                'cols':20
+            }),
+        }
         labels = {
             'usuario': 'Usuario'
         }

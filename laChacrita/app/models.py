@@ -14,7 +14,7 @@ class Usuario(models.Model):
     fechaRegistro = models.DateField(auto_now_add = True)
 
     def __str__(self):
-        return self.nombre
+        return (f'{self.nombre} {self.apellido}')
 
 # CATEGORIA PRODUCTO
 class CategoriaProducto(models.Model):
@@ -43,11 +43,11 @@ class Producto(models.Model):
 
 # CALIFICACION 
 opciones_calificacion = [
-    [0,"1"],
-    [1,"2"],
-    [2,"3"],
-    [3,"4"],
-    [4,"5"]
+    [1,"1"],
+    [2,"2"],
+    [3,"3"],
+    [4,"4"],
+    [5,"5"]
 ]
 
 class Calificacion(models.Model):

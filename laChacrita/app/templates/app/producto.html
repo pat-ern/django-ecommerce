@@ -35,49 +35,61 @@
   </div>
 </div>
 <hr>
+
 <div class="d-grid gap-2 col text-center">
-  <button type="button" class="btn bg-light btn-lg mostrar-comentarios" id="btn-toggle">Mostrar/Ocultar Comentarios</button>
+  <button type="button" class="btn bg-light btn-lg text-dark mostrar-comentarios" id="btn-toggle">Mostrar/Ocultar Comentarios</button>
 </div>
+
 <div class="container-fluid comentarios" id="div-comentarios">
   <div class="row">
-    <div class="col-12 col-md-6 col-lg-7">
-      <table class="table mt-4">
-        <thead>
-          <tr class="bg-light">
-            <th>Usuario</th>
-            <th>Puntuacion</th>
-            <th>Comentario</th>
-          </tr>
-        </thead>
-        <tbody id="tabla-tbody">
+    <div class="col-12 col-md-6 col-lg-7 mt-4">
+
           {% for c in comentarios %}
-            <tr>
-              <td>{{c.idUsuario}}</td>
-              <td>{{c.puntuacion}}</td>
-              <td>{{c.comentario}}</td>
-            </tr>
-          {% endfor%}
-        </tbody>
-      </table>
-    </div>
-    <div class="col-12 col-md-6 col-lg-5 seccion-comentar">
-
-
-
-      <form action="" class="form-group" id="commentForm" method="POST" action="">
-        <div class="card-head bg-light text-center div-titulo-comentar">
-          <button type="button" class="btn bg-light text-sucess texto-titulo-comentar" id="btn-toggle-2" style="font-weight: bold;">Comentar</button>
-        </div>
-        {% csrf_token %}
-        {{ form | crispy }}
-        <div class="d-flex justify-content-end mb-2 formulario_grupo_btn_enviar">
-            <button type="reset" class="btn btn-primary mt-1" id="limpiar">Limpiar</button>
+            <div class="card">
+              <div class="card-header">
+                {{c.usuario}}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  {% if c.puntuacion == 1%}
+                    <img src="{% static 'app/img/rating-stars/1.jpg' %}" alt="" width="120" height="auto">
+                  {% elif c.puntuacion == 2%}
+                    <img src="{% static 'app/img/rating-stars/2.jpg' %}" alt="" width="120" height="auto">
+                  {% elif c.puntuacion == 3%}
+                    <img src="{% static 'app/img/rating-stars/3.jpg' %}" alt="" width="120" height="auto">
+                  {% elif c.puntuacion == 4%}
+                    <img src="{% static 'app/img/rating-stars/4.jpg' %}" alt="" width="120" height="auto">
+                  {% elif c.puntuacion == 5%}
+                    <img src="{% static 'app/img/rating-stars/5.jpg' %}" alt="" width="120" height="auto">
+                  {% endif %}</h5>
+                <p class="card-text">{{c.comentario}}</p>
+              </div>
+            </div>
             &nbsp;
-            <button type="submit" class="btn btn-primary mt-1" id="enviar">Enviar</button>
-        </div>
-      </form>
+          {% endfor%}
+          
+    </div>
 
 
+    <div class="col-12 col-md-6 col-lg-5">
+
+
+      <div class="card bg-light mt-4">
+        <form class="form-group" id="commentForm" method="POST" action="">
+          <div class="card-body">
+            <div class="card-title">
+              Comentar
+            </div>
+              {% csrf_token %}
+              {{ form | crispy }}
+            </div>
+            <div class="d-flex justify-content-end me-3">
+              <button type="reset" class="btn btn-primary mt-1" id="limpiar">Limpiar</button>
+              &nbsp;
+              <button type="submit" class="btn btn-primary mt-1" id="enviar">Enviar</button>
+            </div>
+        </form>
+      </div>
 
     </div>
   </div>
