@@ -27,14 +27,15 @@ class CalificacionForm(forms.ModelForm):
 
         widgets = {
             'comentario' : forms.Textarea(attrs={
+                'id':'comentario-txt',
                 'rows':5, 
                 'cols':20,
-                'id':'comentario-txt',
             }),
         }
         labels = {
             'usuario': 'Usuario'
         }
+        
 class ProductoForm(forms.ModelForm):
     
     class Meta:

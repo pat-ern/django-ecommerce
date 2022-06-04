@@ -9,7 +9,7 @@ class Usuario(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
     direccion = models.CharField(max_length=100)
-    correo = models.CharField(max_length=100)
+    correo = models.EmailField()
     fechaNacimiento = models.DateField()
     fechaRegistro = models.DateField(auto_now_add = True)
 
@@ -85,7 +85,7 @@ class AsuntoContacto(models.Model):
 class Contacto(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id contacto")
     nombre = models.CharField(max_length=50)
-    correo = models.EmailField(max_length=50)
+    correo = models.EmailField()
     mensaje = models.TextField(max_length=500)
     checkOfertas = models.BooleanField(verbose_name="Recibir informacion")
     fecha = models.DateField(auto_now_add = True)
@@ -106,7 +106,7 @@ class TipoDonacion(models.Model):
 class Donacion(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id donacion")
     nombre = models.CharField(max_length=100)
-    correo = models.CharField(max_length=50)
+    correo = models.EmailField()
     fecha = models.DateField()
     celular = models.IntegerField()
     monto = models.IntegerField()
