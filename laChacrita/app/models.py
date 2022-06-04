@@ -107,11 +107,11 @@ class Donacion(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id donacion")
     nombre = models.CharField(max_length=100)
     correo = models.EmailField()
-    fecha = models.DateField()
+    fecha = models.DateField(auto_now= True)
     celular = models.IntegerField()
     monto = models.IntegerField()
     tipoDonacion = models.ForeignKey(TipoDonacion, on_delete=models.CASCADE)
     checkInforme = models.BooleanField()
 
     def __str__(self):
-        return self.id
+        return self.nombre
