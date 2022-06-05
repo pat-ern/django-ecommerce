@@ -1,4 +1,3 @@
-from cProfile import label
 from django import forms
 from .models import Contacto, Producto, Calificacion, Donacion
 
@@ -38,7 +37,8 @@ class CalificacionForm(forms.ModelForm):
         
 class ProductoForm(forms.ModelForm):
     
-    precio = forms.IntegerField(min_value=1000) # Para que el precio minimo sea 1000
+    nombre = forms.CharField(min_length=3, label= ("Nombre del producto"))
+    precio = forms.IntegerField(min_value=1000)
     
     class Meta:
         model = Producto
@@ -51,24 +51,29 @@ class ProductoForm(forms.ModelForm):
             }),
             'descripcion' : forms.Textarea(attrs={
                 'rows':5, 
-                'cols':20
+                'cols':20,
+                'minlength':20,
             }),
         }
         labels = {
-            'nombre': 'Nombre del producto',
             'imagen': 'Imagen del producto',
+            'categoria': 'Categor&iacute;a',
         }
 
 class DonacionForm(forms.ModelForm):
     
-    nombre = forms.CharField(min_length=3)
+    nombre = forms.CharField(min_length=3, label= ("Nombre y apellido"))
     monto = forms.IntegerField(min_value=1000)
+    celular = forms.IntegerField(widget=forms.TextInput(
+        attrs={'placeholder': ('123456789'), 'pattern' : ('[0-9]{9}')}), 
+        label= ("Tel&eacute;fono"))
         
     class Meta:
         model = Donacion
         fields = ["nombre", "correo", "celular", "monto", "tipoDonacion", "checkInforme"]
 
         labels = {
-            'nombre': 'Nombre y apellido',
             'correo': 'Correo electr&oacute;nico',
+            'checkInforme' : 'Recibir informacion al correo',
+            'tipoDonacion' : 'Tipo de donaci&oacute;n'
         }

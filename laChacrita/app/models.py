@@ -1,6 +1,7 @@
 from enum import unique
 from tabnanny import verbose
 from django.db import models
+#from phonenumber_field.modelfields import PhoneNumberField
 
 # USUARIO
 class Usuario(models.Model):
@@ -105,7 +106,7 @@ class TipoDonacion(models.Model):
 # DONACION
 class Donacion(models.Model):
     id = models.AutoField(primary_key=True, verbose_name="Id donacion")
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=50)
     correo = models.EmailField()
     fecha = models.DateField(auto_now= True)
     celular = models.IntegerField()
