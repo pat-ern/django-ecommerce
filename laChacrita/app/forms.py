@@ -59,6 +59,9 @@ class ProductoForm(forms.ModelForm):
 
 class DonacionForm(forms.ModelForm):
     
+    nombre = forms.CharField(min_length=3)
+    monto = forms.IntegerField(min_value=1000)
+        
     class Meta:
         model = Donacion
         fields = ["nombre", "correo", "celular", "monto", "tipoDonacion", "checkInforme"]
