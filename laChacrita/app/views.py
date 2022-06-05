@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 
 from .filters import IndexFilter
-from .forms import ContactoForm, ProductoForm, CalificacionForm
+from .forms import ContactoForm, ProductoForm, CalificacionForm, DonacionForm
 from .models import Calificacion, Producto
 
 # INDEX
@@ -67,7 +67,7 @@ def agregarProducto(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Tu producto se agregó correctamente.")
-            return redirect(to="modificar_producto")
+            return redirect(to="index")
         else:
             data["form"] = formulario
     
@@ -140,4 +140,17 @@ def contacto(request):
 
 # DONACIONES
 def donaciones(request):
-    return render(request, 'app/donaciones.html')
+    data = {
+        'form': DonacionForm()
+    }
+    
+    if request.method == 'POST':
+        formulario = DonacionForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "¡Gracias por tu donación!")
+            return redirect(to="index")
+        else:
+            data['form'] = formulario
+    
+    return render(request, 'app/donaciones.html', data)

@@ -12,6 +12,13 @@
 
 {% block js %}
 <script src="{% static 'app/js/validaciones.js' %}"></script>
+
+<script>
+    function back(){
+        window.location.href="/listar/"
+    }
+</script>
+
 {% endblock %}
 
 {% block contenido %}
@@ -30,7 +37,7 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <div class="d-flex justify-content-end mb-2 formulario_grupo_btn_enviar">
-                    <button type="reset" class="btn btn-primary mt-1" id="calcelar">Cancelar</button>
+                    <button type="reset" class="btn btn-primary mt-1" id="calcelar" onclick="back()">Cancelar</button>
                     &nbsp;
                     <button type="submit" class="btn btn-primary mt-1" id="enviar">Modificar</button>
                 </div>

@@ -1,6 +1,6 @@
 from cProfile import label
 from django import forms
-from .models import Contacto, Producto, Calificacion
+from .models import Contacto, Producto, Calificacion, Donacion
 
 class ContactoForm(forms.ModelForm):
 
@@ -55,4 +55,18 @@ class ProductoForm(forms.ModelForm):
         labels = {
             'nombre': 'Nombre del producto',
             'imagen': 'Imagen del producto',
+        }
+
+class DonacionForm(forms.ModelForm):
+    
+    nombre = forms.CharField(min_length=3)
+    monto = forms.IntegerField(min_value=1000)
+        
+    class Meta:
+        model = Donacion
+        fields = ["nombre", "correo", "celular", "monto", "tipoDonacion", "checkInforme"]
+
+        labels = {
+            'nombre': 'Nombre y apellido',
+            'correo': 'Correo electr&oacute;nico',
         }
