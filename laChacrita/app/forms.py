@@ -38,6 +38,8 @@ class CalificacionForm(forms.ModelForm):
         
 class ProductoForm(forms.ModelForm):
     
+    precio = forms.IntegerField(min_value=1000) # Para que el precio minimo sea 1000
+    
     class Meta:
         model = Producto
         fields = ["nombre", "categoria", "precio", "descripcion", "imagen"]
