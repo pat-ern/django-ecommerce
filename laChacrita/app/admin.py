@@ -15,7 +15,7 @@ class AsuntoAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class TipoDonacionAdmin(admin.ModelAdmin):
-    list_display = ["id", "nombre"]
+    list_display = ["nombre", "id"]
     ordering = ('id',)
 
 class CalificacionAdmin(admin.ModelAdmin):

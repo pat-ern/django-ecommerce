@@ -12,6 +12,8 @@
 
 {% block js %}
 <script src="{% static 'app/js/validaciones.js' %}"></script>
+<script src="{% static 'app/js/jqueryvalidate.js' %}"></script>
+<script src="{% static 'app/js/donaciones.js' %}"></script>
 {% endblock %}
 
 {% block contenido %}
@@ -30,8 +32,10 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 
-                <div class="mb-2 formulario_grupo_btn_enviar">
-                    <button type="submit" class="btn btn-primary" id="enviar">Donar</button>
+                <div class="d-flex justify-content-end me-2 mb-3">
+                    <button type="reset" class="btn btn-primary" id="limpiar-btn">Limpiar</button>
+                     &nbsp;&nbsp;
+                    <button type="submit" class="btn btn-primary" id="enviar-btn">Enviar</button>
                 </div>
 
             </form>

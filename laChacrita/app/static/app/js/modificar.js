@@ -10,6 +10,9 @@ $(document).ready(function(){
       });
 
     document.querySelector("#enviar-btn").addEventListener("click", ()=> {
-      $("#commentForm").valid();
+      if ($("#commentForm").valid()){
+      } else {
+          alert("Debes ingresar todos los campos.");
+      }
     });
 });

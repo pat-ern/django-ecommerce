@@ -1,7 +1,15 @@
 from enum import unique
 from tabnanny import verbose
 from django.db import models
-#from phonenumber_field.modelfields import PhoneNumberField
+from django.forms import ValidationError
+
+
+def validate_geeks_mail(value):
+    if "@gmail.com" in value:
+        return value
+    else:
+        raise ValidationError("This field accepts mail id of google only")
+ 
 
 # USUARIO
 class Usuario(models.Model):
@@ -109,7 +117,7 @@ class Donacion(models.Model):
     nombre = models.CharField(max_length=50)
     correo = models.EmailField()
     fecha = models.DateField(auto_now= True)
-    celular = models.IntegerField()
+    telefono = models.IntegerField()
     monto = models.IntegerField()
     tipoDonacion = models.ForeignKey(TipoDonacion, on_delete=models.CASCADE)
     checkInforme = models.BooleanField()
