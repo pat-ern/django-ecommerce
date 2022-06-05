@@ -47,31 +47,16 @@ class ContactoForm(forms.ModelForm):
 
 class DonacionForm(forms.ModelForm):
     
-    nombre = forms.CharField(min_length=5, widget=forms.TextInput(
-        attrs={'id':'nombre'}))
-
-    correo = forms.CharField(widget= forms.EmailInput(
-        attrs={'id':'correo'}))
-
-    #telefono = forms.IntegerField(widget=forms.NumberInput(
-    #    attrs={'id':'telefono', 'placeholder': ('123456789'), 'pattern' : ("[0-9]{9}")}), 
-    #    label= ("Tel&eacute;fono"))  
-
-    monto = forms.IntegerField(widget=forms.TextInput(
-        attrs={'type':'number','id':'monto', 'min':'1000'}))
+    nombre = forms.CharField(min_length=5)
+    monto = forms.IntegerField(min_value=1000)
+    telefono = forms.IntegerField(widget=forms.TextInput(
+        attrs={'placeholder': ('123456789'), 'pattern' : ("[0-9]{9}")}), 
+        label= ("Tel&eacute;fono"))  
 
     class Meta:
         model = Donacion
         fields = ["nombre", "correo", "telefono", "monto", "tipoDonacion", "checkInforme"]
 
-        widgets = {
-            'telefono' : forms.TextInput(attrs={
-                'type':'tel',
-                'id':'telefono',
-                'placeholder':('123456789'),
-                'pattern':'([0-9]{9})'
-            }),
-        }
         labels = {
             'correo': 'Correo electr&oacute;nico',
             'checkInforme' : 'Recibir informacion al correo',
