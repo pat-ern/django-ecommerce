@@ -5,11 +5,6 @@
 <title>Listar Productos</title>
 {% endblock %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'app/css/formularios.css' %}">
-<link rel="stylesheet" href="{% static 'app/css/validaciones.css' %}">
-{% endblock %}
-
 {% block js %}
 <script>
     function eliminarProducto(id){
@@ -36,6 +31,7 @@
 {% block contenido %}
 {% load crispy_forms_tags %}
 {% load humanize %}
+
 <main class="container">
         <table class="table mt-4" id="categorias">
             <thead class="table-success">

@@ -1,0 +1,16 @@
+{% load static %}
+{% if paginator.num_pages > 1%}
+    <div class="d-flex justify-content-center">
+        <div class="pagination pagination-lg">
+            {% if productos.has_previous %}        
+                <a class="container" href="?page={{productos.previous_page_number}}#pagtable">
+                    <img src="{% static 'app/img/previous.png' %}" alt="" width="50" height="auto">
+                </a>&nbsp;
+            {% else %}
+                <div class="container" href="#">
+                    <img src="{% static 'app/img/previous2.png' %}" alt="" width="50" height="auto">
+                </div>&nbsp;
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

@@ -9,6 +9,10 @@
 <link rel="stylesheet" href="{% static 'app/css/producto.css' %}">
 {% endblock %}
 
+{% block js %}
+<script src="{% static 'app/js/producto.js' %}"></script> 
+{% endblock %}
+
 {% block contenido %}
 {% load crispy_forms_tags %}
 {% load humanize %}
