@@ -32,14 +32,14 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container">
-        <table class="table mt-4" id="categorias">
-            <thead class="table-success">
+<main class="container table-responsive col-lg-9">
+        <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
+            <thead>
                 <tr>
-                    <th scope="col">Nombre Producto</th>
+                    <th scope="col">Producto</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Precio</th>
-                    <th scope="col" style="text-align:center;">Acci&oacute;n</th>
+                    <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
                 </tr>
             </thead>
                 {% for p in productos %}

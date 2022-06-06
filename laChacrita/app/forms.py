@@ -1,20 +1,33 @@
 from django import forms
 from .models import Contacto, Producto, Calificacion, Donacion
+from .validators import MaxSizeFileValidator
+from django.forms import ValidationError
 
 class ProductoForm(forms.ModelForm):
     
     nombre = forms.CharField(min_length=3, label= ("Nombre del producto"))
     precio = forms.IntegerField(min_value=1000)
+    imagen = forms.ImageField(
+        widget=forms.FileInput(attrs={'class': 'form-control'}), 
+        required=False, 
+        validators=[MaxSizeFileValidator(max_file_size=2)],
+        label = 'Imagen del producto')
+
+
+    def clean_nombre(self):
+        nombre = self.cleaned_data["nombre"]
+        existe = Producto.objects.filter(nombre=nombre).exists()
+
+        if existe:
+            raise ValidationError("Este nombre ya existe")
+
+        return nombre
     
     class Meta:
         model = Producto
         fields = ["nombre", "categoria", "precio", "descripcion", "imagen"]
         
         widgets = {
-            'imagen': forms.FileInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'lorem ipsum',
-            }),
             'descripcion' : forms.Textarea(attrs={
                 'rows':5, 
                 'cols':20,
@@ -22,7 +35,6 @@ class ProductoForm(forms.ModelForm):
             }),
         }
         labels = {
-            'imagen': 'Imagen del producto',
             'categoria': 'Categor&iacute;a',
         }
 

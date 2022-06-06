@@ -4,11 +4,11 @@ from .models import Usuario, CategoriaProducto, Producto, Calificacion, CompraPr
 # Register your models here.
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ["id", "nombre", "categoria", "precio"]
+    list_display = ["nombre", "categoria", "precio"]
     list_editable = ["categoria","precio"]
     search_fields = ["nombre"]
     list_per_page = 20
-    ordering = ('id',)
+    ordering = ('-id',)
 
 class AsuntoAdmin(admin.ModelAdmin):
     list_display = ["nombre", "id"]

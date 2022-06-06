@@ -23,13 +23,14 @@
         <img src="{{ producto.imagen.url }}" class="card-img-top img-fluid" alt="...">
       </div>
     </div>
-    <div class="container col-12 col-md-6 col-lg-7">
+    <div class="container col-12 col-md-6 col-lg-7 mt-3">
       <h3 style="padding-top: 5px; font-weight: bold; color: #444444;">{{producto.nombre}}</h3>
       <hr>
       <h4>Descripción:</h4>
       <p class="descripcion-producto">{{producto.descripcion}}</p>
       <h3>${{producto.precio | intcomma }}</h3>
-      <button type="button" class="btn me-2">Añadir al carrito</button>
+      <br>
+      <button type="button" class="btn btn-lg">Añadir al carrito</button>
     </div>
   </div>
 </div>
