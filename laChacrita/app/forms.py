@@ -12,16 +12,6 @@ class ProductoForm(forms.ModelForm):
         required=False, 
         validators=[MaxSizeFileValidator(max_file_size=2)],
         label = 'Imagen del producto')
-
-
-    def clean_nombre(self):
-        nombre = self.cleaned_data["nombre"]
-        existe = Producto.objects.filter(nombre=nombre).exists()
-
-        if existe:
-            raise ValidationError("Este nombre ya existe")
-
-        return nombre
     
     class Meta:
         model = Producto
