@@ -3,7 +3,6 @@
 body {
     font-family: 'Crimson Pro', serif;
     font-size:  23px;
-    margin-bottom: 50px;
 }
 
 /* HEADER */
@@ -81,9 +80,10 @@ footer {
     color: black;
     padding-left: 30px;
     padding-right: 30px;
-    position: fixed;
     width: 100%;
-    bottom: 0;
+    height: 50px;
+    margin-top: 20px;
+
 }
 
 .py-3{

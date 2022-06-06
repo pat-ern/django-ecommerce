@@ -11,7 +11,7 @@
     {% block css %}
     {% endblock %}
 
-    <link rel="stylesheet" href="{% static 'app/css/estilo.css'%}"/>
+    <link rel="stylesheet" href="{% static 'app/css/base.css'%}"/>
 
     {% block titulo %}
     {% endblock %}
@@ -22,7 +22,7 @@
       <nav class="navbar navbar-light" style="padding: 0; border-width: 0;" id="navbarlogo">
         <div class="container-fluid justify-content-md-center">
           <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'app/img/la-chacrita.png' %}" alt="" width="130" height="auto">
+            <img src="{% static 'app/img/la-chacrita.png' %}" alt="" width="170px" height="auto">
           </a>
         </div>
       </nav>
@@ -100,7 +100,7 @@
         <a class="navbar-brand" href="{% url 'index' %}">
           <img src="{% static 'app/img/logo.png' %}" alt="" width="70" height="auto">
         </a>
-        <span class="text" style="color: #444444;">© 2022 La Chacrita, Inc</span>
+        <span class="text" style="color: #444444;">© La Chacrita</span>
       </div>
 
       <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">

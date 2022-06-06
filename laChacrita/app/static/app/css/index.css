@@ -1,10 +1,5 @@
 /* MAIN */
 
-#contenido {
-    padding: 5;
-    margin-bottom: 70px;
-}
-
 /*Busqueda y Filtros */
 
 .filtros {
@@ -66,18 +61,11 @@ h2 {
 
 /*Carrusel lateral e inferior */
 
-.barra-lateral {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
-    border-radius: 5px;
-}
-
 .barra-lateral .carousel-item img {
     position: fixed;
     top: 139px;
     right: 30px;
-    margin-top: 27px;
+    margin-top: 53px;
     border-radius: 5px;
     width: 260px;
     height: auto;
@@ -98,7 +86,7 @@ h2 {
         display: none;
     }
     .barra-pie{
-        display: inline;
+        display:inline-block;
     }
 }
 
@@ -112,7 +100,7 @@ h2 {
 /*Estilo Api*/
 
 #contenedor {
-    border-radius: 5%;
+    background: linear-gradient(to bottom,  #B2CDD6 50%,#f3f6f4 100%);  
 }
 
 #caja1, #caja2, #caja3 {
@@ -120,28 +108,15 @@ h2 {
     vertical-align: middle;
     width: 100%;
     height: auto;
+    color: rgb(14, 34, 53);
 }
 
-#caja1 {
-    background: #5eaca3; 
-    color:azure;    
+#ubicacion {
+    padding-top: 10px;
 }
-#caja2 {
-    background: #5b8cb7;  
-    color:azure;    
-    font-size: 18px;
-}
+
 #caja3 {
-    background: #5eac7d;
-    color:azure;    
-}
-
-#temperatura-descripcion {
-    margin-bottom: 0;
-}
-
-#temperatura-valor {
-    margin-bottom: 0;
+    padding-bottom: 25px;
 }
 
 @media screen and (max-width:768px) {

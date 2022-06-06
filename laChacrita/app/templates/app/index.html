@@ -26,6 +26,7 @@
 {% block contenido %}
 
 <!--CONTENIDO SUPERIOR-->
+
 <div class="row">
   
   <!--FILTROS-->
@@ -38,18 +39,20 @@
       </form>
       <hr>
       <!--API-->
-      <div class="container" id="contenedor">
-        <div id="caja2">
+      <div class="container-fluid p-0" id="contenedor">
+        <div class="text-center" style="background:#B2CDD6;">
           <p id="ubicacion" style="font-weight: bold; margin-bottom: 0px;"></p>
+        </div> 
+        <div id="caja2">
           <img id="icono-animado" src="" alt="" height="80" width="80">
         </div>
         <div id="caja1">
-            <p id="temperatura-valor" style="font-weight: bold;"></p>
-            <p id="temperatura-descripcion"></p>
+            <p class="mb-0" id="temperatura-valor" style="font-weight: bold;"></p>
+            <p class="mb-0" id="temperatura-descripcion"></p>
         </div>
         <div id="caja3">
-            <p>Veloc. del Viento</p>
-            <p id="viento-velocidad"></p>
+            <p class="mb-0">Velocidad del viento</p>
+            <p class="mb-0" id="viento-velocidad"></p>
         </div>
       </div>
   </div>
@@ -73,8 +76,7 @@
         </div>
       </div>
       {% endfor %}
-    </div><br>
-    {% include 'app/snippets/paginator.html' %}
+    </div>
   </div>
 
   <!--CARRUSEL LATERAL-->
@@ -96,25 +98,28 @@
   </div>
   
 </div> 
-
+<br>
+{% include 'app/snippets/paginator.html' %}
+<br>
 <!--CARRUSEL INFERIOR-->
-<div class="row">
-  <div class="barra-pie" style="width: 60%;height: 60%;">
+<div class="img-fluid">
+  <div class="row">
+    <div class="barra-pie" style="width: 100%;height: auto;">
 
-    <div id="carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/bottom1.png' %}" class="d-block w-100" alt="Conocenos"></a>
-        </div>
-        <div class="carousel-item">
-          <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/bottom2.png' %}" class="d-block w-100" alt="Donaciones"></a>
-        </div>
-        <div class="carousel-item">
-          <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/bottom3.png' %}" class="d-block w-100" alt="Contacto"></a>
+      <div id="carousel " class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000" data-pause="hover">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <a title="conocenos" href="{% url 'conocenos' %}"><img src="{% static 'app/img/bottom1.png' %}" class="d-block w-100" alt="Conocenos"></a>
+          </div>
+          <div class="carousel-item">
+            <a title="donacion" href="{% url 'donaciones' %}"><img src="{% static 'app/img/bottom2.png' %}" class="d-block w-100" alt="Donaciones"></a>
+          </div>
+          <div class="carousel-item">
+            <a title="contacto" href="{% url 'contacto' %}"><img src="{% static 'app/img/bottom3.png' %}" class="d-block w-100" alt="Contacto"></a>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
