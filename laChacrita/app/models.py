@@ -41,7 +41,7 @@ class Producto(models.Model):
     descripcion = models.TextField(max_length=500)
     categoria = models.ForeignKey(CategoriaProducto, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to="productos", null=True)
-    puntuacionProm = models.IntegerField(default=True, null=True)
+    puntuacion_avg = models.IntegerField(default=True, null=True)
     #vendedor = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
