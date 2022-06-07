@@ -33,6 +33,10 @@ class Index(FilteredIndex):
     template_name= 'app/index.html'
 
 # PRODUCTO
+
+# recibe queryset, devuelve un integer
+# def calcularPromedio(dict)
+
 def producto(request, id):
     comentarios = Calificacion.objects.filter(idProducto=id).order_by('-id')
     producto = get_object_or_404(Producto, id=id)
@@ -53,6 +57,17 @@ def producto(request, id):
                 return redirect('producto')
         else:
             data["form"] = formulario
+
+    # query de puntuaciones por id producto
+    
+    puntuaciones = Calificacion.objects.filter(idProducto=id).values('puntuacion')
+    print(puntuaciones)
+    for i in puntuaciones:
+        print(i)
+    # update en tabla producto por id producto
+    # prod = Product.objects.get(id=id)
+    # prod.puntuacionProm = calcularPromedio(puntuaciones)
+    # prod.save()
 
     return render(request, 'app/producto.html', data)
 
