@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'bootstrapform',
     'phonenumber_field',
+    'rest_framework',
+    'rest',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

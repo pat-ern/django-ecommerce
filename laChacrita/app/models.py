@@ -3,14 +3,6 @@ from tabnanny import verbose
 from django.db import models
 from django.forms import ValidationError
 
-
-def validate_geeks_mail(value):
-    if "@gmail.com" in value:
-        return value
-    else:
-        raise ValidationError("This field accepts mail id of google only")
- 
-
 # USUARIO
 class Usuario(models.Model):
     rut = models.IntegerField(primary_key=True)
