@@ -168,3 +168,20 @@ def donaciones(request):
             data['form'] = formulario
     
     return render(request, 'app/donaciones.html', data)
+
+# LISTAR API
+def listarProductoApi(request):
+    productos = Producto.objects.all().order_by('-id')
+    page = request.GET.get('page', 1)
+    try:
+        paginator = Paginator(productos, 10)
+        productos = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        "productos" : productos,
+        "paginator" : paginator
+    }
+    
+    return render(request, 'app/api/listar_api.html', data)

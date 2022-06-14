@@ -1,0 +1,71 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Listar Productos</title>
+{% endblock %}
+
+{% block js %}
+<script>
+
+    $(document).ready(function(){
+        $.get("http://127.0.0.1:8000/api/lista_productos",
+        function(data){
+            console.log(data)
+            //en data capturo lo que me retorna la API
+            $.each(data, function(i,item){
+                //por cada item agrego una nueva fila a mi tabla
+                $("#productos").append("<tr><td>"+ item.nombre+
+                    "</td><td>" + item.categoria+
+                    "</td><td>"+item.precio+"</td></tr>"
+                );
+            });
+        });
+    })
+
+    function eliminarProducto(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"warning",
+            "showCancelButton":true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#558F67",
+            "cancelButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href="/eliminar/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+<main class="container table-responsive col-lg-9">
+        <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
+            <thead>
+                <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
+                </tr>
+            </thead>
+            <tbody id="productos">
+
+            </tbody>
+        </table>
+        
+    <div>
+        {% include 'app/snippets/paginator2.html' %}
+    </div>
+
+</main>  
+{% endblock %}

@@ -17,7 +17,7 @@ def lista_productos(request):
         productos = Producto.objects.all().order_by('id')
         serializer = ProductoSerializer(productos, many = True)
         return Response(serializer.data)
-
+    
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = ProductoSerializer(data = data)
@@ -26,17 +26,17 @@ def lista_productos(request):
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        
+
 @csrf_exempt
 @api_view(['GET','PUT','DELETE'])
 
 def detalle_producto(request, nombre):
-    
+
     try: # se busca producto por nombre
         producto = Producto.objects.get(nombre=nombre)
     except Producto.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
-    
+
     if request.method == 'GET': #se obtienen datos de UN producto por nombre
         serializer = ProductoSerializer(producto)
         return Response(serializer.data)
