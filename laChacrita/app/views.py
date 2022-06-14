@@ -7,7 +7,7 @@ from django.views.generic import ListView
 
 from .filters import IndexFilter
 from .forms import ContactoForm, ProductoForm, CalificacionForm, DonacionForm
-from .models import Calificacion, Producto
+from .models import Calificacion, Producto, Usuario
 from .customers import calcular_promedio
 
 # INDEX
@@ -51,28 +51,18 @@ def producto(request, id):
         formulario = CalificacionForm(data=request.POST)
 
         if formulario.is_valid():
-
-            # por medio de form se actualiza registro en CalificacionProducto
-            calificacion = formulario.save(commit=False) #no confirmado
-            #se asigna id de producto (no entra por form)
+            # se actualiza registro en modelo
+            calificacion = formulario.save(commit=False) 
             calificacion.idProducto = producto.id 
             calificacion.save()
 
-            # select a puntuacion en calificacion por id producto (lista)
+            # promedio calificaciones y actualizacion de producto
             puntuaciones = Calificacion.objects.values_list('puntuacion', flat=True).filter(idProducto=id)
-        
-            # update en tabla producto por id producto
             prod = Producto.objects.get(id=id)
             prod.puntuacion_avg = calcular_promedio(puntuaciones)
             prod.save()
 
-            # actualiza producto en el view
             data["producto"] = prod
-
-            messages.success(request, "Comentario enviado.")
-
-            def handler404(request, *args, **argv):
-                return redirect('producto')
 
         else:
             data["form"] = formulario

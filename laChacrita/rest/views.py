@@ -17,6 +17,7 @@ def lista_productos(request):
         productos = Producto.objects.all().order_by('id')
         serializer = ProductoSerializer(productos, many = True)
         return Response(serializer.data)
+
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = ProductoSerializer(data = data)
@@ -40,7 +41,7 @@ def detalle_producto(request, nombre):
         serializer = ProductoSerializer(producto)
         return Response(serializer.data)
     
-    if request.method == 'PUT': #se obtienen datos de UN producto por nombre
+    if request.method == 'PUT': #se actualizan datos de UN producto por nombre
         data = JSONParser().parse(request)
         serializer = ProductoSerializer(producto, data = data)
        

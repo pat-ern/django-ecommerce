@@ -7,6 +7,3 @@
 [x] Implementar formulario de contacto
 [x] Implementar formulario de donacion
 [ ] Crear sistema de login y registro de usuario
-
-Pack Iconos
-https://www.flaticon.es/packs/farming-162
