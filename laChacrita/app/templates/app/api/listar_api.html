@@ -15,9 +15,10 @@
             //en data capturo lo que me retorna la API
             $.each(data, function(i,item){
                 //por cada item agrego una nueva fila a mi tabla
-                $("#productos").append("<tr><td>"+ item.nombre+
-                    "</td><td>" + item.categoria+
-                    "</td><td>"+item.precio+"</td></tr>"
+                $("#productos").append(
+                    "<tr><td>" + item.nombre +
+                    "</td><td>" + item.categoria +
+                    "</td><td>" + item.precio + "</td></tr>"
                 );
             });
         });
@@ -55,17 +56,12 @@
                     <th scope="col">Producto</th>
                     <th scope="col">Categoria</th>
                     <th scope="col">Precio</th>
-                    <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
                 </tr>
             </thead>
             <tbody id="productos">
 
             </tbody>
         </table>
-        
-    <div>
-        {% include 'app/snippets/paginator2.html' %}
-    </div>
 
 </main>  
 {% endblock %}

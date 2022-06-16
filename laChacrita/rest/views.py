@@ -1,16 +1,19 @@
 from django.shortcuts import render
 from rest_framework import status 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
 from app.models import Producto
 from .serializers import ProductoSerializer
 
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
 @csrf_exempt
 @api_view(['GET','POST'])
-
+@permission_classes((IsAuthenticated,))
 def lista_productos(request):
     #discriminar si es GET o POST
     if request.method == 'GET':
@@ -29,7 +32,7 @@ def lista_productos(request):
 
 @csrf_exempt
 @api_view(['GET','PUT','DELETE'])
-
+@permission_classes((IsAuthenticated,))
 def detalle_producto(request, nombre):
 
     try: # se busca producto por nombre
