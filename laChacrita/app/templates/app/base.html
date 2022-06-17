@@ -46,7 +46,7 @@
                   <a class="nav-link " href="{% url 'conocenos' %}">Nosotros</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="{% url 'donaciones' %}">Colabora</a>
+                  <a class="nav-link " href="{% url 'suscripcion' %}">Colabora</a>
                 </li>
                 </li>
                 <li class="nav-item">
@@ -62,9 +62,11 @@
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="{% url 'listar_producto' %}">Productos</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="{% url 'suscripciones' %}">Suscripciones</a></li>
+                    <li><a class="dropdown-item" href="#">Clientes</a></li>
                     <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="{% url 'listar_producto' %}">Pedidos</a></li>
+                    <li><a class="dropdown-item" href="#">Pedidos</a></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a class="dropdown-item" href="{% url 'suscripciones' %}">Suscripciones</a></li>
                   </ul>
                 </li>
               </ul>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Usuario, CategoriaProducto, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoDonacion, Donacion
+from .models import TipoSuscripcion, Usuario, CategoriaProducto, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoSuscripcion, Suscripcion
 
 # Register your models here.
 
@@ -14,8 +14,12 @@ class AsuntoAdmin(admin.ModelAdmin):
     list_display = ["nombre", "id"]
     ordering = ('id',)
 
-class TipoDonacionAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "id"]
+class TipoSuscripcionAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "id", "monto"]
+    ordering = ('id',)
+
+class SuscripcionAdmin(admin.ModelAdmin):
+    list_display = ["id", "nombre", "correo", "fecha", "telefono", "tipo_suscripcion", "recibe_informe"]
     ordering = ('id',)
 
 class CalificacionAdmin(admin.ModelAdmin):
@@ -37,5 +41,5 @@ admin.site.register(Calificacion, CalificacionAdmin)
 admin.site.register(CompraProducto)
 admin.site.register(AsuntoContacto, AsuntoAdmin)
 admin.site.register(Contacto, ContactoAdmin)
-admin.site.register(TipoDonacion, TipoDonacionAdmin)
-admin.site.register(Donacion)
+admin.site.register(TipoSuscripcion, TipoSuscripcionAdmin)
+admin.site.register(Suscripcion, SuscripcionAdmin)

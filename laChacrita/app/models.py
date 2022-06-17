@@ -96,24 +96,24 @@ class Contacto(models.Model):
     def __str__(self):
         return self.nombre
 
-# TIPO DONACION
-class TipoDonacion(models.Model):
-    id = models.IntegerField(primary_key=True, verbose_name="Id tipo de donacion")
-    nombre = models.CharField(max_length=50, verbose_name="Nombre tipo de donacion")
+# TIPO SUSCRIPCION
+class TipoSuscripcion(models.Model):
+    id = models.IntegerField(primary_key=True, verbose_name="Id tipo de suscripcion")
+    nombre = models.CharField(max_length=50, verbose_name="Nombre tipo de suscripcion")
+    monto = models.IntegerField(default = 0, verbose_name="Monto de suscripcion")
 
     def __str__(self):
         return self.nombre
 
 # DONACION
-class Donacion(models.Model):
-    id = models.AutoField(primary_key=True, verbose_name="Id donacion")
+class Suscripcion(models.Model):
+    id = models.AutoField(primary_key=True, verbose_name="Id suscripcion")
     nombre = models.CharField(max_length=50)
     correo = models.EmailField()
     fecha = models.DateField(auto_now= True)
     telefono = models.IntegerField()
-    monto = models.IntegerField()
-    tipoDonacion = models.ForeignKey(TipoDonacion, on_delete=models.CASCADE)
-    checkInforme = models.BooleanField()
+    tipo_suscripcion = models.ForeignKey(TipoSuscripcion, on_delete=models.CASCADE)
+    recibe_informe = models.BooleanField()
 
     def __str__(self):
         return self.nombre

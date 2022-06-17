@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 
 from .filters import IndexFilter
-from .forms import ContactoForm, ProductoForm, CalificacionForm, DonacionForm
+from .forms import ContactoForm, ProductoForm, CalificacionForm, SuscripcionForm
 from .models import Calificacion, Producto, Usuario
 from .customers import calcular_promedio
 
@@ -152,14 +152,17 @@ def contacto(request):
 
     return render(request, 'app/contacto.html', data)
 
-# DONACIONES
-def donaciones(request):
+# SUSCRIPCION
+def suscripcion(request):
     data = {
-        'form': DonacionForm()
+        'form': SuscripcionForm()
     }
+
+    print(data)
     
     if request.method == 'POST':
-        formulario = DonacionForm(data=request.POST)
+        formulario = SuscripcionForm(data=request.POST)
+        print(formulario)
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "¡Gracias por tu donación!")
@@ -167,7 +170,7 @@ def donaciones(request):
         else:
             data['form'] = formulario
     
-    return render(request, 'app/donaciones.html', data)
+    return render(request, 'app/suscripcion.html', data)
 
 # LISTAR API
 def suscripciones(request):
@@ -184,4 +187,4 @@ def suscripciones(request):
         "paginator" : paginator
     }
     
-    return render(request, 'app/api/listar_api.html', data)
+    return render(request, 'app/suscripciones/listar.html', data)
