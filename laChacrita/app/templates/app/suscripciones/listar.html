@@ -7,21 +7,6 @@
 
 {% block js %}
 <script>
-
-    $(document).ready(function(){
-        $.get("http://127.0.0.1:8000/api/lista_suscripcion",
-        function(data){
-            $.each(data, function(i,item){
-                $("#productos").append(
-                    "<tr><td>" + item.id + "</td><td>" + item.nombre +
-                    "</td><td>" + item.correo + "</td><td>" + item.fecha + 
-                    "</td><td>" + item.telefono + "</td><td>" + item.recibe_informe +
-                    "</td><td>" + item.tipo_suscripcion + "</td></tr>"
-                );
-            });
-        });
-    })
-
     function eliminarSuscripcion(id){
         Swal.fire({
             "title":"¿Estás seguro?",
@@ -58,21 +43,41 @@
                 <th scope="col">Correo</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Tel&eacute;fono</th>
-                <th scope="col">Informe</th>
                 <th scope="col">Suscripci&oacute;n</th>
+                <th scope="col">Informe</th>
+                <th scope="col">Acci&oacute;n</th>
             </tr>
         </thead>
         <tbody id="productos">
-            {% for p in todos %}
+            {% for p in suscripciones %}
             <tr>
                 <td>{{p.id}}</td>
                 <td>{{p.nombre}}</td>
                 <td>{{p.correo}}</td>
                 <td>{{p.fecha}}</td>
                 <td>{{p.telefono}}</td>
-                <td>{{p.informe}}</td>
-                <td style="text-align:center;"> <a href="#"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
-                <a href="#" onclick="eliminarSuscripcion({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
+                <td>                   
+                    {% if p.tipo_suscripcion == 1 %}
+                        Basica
+                    {% elif p.tipo_suscripcion == 2 %}
+                        Estandar
+                    {% elif p.tipo_suscripcion == 3 %}
+                        Premium
+                    {% endif %}
+                </td>
+                <td> 
+                    {% if p.recibe_informe == True %}
+                        Si
+                    {% elif p.recibe_informe == False %}
+                        No
+                    {% endif %}
+                </td>
+
+                <td style="text-align:center;"> 
+                    <a href="#"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
+                    &nbsp;&nbsp;
+                    <a href="#" onclick="eliminarSuscripcion({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
+                </td>
             </tr>
             {% endfor%}
         </tbody>

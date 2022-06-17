@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import ListView
@@ -9,9 +9,13 @@ from rest.serializers import SuscripcionSerializer
 
 from .filters import IndexFilter
 from .forms import ContactoForm, ProductoForm, CalificacionForm, SuscripcionForm
-from .models import Calificacion, Producto, Usuario
+from .models import Calificacion, Producto
 from .customers import calcular_promedio
 import requests
+
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser
+from rest_framework import status 
 
 # INDEX
 class FilteredIndex(ListView):
@@ -52,7 +56,6 @@ def producto(request, id):
     if request.method == 'POST':
 
         formulario = CalificacionForm(data=request.POST)
-
         if formulario.is_valid():
             # se actualiza registro en modelo
             calificacion = formulario.save(commit=False) 
@@ -157,16 +160,16 @@ def contacto(request):
 
 # SUSCRIPCION
 def suscripcion(request):
+    
     data = {
         'form': SuscripcionForm()
     }
-
-    print(data)
     
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
         print(formulario)
         if formulario.is_valid():
+            print('todo ok')
             formulario.save()
             messages.success(request, "¡Gracias por tu donación!")
             return redirect(to="index")
@@ -175,20 +178,10 @@ def suscripcion(request):
     
     return render(request, 'app/suscripcion.html', data)
 
-# LISTAR API
+# LISTAR SUSCRIPCIONES (REST)
 def suscripciones(request):
     response = requests.get("http://127.0.0.1:8000/api/lista_suscripcion").json()
-    suscripciones = SuscripcionSerializer(data = response)
-    #suscripciones = Producto.objects.all().order_by('-id')
-    #page = request.GET.get('page', 1)
-    #try:
-    #    paginator = Paginator(suscripciones, 10)
-    #    suscripciones = paginator.page(page)
-    #except:
-    #    raise Http404
-
     data = {
-        "suscripciones" : suscripciones
+        'suscripciones' : response
     }
-    
     return render(request, 'app/suscripciones/listar.html', data)
