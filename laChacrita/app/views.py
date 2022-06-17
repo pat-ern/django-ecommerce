@@ -170,7 +170,7 @@ def donaciones(request):
     return render(request, 'app/donaciones.html', data)
 
 # LISTAR API
-def listarProductoApi(request):
+def suscripciones(request):
     productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
     try:

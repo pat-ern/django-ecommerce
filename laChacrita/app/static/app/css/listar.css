@@ -1,4 +1,10 @@
-.col-10{
-    display: inline-block;
-    vertical-align: middle;
+tr > td > a {
+    color: black;
+    text-decoration-line: none; 
+    font-weight: bold;
 }
+
+tr > td > a:hover {
+    color: green;
+    text-decoration-line: none; 
+}   

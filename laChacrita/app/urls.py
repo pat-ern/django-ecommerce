@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import producto, conocenos, contacto, donaciones, agregarProducto, listarProducto, modificarProducto, eliminarProducto, listarProductoApi
+from .views import producto, conocenos, contacto, donaciones, agregarProducto, listarProducto, modificarProducto, eliminarProducto, suscripciones
 from . import views
 
 urlpatterns = [
@@ -12,6 +12,6 @@ urlpatterns = [
     path('listar/', listarProducto, name="listar_producto"), 
     path('modificar/<id>/', modificarProducto, name="modificar_producto"), 
     path('eliminar/<id>/', eliminarProducto, name="eliminar_producto"), 
-    path('listar_api/', listarProductoApi, name="listar_api"), 
+    path('suscripciones/', suscripciones, name="suscripciones"), 
 
 ]
