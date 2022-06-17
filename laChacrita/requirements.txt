@@ -11,3 +11,4 @@ django-widget-tweaks==1.4.12
 django-phonenumber-field[phonenumbers]
 Pillow==9.1.1
 django-rest-framework
+requests

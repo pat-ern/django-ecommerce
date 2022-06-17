@@ -5,10 +5,13 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import ListView
 
+from rest.serializers import SuscripcionSerializer
+
 from .filters import IndexFilter
 from .forms import ContactoForm, ProductoForm, CalificacionForm, SuscripcionForm
 from .models import Calificacion, Producto, Usuario
 from .customers import calcular_promedio
+import requests
 
 # INDEX
 class FilteredIndex(ListView):
@@ -174,17 +177,18 @@ def suscripcion(request):
 
 # LISTAR API
 def suscripciones(request):
-    productos = Producto.objects.all().order_by('-id')
-    page = request.GET.get('page', 1)
-    try:
-        paginator = Paginator(productos, 10)
-        productos = paginator.page(page)
-    except:
-        raise Http404
+    response = requests.get("http://127.0.0.1:8000/api/lista_suscripcion").json()
+    suscripciones = SuscripcionSerializer(data = response)
+    #suscripciones = Producto.objects.all().order_by('-id')
+    #page = request.GET.get('page', 1)
+    #try:
+    #    paginator = Paginator(suscripciones, 10)
+    #    suscripciones = paginator.page(page)
+    #except:
+    #    raise Http404
 
     data = {
-        "productos" : productos,
-        "paginator" : paginator
+        "suscripciones" : suscripciones
     }
     
     return render(request, 'app/suscripciones/listar.html', data)
