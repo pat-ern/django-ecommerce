@@ -113,7 +113,7 @@ class Suscripcion(models.Model):
     fecha = models.DateField(auto_now= True)
     telefono = models.IntegerField()
     tipo_suscripcion = models.ForeignKey(TipoSuscripcion, on_delete=models.CASCADE)
-    recibe_informe = models.BooleanField()
+    recibe_informe = models.BooleanField(default = False, null = True)
 
     def __str__(self):
         return self.nombre

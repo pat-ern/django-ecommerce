@@ -160,27 +160,25 @@ def contacto(request):
 
 # SUSCRIPCION
 def suscripcion(request):
-    
     data = {
         'form': SuscripcionForm()
     }
-    
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
-        print(formulario)
         if formulario.is_valid():
-            print('todo ok')
-            formulario.save()
+            url = "http://127.0.0.1:8000/api/lista_suscripcion"
+            requests.post(url, json=request.POST)
             messages.success(request, "¡Gracias por tu donación!")
             return redirect(to="index")
         else:
             data['form'] = formulario
-    
+     
     return render(request, 'app/suscripcion.html', data)
 
 # LISTAR SUSCRIPCIONES (REST)
 def suscripciones(request):
-    response = requests.get("http://127.0.0.1:8000/api/lista_suscripcion").json()
+    url = "http://127.0.0.1:8000/api/lista_suscripcion"
+    response = requests.get(url).json()
     data = {
         'suscripciones' : response
     }

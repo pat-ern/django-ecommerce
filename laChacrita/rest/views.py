@@ -23,14 +23,14 @@ def lista_suscripcion(request):
         serializer = SuscripcionSerializer(suscripciones, many = True)
         return Response(serializer.data)
     
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = SuscripcionSerializer(data = data)
+    elif request.method=='POST':
+        data=JSONParser().parse(request)
+        serializer=SuscripcionSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status = status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @csrf_exempt
 @api_view(['GET','PUT','DELETE'])
