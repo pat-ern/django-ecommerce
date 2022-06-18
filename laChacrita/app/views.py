@@ -9,7 +9,7 @@ from rest.serializers import SuscripcionSerializer
 
 from .filters import IndexFilter
 from .forms import ContactoForm, ProductoForm, CalificacionForm, SuscripcionForm
-from .models import Calificacion, Producto
+from .models import Calificacion, Producto, Suscripcion
 from .customers import calcular_promedio
 import requests
 
@@ -158,13 +158,22 @@ def contacto(request):
 
     return render(request, 'app/contacto.html', data)
 
-# SUSCRIPCION
-def suscripcion(request):
+# CONOCENOS
+def conocenos(request):
+    return render(request, 'app/conocenos.html')
+
+# --------------------------CONSUMO DE API--------------------------
+
+# CREAR SUSCRIPCION (REST)
+def crear_suscripcion(request):
+
     data = {
         'form': SuscripcionForm()
     }
+
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
+
         if formulario.is_valid():
             url = "http://127.0.0.1:8000/api/lista_suscripcion"
             requests.post(url, json=request.POST)
@@ -172,13 +181,56 @@ def suscripcion(request):
             return redirect(to="index")
         else:
             data['form'] = formulario
+
     return render(request, 'app/suscripcion.html', data)
 
 # LISTAR SUSCRIPCIONES (REST)
-def suscripciones(request):
+def listar_suscripciones(request):
+
     url = "http://127.0.0.1:8000/api/lista_suscripcion"
-    response = requests.get(url).json()
+    suscripciones = requests.get(url).json()
+
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(suscripciones, 5)
+        suscripciones = paginator.page(page)
+    except:
+        raise Http404
+
     data = {
-        'suscripciones' : response
+        'suscripciones' : suscripciones,
+        "paginator" : paginator
     }
+
     return render(request, 'app/suscripciones/listar.html', data)
+
+# CANCELAR SUSCRIPCION (REST)
+def cancelar_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    requests.delete(url)
+    messages.success(request, "Suscripcion cancelada.")
+    
+    return redirect(to="suscripciones")
+
+# MODIFICAR SUSCRIPCION (REST)
+def modificar_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    suscripcion = requests.get(url).json()
+    
+    data = {
+        'form' : SuscripcionForm(data=suscripcion)
+    }
+
+    if request.method == 'POST':
+        formulario = SuscripcionForm(data=request.POST)
+        if formulario.is_valid():
+            requests.put(url, json=request.POST)
+            messages.success(request, "Calificacion modificada.")
+            return redirect(to="suscripciones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/suscripciones/modificar.html', data)

@@ -60,7 +60,7 @@ class SuscripcionForm(forms.ModelForm):
 
         labels = {
             'correo': 'Correo electr&oacute;nico',
-            'checkInforme' : 'Recibir informacion al correo',
+            'recibe_informe' : 'Recibir informacion al correo',
             'tipo_suscripcion' : 'Tipo de suscripci&oacute;n'
         }
 

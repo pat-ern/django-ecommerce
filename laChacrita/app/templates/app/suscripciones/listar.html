@@ -21,7 +21,7 @@
         })
         .then(function(result){
             if(result.isConfirmed){
-                window.location.href="/eliminar/"+id+"/"
+                window.location.href="/cancelarsuscripcion/"+id+"/"
             }
         })
     }
@@ -45,43 +45,44 @@
                 <th scope="col">Tel&eacute;fono</th>
                 <th scope="col">Suscripci&oacute;n</th>
                 <th scope="col">Informe</th>
-                <th scope="col">Acci&oacute;n</th>
+                <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
             </tr>
         </thead>
-        <tbody id="productos">
-            {% for p in suscripciones %}
+        <tbody>
+            {% for su in suscripciones %}
             <tr>
-                <td>{{p.id}}</td>
-                <td>{{p.nombre}}</td>
-                <td>{{p.correo}}</td>
-                <td>{{p.fecha}}</td>
-                <td>{{p.telefono}}</td>
-                <td>                   
-                    {% if p.tipo_suscripcion == 1 %}
+                <td>{{su.id}}</td>
+                <td>{{su.nombre}}</td>
+                <td>{{su.correo}}</td>
+                <td>{{su.fecha}}</td>
+                <td>{{su.telefono}}</td>
+                <td>        
+                    {% if su.tipo_suscripcion == 1 %}
                         Basica
-                    {% elif p.tipo_suscripcion == 2 %}
+                    {% elif su.tipo_suscripcion == 2 %}
                         Estandar
-                    {% elif p.tipo_suscripcion == 3 %}
+                    {% elif su.tipo_suscripcion == 3 %}
                         Premium
                     {% endif %}
                 </td>
                 <td> 
-                    {% if p.recibe_informe == True %}
+                    {% if su.recibe_informe == True %}
                         Si
-                    {% elif p.recibe_informe == False %}
+                    {% elif su.recibe_informe == False %}
                         No
                     {% endif %}
                 </td>
-
-                <td style="text-align:center;"> 
-                    <a href="#"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
+                <td style="text-align:center;">
+                    <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
                     &nbsp;&nbsp;
-                    <a href="#" onclick="eliminarSuscripcion({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
+                    <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
                 </td>
             </tr>
             {% endfor%}
         </tbody>
     </table>
-
 </main>  
+<div>
+    {% include 'app/snippets/paginator3.html' %}
+</div>
 {% endblock %}
