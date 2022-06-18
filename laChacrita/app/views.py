@@ -172,7 +172,6 @@ def suscripcion(request):
             return redirect(to="index")
         else:
             data['form'] = formulario
-     
     return render(request, 'app/suscripcion.html', data)
 
 # LISTAR SUSCRIPCIONES (REST)
