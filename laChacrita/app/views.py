@@ -93,7 +93,7 @@ def agregarProducto(request):
     return render(request, 'app/producto/agregar.html', data)
 
 # LISTAR
-def listarProducto(request):
+def lista_productos(request):
     productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
     try:
@@ -124,7 +124,7 @@ def modificarProducto(request, id):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Tu producto se modificó correctamente.")
-            return redirect(to="listar_producto")
+            return redirect(to="lista_productos")
         else:
             data["form"] = formulario
     
@@ -135,7 +135,7 @@ def eliminarProducto(request, id):
     producto = get_object_or_404(Producto, id=id)    
     producto.delete()
     messages.success(request, "Producto eliminado correctamente.")
-    return redirect(to="listar_producto")
+    return redirect(to="lista_productos")
 
 # CONOCENOS
 def conocenos(request):
@@ -185,7 +185,7 @@ def crear_suscripcion(request):
     return render(request, 'app/suscripcion.html', data)
 
 # LISTAR SUSCRIPCIONES (REST)
-def listar_suscripciones(request):
+def lista_suscripciones(request):
 
     url = "http://127.0.0.1:8000/api/lista_suscripcion"
     suscripciones = requests.get(url).json()
@@ -212,7 +212,7 @@ def cancelar_suscripcion(request, id):
     requests.delete(url)
     messages.success(request, "Suscripcion cancelada.")
     
-    return redirect(to="suscripciones")
+    return redirect(to="lista_suscripciones")
 
 # MODIFICAR SUSCRIPCION (REST)
 def modificar_suscripcion(request, id): 
@@ -229,7 +229,7 @@ def modificar_suscripcion(request, id):
         if formulario.is_valid():
             requests.put(url, json=request.POST)
             messages.success(request, "Calificacion modificada.")
-            return redirect(to="suscripciones")
+            return redirect(to="lista_suscripciones")
         else:
             data["form"] = formulario
     

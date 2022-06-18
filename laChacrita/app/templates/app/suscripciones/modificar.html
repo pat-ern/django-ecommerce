@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="{% static 'app/css/validaciones.css' %}">
 {% endblock %}
 
+{% block js %}
+<script>
+    function back(){
+        window.location.href="/suscripciones/"
+    }
+</script>
+{% endblock %}
+
 {% block contenido %}
 {% load crispy_forms_tags %}
 <main class="container" id="donaciones">
@@ -25,10 +33,10 @@
             <form action="" enctype="multipart/form-data" method="POST" class="formulario" id="formulario">
                 {% csrf_token %}
                 {{ form | crispy }}
-                <div class="d-flex justify-content-end mt-2 me-2 mb-3">
-                    <button type="reset" class="btn btn-primary mt-1" id="limpiar-btn">Limpiar</button>
+                <div class="d-flex justify-content-end me-2 my-3">
+                    <button type="reset" class="btn btn-primary" id="cancelar" onclick="back()">Cancelar</button>
                      &nbsp;
-                    <button type="submit" class="btn btn-primary mt-1" id="enviar-btn">Enviar</button>
+                    <button type="submit" class="btn btn-primary" id="enviar-btn">Enviar</button>
                 </div>
             </form>
         </div>
