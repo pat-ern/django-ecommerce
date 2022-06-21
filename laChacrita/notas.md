@@ -1,12 +1,3 @@
-# Lo que falta por hacer
-[x] Desarrollar filtro y paginacion
-[x] Llenar tipos o categorias en tablas 
-[x] Listar producto desde BD segun click 
-[x] Formulario para crear producto 
-[x] Modificar producto (model y template), con boton "eliminar"
-[x] Implementar formulario de contacto
-[x] Implementar formulario de donacion
-
 ## Entrega 4
 
 [x] Suscribirse con una donacion 
@@ -21,5 +12,5 @@
 [ ] Permitir a usuarios suscribirse o desuscribirse a donacion 
 
 [ ] Generar descuentos o promociones en pagina principal (administrador)
-[ ] Descuento al final de la compra para los que sn donantes
+[ ] Descuento al final de la compra para los que son donantes
 [ ] Historial de ventas realizadas

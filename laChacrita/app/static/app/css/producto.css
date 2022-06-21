@@ -30,3 +30,11 @@
 #commentForm {
     padding: 15px;
 }
+
+.stock {
+    color: white;
+    display: inline-block;
+    background-color: #7fa384;
+    padding-inline: 7px;
+    border-radius: 3px;
+}

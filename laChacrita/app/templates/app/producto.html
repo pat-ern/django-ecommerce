@@ -29,6 +29,11 @@
       <h4>Descripción:</h4>
       <p class="descripcion-producto">{{producto.descripcion}}</p>
       <h3>${{producto.precio | intcomma }}</h3>
+      {% if producto.stock > 0 %}
+        <h4 style="color: green;">Disponible: <p class="stock">{{producto.stock}}<p></h4>
+      {% else %}
+        <h4 style="color: red;">No disponible</h4>
+      {% endif %}
       <br>
       <div>
         {% if producto.puntuacion_avg == 1%}
