@@ -8,20 +8,18 @@
 [x] Implementar formulario de donacion
 
 ## Entrega 4
-[ ] Crear sistema de login y registro de usuario
-[ ] Crear interfaces nuevas o reemplazar las anteriores
 
-[ ] Campo Stock
-[ ] Realizar compra, seguimiento
-[ ] Permitir al cliente monitorear sus compras 
+[x] Suscribirse con una donacion 
+[x] Servicio REST de la Fundacion, tabla con los suscritos a la fundacion, el manejo de esa tabla debe ser por medio de un REST
+[x] Ingresar suscriptores, eliminar suscriptores, consultar vigencia de suscripotres, esta es una interfaz de administracion para manejar suscriptores y suscripciones
+[x] Campo stock de producto
+
+[ ] Crear sistema de login y registro de usuario
+[ ] Realizar compra y hacer seguimiento (permitir al cliente monitorear sus compras)
 [ ] Estado para compras, administrador debe tener interfaz para modificar estado compra
+[ ] Traza o seguimiento de despacho
+[ ] Permitir a usuarios suscribirse o desuscribirse a donacion 
+
 [ ] Generar descuentos o promociones en pagina principal (administrador)
-[ ] Suscribirse con una donacion 
 [ ] Descuento al final de la compra para los que sn donantes
 [ ] Historial de ventas realizadas
-[ ] Traza de seguimiento de despacho
-[ ] Permitir a usuarios suscribirse o desuscribirse a donacion
-[ ] Mantenedores segun modelo...
-
-[ ] Servicio REST de la Fundacion, tabla con los suscritos a la fundacion, el manejo de esa tabla debe ser por medio de un REST
-[ ] Ingresar suscriptores, eliminar suscriptores, consultar vigencia de suscripotres, esta es una interfaz de administracion para manejar suscriptores y suscripciones
