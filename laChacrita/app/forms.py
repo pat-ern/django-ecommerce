@@ -56,12 +56,13 @@ class SuscripcionForm(forms.ModelForm):
 
     class Meta:
         model = Suscripcion
-        fields = ["nombre", "correo", "telefono", "tipo_suscripcion", "recibe_informe"]
+        fields = ["nombre", "correo", "telefono", "tipo_suscripcion", "recibe_informe", "estado"]
 
         labels = {
             'correo': 'Correo electr&oacute;nico',
             'recibe_informe' : 'Recibir informacion al correo',
-            'tipo_suscripcion' : 'Tipo de suscripci&oacute;n'
+            'tipo_suscripcion' : 'Tipo de suscripci&oacute;n',
+            'estado' : 'Suscripci&oacute;n activa'
         }
 
 
