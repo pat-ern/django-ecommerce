@@ -36,10 +36,6 @@
 <main class="container table-responsive col-lg-9">
     <br>
     <h1>Suscripciones</h1>
-    <div class="d-flex justify-content-end">
-        <div class="btn" id="all-subs">Todas</div> &nbsp;
-        <div class="btn" id="on-subs">Activas</div> &nbsp;
-    </div>
     <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
         <thead>
             <tr>
@@ -53,41 +49,8 @@
             </tr>
         </thead>
 
-        <tbody id="all_subs">
+        <tbody>
             {% for su in suscripciones %}
-            <tr>
-                <td>{{su.id}}</td>
-                <td>{{su.nombre}}</td>
-                <td>{{su.correo}}</td>
-                <td>{{su.fecha}}</td>
-                <td>        
-                    {% if su.tipo_suscripcion == 1 %}
-                        Basica
-                    {% elif su.tipo_suscripcion == 2 %}
-                        Estandar
-                    {% elif su.tipo_suscripcion == 3 %}
-                        Premium
-                    {% endif %}
-                </td>
-                <td> 
-                    {% if su.estado == True %}
-                        <div class="text-success">Activa</div>
-                    {% elif su.estado == False %}
-                        <div class="text-danger">Inactiva</div>
-                    {% endif %}
-                </td>
-                <td style="text-align:center;">
-                    <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
-                    &nbsp;
-                    <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
-                </td>
-            </tr>
-            {% endfor%}
-        </tbody>
-
-        <tbody id="active_subs">
-                {% for su in suscripciones %}
-                    {% if su.estado == True %}
                 <tr>
                     <td>{{su.id}}</td>
                     <td>{{su.nombre}}</td>
@@ -102,23 +65,21 @@
                             Premium
                         {% endif %}
                     </td>
-                    <td> 
-                        {% if su.estado == True %}
-                            <div class="text-success">Activa</div>
-                        {% elif su.estado == False %}
-                            <div class="text-danger">Inactiva</div>
-                        {% endif %}
-                    </td>
+                    {% if su.estado == True %}
+                        <td class="text-success">Activa</td>
+                    {% elif su.estado == False %}
+                        <td class="text-danger">Inactiva</td>
+                    {% endif %}
                     <td style="text-align:center;">
                         <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
                         &nbsp;
                         <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
+                        &nbsp;
+                        <a href="{% url 'estado_suscripcion' su.id %}">Estado</a>
                     </td>
                 </tr>
-                    {% endif %}
-                {% endfor%}
-        </tbody>
-        
+            {% endfor%}
+        </tbody>         
     </table>
 </main>  
 <div>

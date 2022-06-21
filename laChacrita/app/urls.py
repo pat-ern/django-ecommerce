@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto
+from .views import estado_suscripcion, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto
 from .views import lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion 
 from . import views
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path('suscripciones/', lista_suscripciones, name="lista_suscripciones"), 
     path('cancelarsuscripcion/<id>/', cancelar_suscripcion, name="cancelar"), 
     path('modificarsuscripcion/<id>/', modificar_suscripcion, name="modificar_suscripcion"), 
+    path('cambiarestado/<id>/', estado_suscripcion, name="estado_suscripcion"), 
 ]

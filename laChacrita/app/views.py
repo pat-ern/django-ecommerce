@@ -8,7 +8,7 @@ from django.views.generic import ListView
 from rest.serializers import SuscripcionSerializer
 
 from .filters import IndexFilter
-from .forms import ContactoForm, ProductoForm, CalificacionForm, SuscripcionForm
+from .forms import ContactoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm
 from .models import Calificacion, Producto, Suscripcion
 from .customers import calcular_promedio
 import requests
@@ -234,3 +234,26 @@ def modificar_suscripcion(request, id):
             data["form"] = formulario
     
     return render(request, 'app/suscripciones/modificar.html', data)
+
+# MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
+def estado_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    suscripcion = requests.get(url).json()
+    
+    data = {
+        'form' : EstadoSuscripcionForm(data=suscripcion)
+    }
+
+    suscripcion['estado'] = request.POST.get('estado')
+
+    if request.method == 'POST':
+        formulario = EstadoSuscripcionForm(data=request.POST)
+        if formulario.is_valid():
+            requests.put(url, json=suscripcion)
+            messages.success(request, "Calificacion modificada.")
+            return redirect(to="lista_suscripciones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/suscripciones/cambiar_estado.html', data)

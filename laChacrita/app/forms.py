@@ -65,6 +65,16 @@ class SuscripcionForm(forms.ModelForm):
             'estado' : 'Suscripci&oacute;n activa'
         }
 
+class EstadoSuscripcionForm(forms.ModelForm): 
+
+    class Meta:
+        model = Suscripcion
+        fields = ["estado"]
+
+        labels = {
+                'estado' : 'Suscripci&oacute;n activa'
+            }
+
 
 class CalificacionForm(forms.ModelForm):
 

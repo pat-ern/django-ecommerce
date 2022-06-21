@@ -1,15 +1,21 @@
 $(document).ready(function(){
-    $("#all_subs").show();
-    $("#active_subs").hide();
 
-    $("#all-subs").click(function(){
-        $("#all_subs").show();
-        $("#active_subs").hide();
+    $("#btn-all").click(function(){
+
+        $("#on-subs").show();
+        $("#off-subs").show();
     });
 
-    $("#on-subs").click(function(){
-        $("#all_subs").hide();
-        $("#active_subs").show();
+    $("#btn-on").click(function(){
+
+        $("#on-subs").show();
+        $("#off-subs").hide();
+    });
+
+    $("#btn-off").click(function(){
+
+        $("#on-subs").hide();
+        $("#off-subs").show();
     });
 
 });

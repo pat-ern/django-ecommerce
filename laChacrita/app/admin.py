@@ -19,7 +19,7 @@ class TipoSuscripcionAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class SuscripcionAdmin(admin.ModelAdmin):
-    list_display = ["id", "nombre", "correo", "fecha", "telefono", "tipo_suscripcion", "recibe_informe"]
+    list_display = ["id", "nombre", "correo", "fecha", "telefono", "tipo_suscripcion", "recibe_informe", "estado"]
     ordering = ('id',)
 
 class CalificacionAdmin(admin.ModelAdmin):
