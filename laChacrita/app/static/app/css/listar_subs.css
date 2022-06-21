@@ -1,0 +1,11 @@
+tr > td > a {
+    text-decoration-line: none; 
+}
+
+#activa > a {
+    color: green;
+}
+
+#inactiva > a {
+    color: red;
+}

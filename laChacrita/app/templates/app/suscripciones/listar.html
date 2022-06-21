@@ -5,6 +5,10 @@
 <title>Suscripciones</title>
 {% endblock %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/listar_subs.css'%}"/>
+{% endblock css %}
+
 {% block js %}
 <script src="{% static 'app/js/suscripciones.js' %}"></script> 
 <script>
@@ -66,16 +70,14 @@
                         {% endif %}
                     </td>
                     {% if su.estado == True %}
-                        <td class="text-success">Activa</td>
+                        <td id="activa"><a href="{% url 'estado_suscripcion' su.id %}">Activa</a></td>
                     {% elif su.estado == False %}
-                        <td class="text-danger">Inactiva</td>
+                        <td id="inactiva"><a href="{% url 'estado_suscripcion' su.id %}">Inactiva</a></td>
                     {% endif %}
                     <td style="text-align:center;">
                         <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
                         &nbsp;
                         <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
-                        &nbsp;
-                        <a href="{% url 'estado_suscripcion' su.id %}">Estado</a>
                     </td>
                 </tr>
             {% endfor%}

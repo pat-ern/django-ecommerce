@@ -242,7 +242,8 @@ def estado_suscripcion(request, id):
     suscripcion = requests.get(url).json()
     
     data = {
-        'form' : EstadoSuscripcionForm(data=suscripcion)
+        'form' : EstadoSuscripcionForm(data=suscripcion),
+        'suscripcion' : suscripcion
     }
 
     suscripcion['estado'] = request.POST.get('estado')
@@ -251,7 +252,7 @@ def estado_suscripcion(request, id):
         formulario = EstadoSuscripcionForm(data=request.POST)
         if formulario.is_valid():
             requests.put(url, json=suscripcion)
-            messages.success(request, "Calificacion modificada.")
+            messages.success(request, "Estado actualizado.")
             return redirect(to="lista_suscripciones")
         else:
             data["form"] = formulario
