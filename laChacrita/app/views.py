@@ -10,6 +10,7 @@ from django.views.generic import ListView
 from rest_framework.decorators import permission_classes
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
@@ -177,8 +178,10 @@ def crear_suscripcion(request):
 
         if formulario.is_valid():
             url = "http://127.0.0.1:8000/api/lista_suscripcion"
-            requests.post(url, json=request.POST)
-            messages.success(request, "¡Gracias por tu donación!")
+            token = Token.objects.get(user=request.user)
+            headers = {'Authorization': f'Token {token}'}
+            requests.post(url, headers=headers, json=request.POST)
+            messages.success(request, "Gracias por suscribirte.")
             return redirect(to="index")
         else:
             data['form'] = formulario
@@ -190,8 +193,10 @@ def crear_suscripcion(request):
 def lista_suscripciones(request):
 
     url = "http://127.0.0.1:8000/api/lista_suscripcion"
-    suscripciones = requests.get(url).json()
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
 
+    suscripciones = requests.get(url, headers=headers).json()
     page = request.GET.get('page', 1)
 
     try:
@@ -212,7 +217,10 @@ def lista_suscripciones(request):
 def cancelar_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    requests.delete(url)
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    requests.delete(url, headers=headers)
     messages.success(request, "Suscripcion cancelada.")
     
     return redirect(to="lista_suscripciones")
@@ -222,7 +230,10 @@ def cancelar_suscripcion(request, id):
 def modificar_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    suscripcion = requests.get(url).json()
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripcion = requests.get(url, headers=headers).json()
     
     data = {
         'form' : SuscripcionForm(data=suscripcion)
@@ -231,7 +242,7 @@ def modificar_suscripcion(request, id):
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
         if formulario.is_valid():
-            requests.put(url, json=request.POST)
+            requests.put(url, headers=headers, json=request.POST)
             messages.success(request, "Calificacion modificada.")
             return redirect(to="lista_suscripciones")
         else:
@@ -244,7 +255,10 @@ def modificar_suscripcion(request, id):
 def estado_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    suscripcion = requests.get(url).json()
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripcion = requests.get(url, headers=headers).json()
     
     data = {
         'form' : EstadoSuscripcionForm(data=suscripcion),
@@ -256,7 +270,7 @@ def estado_suscripcion(request, id):
     if request.method == 'POST':
         formulario = EstadoSuscripcionForm(data=request.POST)
         if formulario.is_valid():
-            requests.put(url, json=suscripcion)
+            requests.put(url, headers=headers, json=suscripcion)
             messages.success(request, "Estado actualizado.")
             return redirect(to="lista_suscripciones")
         else:
@@ -264,7 +278,7 @@ def estado_suscripcion(request, id):
     
     return render(request, 'app/suscripciones/cambiar_estado.html', data)
 
-# --------------------------CONSUMO DE API--------------------------
+# -------------------------- LOGIN Y REGISTRO --------------------------
 
 # LOGIN (REST)
 def inicio_sesion(request):
