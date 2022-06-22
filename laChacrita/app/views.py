@@ -2,20 +2,20 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.contrib import messages
-from django.urls import reverse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
 
-from rest.serializers import SuscripcionSerializer
+from rest_framework.decorators import permission_classes
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .filters import IndexFilter
-from .forms import ContactoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm
-from .models import Calificacion, Producto, Suscripcion
-from .customers import calcular_promedio
+from .forms import ContactoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
+from .models import Calificacion, Producto
+from .operaciones import calcular_promedio
 import requests
-
-from rest_framework.response import Response
-from rest_framework.parsers import JSONParser
-from rest_framework import status 
 
 # INDEX
 class FilteredIndex(ListView):
@@ -57,9 +57,9 @@ def producto(request, id):
 
         formulario = CalificacionForm(data=request.POST)
         if formulario.is_valid():
-            # se actualiza registro en modelo
             calificacion = formulario.save(commit=False) 
             calificacion.idProducto = producto.id 
+            calificacion.usuario = request.user
             calificacion.save()
 
             # promedio calificaciones y actualizacion de producto
@@ -75,7 +75,8 @@ def producto(request, id):
 
     return render(request, 'app/producto.html', data)
 
-# AGREGAR PRODUCTO
+# AGREGAR PRODUCTO\
+@permission_required('app.add_producto')
 def agregarProducto(request):
     data = {
         'form': ProductoForm()
@@ -92,7 +93,8 @@ def agregarProducto(request):
     
     return render(request, 'app/producto/agregar.html', data)
 
-# LISTAR
+# LISTA
+@permission_required('app.view_producto')
 def lista_productos(request):
     productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
@@ -110,6 +112,7 @@ def lista_productos(request):
     return render(request, 'app/producto/listar.html', data)
 
 # MODIFICAR
+@permission_required('app.change_producto')
 def modificarProducto(request, id):
     
     producto = get_object_or_404(Producto,id=id)
@@ -131,6 +134,7 @@ def modificarProducto(request, id):
     return render(request, 'app/producto/modificar.html', data)
 
 # ELIMINAR
+@permission_required('app.delete_producto')
 def eliminarProducto(request, id):
     producto = get_object_or_404(Producto, id=id)    
     producto.delete()
@@ -158,13 +162,10 @@ def contacto(request):
 
     return render(request, 'app/contacto.html', data)
 
-# CONOCENOS
-def conocenos(request):
-    return render(request, 'app/conocenos.html')
-
 # --------------------------CONSUMO DE API--------------------------
 
 # CREAR SUSCRIPCION (REST)
+@login_required
 def crear_suscripcion(request):
 
     data = {
@@ -185,6 +186,7 @@ def crear_suscripcion(request):
     return render(request, 'app/suscripcion.html', data)
 
 # LISTAR SUSCRIPCIONES (REST)
+@login_required
 def lista_suscripciones(request):
 
     url = "http://127.0.0.1:8000/api/lista_suscripcion"
@@ -206,6 +208,7 @@ def lista_suscripciones(request):
     return render(request, 'app/suscripciones/listar.html', data)
 
 # CANCELAR SUSCRIPCION (REST)
+@login_required
 def cancelar_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
@@ -215,6 +218,7 @@ def cancelar_suscripcion(request, id):
     return redirect(to="lista_suscripciones")
 
 # MODIFICAR SUSCRIPCION (REST)
+@login_required
 def modificar_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
@@ -236,6 +240,7 @@ def modificar_suscripcion(request, id):
     return render(request, 'app/suscripciones/modificar.html', data)
 
 # MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
+@login_required
 def estado_suscripcion(request, id): 
 
     url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
@@ -258,3 +263,47 @@ def estado_suscripcion(request, id):
             data["form"] = formulario
     
     return render(request, 'app/suscripciones/cambiar_estado.html', data)
+
+# --------------------------CONSUMO DE API--------------------------
+
+# LOGIN (REST)
+def inicio_sesion(request):
+
+    data = {
+        'form' : AuthenticationForm
+        #'user' : request.user
+    }
+
+    if request.method == 'POST':
+        formulario = AuthenticationForm(data=request.POST)
+
+        if formulario.is_valid():
+            url = "http://127.0.0.1:8000/api/login"
+            requests.post(url, json=request.POST)
+            user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password"])
+            login(request, user)
+            return redirect(to="index")
+        else:
+            data['form'] = formulario
+
+    return render(request, 'registration/iniciosesion.html', data)
+
+# REGISTRO USUARIO
+def registro_usuario(request):
+
+    data = {
+        'form' : CustomUserCreationForm
+    }
+
+    if request.method == 'POST':
+        formulario = CustomUserCreationForm(data = request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
+            login(request, user)
+            messages.success(request, "Te has registrado correctamente.")
+            return redirect(to='index')
+        data['form'] = formulario
+
+
+    return render(request, 'registration/registro.html', data)

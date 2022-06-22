@@ -15,7 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 @csrf_exempt
 @api_view(['GET','POST'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def lista_suscripcion(request):
     #discriminar si es GET o POST
     if request.method == 'GET':
@@ -34,7 +34,7 @@ def lista_suscripcion(request):
 
 @csrf_exempt
 @api_view(['GET','PUT','DELETE'])
-#@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def detalle_suscripcion(request, id):
 
     try: # se busca producto por id

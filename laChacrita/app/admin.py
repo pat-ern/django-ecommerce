@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TipoSuscripcion, Usuario, CategoriaProducto, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoSuscripcion, Suscripcion
+from .models import TipoSuscripcion, CategoriaProducto, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoSuscripcion, Suscripcion
 
 # Register your models here.
 
@@ -34,7 +34,6 @@ class ContactoAdmin(admin.ModelAdmin):
     list_display = ["asunto", "correo", "fecha"]
     ordering = ('-fecha',)
 
-admin.site.register(Usuario)
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Calificacion, CalificacionAdmin)

@@ -1,7 +1,8 @@
 from django import forms
 from .models import Contacto, Producto, Calificacion, Suscripcion
 from .validators import MaxSizeFileValidator
-from django.forms import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class ProductoForm(forms.ModelForm):
     
@@ -80,7 +81,7 @@ class CalificacionForm(forms.ModelForm):
 
     class Meta:
         model = Calificacion
-        fields = ["usuario", "puntuacion", "comentario"]
+        fields = ["puntuacion", "comentario"]
 
         widgets = {
             'comentario' : forms.Textarea(attrs={
@@ -90,6 +91,9 @@ class CalificacionForm(forms.ModelForm):
                 'cols':20,
             }),
         }
-        labels = {
-            'usuario': 'Usuario'
-        }
+
+class CustomUserCreationForm(UserCreationForm):
+    
+    class Meta:
+        model = User
+        fields = ["username", "first_name", "last_name", "email", "password1", "password2"]

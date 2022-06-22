@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('app.urls')),
     path('api/',include('rest.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 # añade ruta de media a urlpatterns (carga de imagenes)

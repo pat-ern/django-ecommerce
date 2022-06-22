@@ -48,6 +48,10 @@ nav {
     border-radius: 5px;
 }
 
+button > svg:hover {
+    color: #558F67;
+}
+
 .dropdown-item {
     font-size: 18px;
 }

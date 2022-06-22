@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import estado_suscripcion, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto
-from .views import lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion 
 from . import views
+from .views import \
+    producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
+    estado_suscripcion, lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
+    inicio_sesion, registro_usuario
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
@@ -19,4 +21,8 @@ urlpatterns = [
     path('cancelarsuscripcion/<id>/', cancelar_suscripcion, name="cancelar"), 
     path('modificarsuscripcion/<id>/', modificar_suscripcion, name="modificar_suscripcion"), 
     path('cambiarestado/<id>/', estado_suscripcion, name="estado_suscripcion"), 
+
+    path('iniciosesion/', inicio_sesion, name="inicio_sesion"),
+    path('registro/', registro_usuario, name="registro_usuario"), 
+
 ]
