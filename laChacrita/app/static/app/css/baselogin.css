@@ -1,0 +1,65 @@
+@import url(https://fonts.googleapis.com/css2?family=Crimson+Pro);
+
+body {
+    font-family: 'Crimson Pro', serif;
+    font-size:  23px;
+    margin-bottom: 70px;
+    background-color: #d9ead3;
+}
+
+/* Logo */
+
+#navbarlogo {
+    margin: 2%;
+}
+
+/* Cuerpo */
+
+.btn {
+    min-width: 100px;
+    background-color: #7FA78D;
+    font-size: 20px;
+    color: white;
+    border: none;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #7FA78D;
+}
+
+label {
+    font-size: 17px;
+}
+
+form > a {
+    text-decoration-line: none;
+    color: #51725c;
+}
+
+form > a:hover {
+    color: #2c2e2d;
+}
+
+ul > li, #hint_id_username, #hint_id_password2 {
+    font-size: 17px;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: #d9ead3;
+    font-weight: bold;
+    font-size: 22px;
+    color: black;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.py-3{
+    padding-top: 0rem!important;
+    padding-bottom: 0rem!important;
+}
