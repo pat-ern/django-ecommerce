@@ -93,13 +93,20 @@ class Suscripcion(models.Model):
 #-------------------------------------------------------#
 
 # COMPRA-PRODUCTO
-class CompraProducto(models.Model):
-    idCompra = models.AutoField(primary_key=True)
-    idProducto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    fecha = models.DateField()
-    cantProductos = models.IntegerField()
-    montoTotal = models.IntegerField()
+
+cantidad = [
+    [1,"1"],
+    [2,"2"],
+    [3,"3"],
+    [4,"4"],
+    [5,"5"]
+]
+
+class DetalleCarrito(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(choices=cantidad)
     comprador = models.ForeignKey(User, on_delete=models.CASCADE)
+    subtotal = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.idCompra
+        return self.producto.nombre

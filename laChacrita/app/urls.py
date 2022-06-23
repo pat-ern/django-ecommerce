@@ -3,7 +3,7 @@ from . import views
 from .views import \
     producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
     estado_suscripcion, lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
-    inicio_sesion, registro_usuario
+    inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
@@ -25,4 +25,6 @@ urlpatterns = [
     path('iniciosesion/', inicio_sesion, name="inicio_sesion"),
     path('registro/', registro_usuario, name="registro_usuario"), 
 
+    path('carrito/', carrito_compras, name='carrito'),
+    path('eliminardecarrito/<id>/', eliminar_de_carrito, name='eliminar_de_carrito'),
 ]

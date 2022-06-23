@@ -6,15 +6,11 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
-
-from rest_framework.decorators import permission_classes
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
-from .forms import ContactoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Producto
+from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
+from .models import Calificacion, DetalleCarrito, Producto
 from .operaciones import calcular_promedio
 import requests
 
@@ -51,12 +47,28 @@ def producto(request, id):
     data = {
         'producto' : producto,
         'form': CalificacionForm(),
-        'calificaciones': calificaciones
+        'calificaciones': calificaciones,
+        'carritoForm' : DetalleCarritoForm(),
     }
 
+    # ANADIR AL CARRITO
     if request.method == 'POST':
+        formulario = DetalleCarritoForm(data=request.POST)
 
+        if formulario.is_valid():
+            cart = formulario.save(commit=False)
+            cart.comprador = request.user
+            cart.producto = producto
+            cart.subtotal = cart.cantidad * producto.precio
+            cart.save()
+            
+            messages.success(request, "Se ha añadido al carrito correctamente.")
+            return redirect(to="producto", id=id)
+
+    # CALIFICACION
+    if request.method == 'POST':
         formulario = CalificacionForm(data=request.POST)
+
         if formulario.is_valid():
             calificacion = formulario.save(commit=False) 
             calificacion.idProducto = producto.id 
@@ -321,3 +333,26 @@ def registro_usuario(request):
 
 
     return render(request, 'registration/registro.html', data)
+
+# CARRITO DE COMPRAS
+
+def carrito_compras(request):
+
+    carrito = DetalleCarrito.objects.filter(comprador = request.user)
+
+    total = 0
+    for i in carrito:
+        total += i.subtotal
+
+    data = {
+        'carrito' : carrito,
+        'total' : total
+    }
+
+    return render(request, 'app/usuario/carrito.html', data)
+
+def eliminar_de_carrito(request, id):
+    detalle_carrito = get_object_or_404(DetalleCarrito, id=id)    
+    detalle_carrito.delete()
+    messages.success(request, "Producto eliminado del carrito.")
+    return redirect(to="carrito")

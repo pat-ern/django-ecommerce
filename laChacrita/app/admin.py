@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TipoSuscripcion, CategoriaProducto, Producto, Calificacion, CompraProducto, AsuntoContacto, Contacto, TipoSuscripcion, Suscripcion
+from .models import DetalleCarrito, TipoSuscripcion, CategoriaProducto, Producto, Calificacion, AsuntoContacto, Contacto, TipoSuscripcion, Suscripcion
 
 # Register your models here.
 
@@ -34,11 +34,14 @@ class ContactoAdmin(admin.ModelAdmin):
     list_display = ["asunto", "correo", "fecha"]
     ordering = ('-fecha',)
 
+class DetalleCarritoAdmin(admin.ModelAdmin):
+    list_display = ["producto", "cantidad", "comprador", "subtotal"]
+
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Calificacion, CalificacionAdmin)
-admin.site.register(CompraProducto)
 admin.site.register(AsuntoContacto, AsuntoAdmin)
 admin.site.register(Contacto, ContactoAdmin)
 admin.site.register(TipoSuscripcion, TipoSuscripcionAdmin)
 admin.site.register(Suscripcion, SuscripcionAdmin)
+admin.site.register(DetalleCarrito, DetalleCarritoAdmin)

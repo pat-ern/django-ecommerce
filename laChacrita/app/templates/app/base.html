@@ -81,7 +81,7 @@
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item">@{{ user.username | title }}</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Carrito</a></li>
+                    <li><a class="dropdown-item" href="{% url 'carrito' %}">Carrito</a></li>
                     <li><a class="dropdown-item" href="#">Mi Datos</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></a></li>
                   </ul>

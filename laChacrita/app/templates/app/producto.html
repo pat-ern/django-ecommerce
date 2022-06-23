@@ -25,16 +25,6 @@
     </div>
     <div class="container col-12 col-md-6 col-lg-7 mt-3">
       <h3 style="padding-top: 5px; font-weight: bold; color: #444444;">{{producto.nombre}}</h3>
-      <hr>
-      <h4>Descripción:</h4>
-      <p class="descripcion-producto">{{producto.descripcion}}</p>
-      <h3>${{producto.precio | intcomma }}</h3>
-      {% if producto.stock > 0 %}
-        <h4 style="color: green;">Disponible: <p class="stock">{{producto.stock}}<p></h4>
-      {% else %}
-        <h4 style="color: red;">No disponible</h4>
-      {% endif %}
-      <br>
       <div>
         {% if producto.puntuacion_avg == 1%}
             <img src="{% static 'app/img/rating-stars/1.jpg' %}" alt="" width="200" height="auto">
@@ -48,8 +38,21 @@
             <img src="{% static 'app/img/rating-stars/5.jpg' %}" alt="" width="200" height="auto">
         {% endif %}</h5>
       </div>
-      <br>
-      <button type="button" class="btn btn-lg">Añadir al carrito</button>
+      <hr>
+      <h4>Descripción:</h4>
+      <p class="descripcion-producto">{{producto.descripcion}}</p>
+      <h3>${{producto.precio | intcomma }}</h3>
+      {% if producto.stock > 0 %}
+        <h4 style="color: green;">Disponible: <p class="stock">{{producto.stock}}<p></h4>
+      {% else %}
+        <h4 style="color: red;">No disponible</h4>
+      {% endif %}
+      <form class="form-group" id="anadiralcarrito" method="POST" action="">
+        {% csrf_token %}
+        {{ carritoForm | crispy }}
+        <br>
+        <button type="submit" class="btn btn-primary mt-1" id="anadir-btn">Añadir al carrito</button>
+      </form>
     </div>
   </div>
 </div>
