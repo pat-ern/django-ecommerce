@@ -23,7 +23,7 @@ class SuscripcionAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class CalificacionAdmin(admin.ModelAdmin):
-    list_display = ["comentario", "idProducto", "usuario", "puntuacion"]
+    list_display = ["id", "comentario", "idProducto", "usuario", "puntuacion"]
     ordering = ('-id',)
 
 class CategoriaProductoAdmin(admin.ModelAdmin):

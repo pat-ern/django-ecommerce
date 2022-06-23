@@ -43,39 +43,40 @@
     <hr>
     {% if not carrito %}
         <h3 style="text-align:center;">No hay productos en el carrito :c</h3>
-    {% endif %}
-    {% for c in carrito %}
-        <div class="row cart-item">
-            <div class="col-0 col-sm-1 col-lg-1 col-xl-2">
-            </div>
-            <div class="col-12 col-sm-10 col-lg-10 col-xl-8">
-                <div class="card">
-                    <div class="card-header">
-                        {{c.producto.nombre}}
-                        <a class="float-end" href="#" onclick="eliminarProducto({{ c.id }})"><img src="{% static 'app/img/delete.png' %}" width="25" height="auto" title="Eliminar"></a>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <img src="{{ c.producto.imagen.url }}" class="img-fluid" alt="...">
-                            </div>
-                            <div class="col">
-                                <p class="card-title">Precio: ${{c.producto.precio | intcomma }}</p>
-                                <p class="card-text">Cant: {{c.cantidad}}</p>
-                            </div>
-                            <div class="col">
-                                <p class="card-text">Subtotal: ${{c.subtotal | intcomma }}</p>
+    {% else %}
+        {% for c in carrito %}
+            <div class="row cart-item">
+                <div class="col-0 col-sm-1 col-lg-1 col-xl-2">
+                </div>
+                <div class="col-12 col-sm-10 col-lg-10 col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            {{c.producto.nombre}}
+                            <a class="float-end" href="#" onclick="eliminarProducto({{ c.id }})"><img src="{% static 'app/img/delete.png' %}" width="25" height="auto" title="Eliminar"></a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="{{ c.producto.imagen.url }}" class="img-fluid" alt="...">
+                                </div>
+                                <div class="col">
+                                    <p class="card-title">Precio: ${{c.producto.precio | intcomma }}</p>
+                                    <p class="card-text">Cant: {{c.cantidad}}</p>
+                                </div>
+                                <div class="col">
+                                    <p class="card-text">Subtotal: ${{c.subtotal | intcomma }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-0 col-sm-1 col-lg-1 col-xl-2">
+                </div>
             </div>
-            <div class="col-0 col-sm-1 col-lg-1 col-xl-2">
-            </div>
-        </div>
-    {% endfor%}
-    <br>
-    <h3 style="text-align:center;">Total: ${{ total | intcomma }}</h3>
-    <br>
+        {% endfor%}
+        <br>
+        <h3 style="text-align:center;">Total: ${{ total | intcomma }}</h3>
+        <br>
+    {% endif %}
 </main>  
 {% endblock %}

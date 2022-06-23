@@ -11,6 +11,26 @@
 
 {% block js %}
 <script src="{% static 'app/js/producto.js' %}"></script> 
+<script>
+  function eliminarCalificacion(id){
+    Swal.fire({
+        "title":"¿Estás seguro?",
+        "text":"Puedes calificar el producto de nuevo.",
+        "icon":"warning",
+        "showCancelButton":true,
+        "cancelButtonText": "No, cancelar",
+        "confirmButtonText": "Si, eliminar",
+        "reverseButtons":true,
+        "confirmButtonColor":"#558F67",
+        "cancelButtonColor":"#dc3545"
+    })
+    .then(function(result){
+        if(result.isConfirmed){
+            window.location.href="/eliminarcalificacion/"+id+"/"
+        }
+    })
+  }
+</script>
 {% endblock %}
 
 {% block contenido %}
@@ -48,19 +68,27 @@
         <h4 style="color: red;">No disponible</h4>
       {% endif %}
       <form class="form-group" id="anadiralcarrito" method="POST" action="">
-        {% csrf_token %}
-        {{ carritoForm | crispy }}
-        <br>
-        <button type="submit" class="btn btn-primary mt-1" id="anadir-btn">Añadir al carrito</button>
+        {% if user.is_authenticated %}
+          {% csrf_token %}
+          {{ carritoForm | crispy }}
+          <br>
+          <button type="submit" class="btn btn-primary mt-1" id="anadir-btn">Añadir al carrito</button>
+        {% else %}
+          <button type="submit" class="btn btn-secondary mt-1" id="anadir-btn" disabled>Añadir al carrito</button>
+          <br><br>
+          <p style="font-size:18px">(Inicia sesi&oacute;n para añadir al carrito)</p>
+        {% endif %}
       </form>
     </div>
   </div>
 </div>
 <hr>
 
-<div class="d-grid gap-2 col text-center">
-  <button type="button" class="btn bg-light btn-lg text-dark mostrar-comentarios" id="btn-toggle">Mostrar/Ocultar Calificaciones</button>
-</div>
+{% if calificaciones or user.is_authenticated %} 
+  <div class="d-grid gap-2 col text-center">
+    <button type="button" class="btn bg-light btn-lg text-dark mostrar-comentarios" id="btn-toggle">Mostrar/Ocultar Calificaciones</button>
+  </div>
+{% endif %}
 
 <div class="container-fluid comentarios" id="div-comentarios">
   <div class="row">
@@ -73,6 +101,9 @@
                   {{c.usuario.first_name}} {{c.usuario.last_name}}
                 {% else %}
                   {{c.usuario}}
+                {% endif %}
+                {% if user.id == c.usuario.id %}
+                <a class="float-end" href="#" onclick="eliminarCalificacion({{ c.id }})"><img src="{% static 'app/img/delete.png' %}" width="25" height="auto" title="Eliminar"></a>
                 {% endif %}
               </div>
               <div class="card-body">
@@ -96,8 +127,8 @@
           
     </div>
 
-    {% if user.is_authenticated %} 
-      <div class="col-12 col-md-6 col-lg-5">
+      <div class="col-12 col-md-6 col-lg-5" style="text-align:center;">
+        {% if user.is_authenticated %} 
         <div class="card bg-light mt-4">
           <form class="form-group" id="commentForm" method="POST" action="">
             <div class="card-body">
@@ -114,8 +145,10 @@
               </div>
           </form>
         </div>
+        {% else %}
+        <p style="padding-top:10%;font-size:18px;">(Inicia sesi&oacute;n para calificar este producto)</p>
+      {% endif %}
       </div>
-    {% endif %}
 
   </div>
 </div>

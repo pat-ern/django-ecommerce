@@ -88,6 +88,13 @@ def producto(request, id):
 
     return render(request, 'app/producto.html', data)
 
+def eliminar_calificacion(request, id):
+    calificacion = get_object_or_404(Calificacion, id=id)    
+    calificacion.delete()
+
+    messages.success(request, "Calificacion eliminada.")
+    return redirect(to="producto", id=calificacion.idProducto)
+
 # AGREGAR PRODUCTO\
 @permission_required('app.add_producto')
 def agregarProducto(request):
