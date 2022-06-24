@@ -34,3 +34,22 @@ $(document).on('submit', '#commentForm', function(e){
   })
 
 });
+
+function eliminarCalificacion(id){
+  Swal.fire({
+      "title":"¿Estás seguro?",
+      "text":"Puedes calificar el producto de nuevo.",
+      "icon":"warning",
+      "showCancelButton":true,
+      "cancelButtonText": "No, cancelar",
+      "confirmButtonText": "Si, eliminar",
+      "reverseButtons":true,
+      "confirmButtonColor":"#558F67",
+      "cancelButtonColor":"#dc3545"
+  })
+  .then(function(result){
+      if(result.isConfirmed){
+          window.location.href="/eliminarcalificacion/"+id+"/"
+      }
+  })
+}

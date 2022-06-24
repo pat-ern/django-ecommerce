@@ -81,16 +81,25 @@ def producto(request, id):
             prod.puntuacion_avg = calcular_promedio(puntuaciones)
             prod.save()
 
-            data["producto"] = prod
-
         else:
             data["form"] = formulario
 
     return render(request, 'app/producto.html', data)
 
 def eliminar_calificacion(request, id):
+    # eliminar calificacion
     calificacion = get_object_or_404(Calificacion, id=id)    
     calificacion.delete()
+
+    puntuaciones = Calificacion.objects.values_list('puntuacion', flat=True).filter(idProducto=calificacion.idProducto)
+    producto = Producto.objects.get(id=calificacion.idProducto)
+
+    if len(puntuaciones) == 0:
+        producto.puntuacion_avg = 0
+    else:
+        producto.puntuacion_avg = calcular_promedio(puntuaciones)
+    
+    producto.save()
 
     messages.success(request, "Calificacion eliminada.")
     return redirect(to="producto", id=calificacion.idProducto)
