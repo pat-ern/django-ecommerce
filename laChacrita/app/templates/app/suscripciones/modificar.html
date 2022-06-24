@@ -12,8 +12,11 @@
 
 {% block js %}
 <script>
-    function back(){
+    function backStaff(){
         window.location.href="/suscripciones/"
+    }
+    function back(){
+        window.location.href="/suscribirse/"
     }
 </script>
 {% endblock %}
@@ -26,17 +29,20 @@
           <h1 class="mt-3" style="font-weight: bold; color: #444444;">Modificar Suscripci&oacute;n</h1>
           <img class="m-4"src="{% static 'app/img/ico/brote.png' %}" alt="" width="200" height="auto">
           <br>
-          <p>Tus donativos nos permiten seguir funcionando como organización sin fines de lucro.</p>
-          <p>¡Cualquier aporte puede hacer la diferencia!</p>
+          <p>Tu aporte  nos permite funcionar como una fundacion sin fines de lucro.</p>
         </div>
         <div class="col-12 col-lg-5">
             <form action="" enctype="multipart/form-data" method="POST" class="formulario" id="formulario">
                 {% csrf_token %}
                 {{ form | crispy }}
                 <div class="d-flex justify-content-end me-2 my-3">
-                    <button type="reset" class="btn btn-primary" id="cancelar" onclick="back()">Cancelar</button>
-                     &nbsp;
-                    <button type="submit" class="btn btn-primary" id="enviar-btn">Enviar</button>
+                    {% if user.is_staff %}
+                        <a href="#" onclick="backStaff()"><button type="reset" class="btn btn-primary" id="volver-btn">Volver</button></a>
+                    {% else %}
+                        <a href="#" onclick="back()"><button type="reset" class="btn btn-primary" id="volver-btn">Volver</button></a>
+                    {% endif %}
+                    &nbsp;
+                    <button type="submit" class="btn btn-primary" id="enviar-btn">Modificar</button>
                 </div>
             </form>
         </div>

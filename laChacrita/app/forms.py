@@ -51,20 +51,18 @@ class ContactoForm(forms.ModelForm):
 
 class SuscripcionForm(forms.ModelForm):
     
-    nombre = forms.CharField(min_length=5)
-    telefono = forms.IntegerField(widget=forms.TextInput(
-        attrs={'placeholder': ('123456789'), 'pattern' : ("[0-9]{9}")}), 
-        label= ("Tel&eacute;fono"))  
+    #nombre = forms.CharField(min_length=5)
+    #telefono = forms.IntegerField(widget=forms.TextInput(
+    #    attrs={'placeholder': ('123456789'), 'pattern' : ("[0-9]{9}")}), 
+    #    label= ("Tel&eacute;fono"))  
 
     class Meta:
         model = Suscripcion
-        fields = ["nombre", "correo", "telefono", "tipo_suscripcion", "recibe_informe", "estado"]
+        fields = ["tipo_suscripcion", "recibe_informe"]
 
         labels = {
-            'correo': 'Correo electr&oacute;nico',
             'recibe_informe' : 'Recibir informacion al correo',
             'tipo_suscripcion' : 'Tipo de suscripci&oacute;n',
-            'estado' : 'Suscripci&oacute;n activa'
         }
 
 class EstadoSuscripcionForm(forms.ModelForm): 

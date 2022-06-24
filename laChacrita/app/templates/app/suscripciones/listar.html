@@ -45,7 +45,6 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Suscriptor</th>
-                <th scope="col">Correo</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Suscripci&oacute;n</th>
                 <th scope="col">Estado</th>
@@ -57,8 +56,7 @@
             {% for su in suscripciones %}
                 <tr>
                     <td>{{su.id}}</td>
-                    <td>{{su.nombre}}</td>
-                    <td>{{su.correo}}</td>
+                    <td>{{su.suscriptor}}</td>
                     <td>{{su.fecha}}</td>
                     <td>        
                         {% if su.tipo_suscripcion == 1 %}
@@ -69,11 +67,13 @@
                             Premium
                         {% endif %}
                     </td>
+
                     {% if su.estado == True %}
                         <td id="activa"><a href="{% url 'estado_suscripcion' su.id %}">Activa</a></td>
                     {% elif su.estado == False %}
                         <td id="inactiva"><a href="{% url 'estado_suscripcion' su.id %}">Inactiva</a></td>
                     {% endif %}
+                    
                     <td style="text-align:center;">
                         <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
                         &nbsp;

@@ -24,19 +24,22 @@
     <div class="row g-4">
         <div class="col" id="donativos">
             <h1 class="mt-3" style="font-weight: bold; color: #444444;">Modificar estado suscripci&oacute;n</h1>
-            <p>{{ suscripcion.nombre }}</p>
-            <p>{{ suscripcion.correo }}</p>
-            <p>{{ suscripcion.fecha }}</p>
+            <p>Suscriptor: {{ suscripcion.suscriptor }}</p>
+            <p>Suscrito desde: {{ suscripcion.fecha }}</p>
             <p>               
                 {% if suscripcion.tipo_suscripcion == 1 %}
-                    Basica
+                    <p>Tipo: Basica</p>
                 {% elif suscripcion.tipo_suscripcion == 2 %}
-                    Estandar
+                    <p>Tipo: Estandar</p>
                 {% elif suscripcion.tipo_suscripcion == 3 %}
-                    Premium
+                    <p>Tipo: Premium</p>
                 {% endif %}
             </p>
-            <p>{{ suscripcion.estado }}</p>
+            {% if suscripcion.estado == true %}
+                <p>Estado: Activa</p>
+            {% else %}
+                <p>Estado: Inactiva</p>
+            {% endif %}
         </div>
         <div class="col-12 col-lg-5">
             <form action="" enctype="multipart/form-data" method="POST" class="formulario" id="formulario">

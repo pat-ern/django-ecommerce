@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, Pedido, Producto
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, Pedido, Producto, Suscripcion
 from .operaciones import calcular_promedio
 import requests
 
@@ -197,20 +197,38 @@ def contacto(request):
 @login_required
 def crear_suscripcion(request):
 
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    # Consultar suscripciones
+    url1 = "http://127.0.0.1:8000/api/lista_suscripcion"
+    suscripciones = requests.get(url1, headers=headers).json()
+
     data = {
         'form': SuscripcionForm()
     }
+
+    # Buscar si usuario esta suscrito y obtener suscripcion
+    for i in suscripciones:
+        if i['suscriptor'] == request.user.id:
+            id = i['id']
+            url2 = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+            data['suscripcion'] = requests.get(url2, headers=headers).json()
 
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
 
         if formulario.is_valid():
-            url = "http://127.0.0.1:8000/api/lista_suscripcion"
-            token = Token.objects.get(user=request.user)
-            headers = {'Authorization': f'Token {token}'}
-            requests.post(url, headers=headers, json=request.POST)
+            copia_dict = request.POST.copy()
+            copia_dict['suscriptor'] = request.user.id
+
+            url3 = "http://127.0.0.1:8000/api/lista_suscripcion"
+
+            requests.post(url3, headers=headers, json=copia_dict)
+
             messages.success(request, "Gracias por suscribirte.")
             return redirect(to="index")
+
         else:
             data['form'] = formulario
 

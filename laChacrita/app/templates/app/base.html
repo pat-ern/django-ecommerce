@@ -45,29 +45,32 @@
                 <li class="nav-item">
                   <a class="nav-link " href="{% url 'conocenos' %}">Nosotros</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link " href="{% url 'suscribirse' %}">Colabora</a>
-                </li>
-                </li>
+                
+                {% if not user.is_staff %}
+                    <li class="nav-item">
+                      <a class="nav-link " href="{% url 'suscribirse' %}">Suscripción</a>
+                    </li>
+                {% endif %}
+                
                 <li class="nav-item">
                   <a class="nav-link " href="{% url 'contacto' %}">Contacto</a>
                 </li>
 
                 {% if user.is_staff %} 
-                <li class="nav-item dropdown">
-                  <a class="nav-link  dropdown-toggle ml-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Administraci&oacute;n
-                  </a>
-                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{% url 'lista_productos' %}">Productos</a></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="#">Clientes</a></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="#">Pedidos</a></li>
-                    <div class="dropdown-divider"></div>
-                    <li><a class="dropdown-item" href="{% url 'lista_suscripciones' %}">Suscripciones</a></li>
-                  </ul>
-                </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle ml-1" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Administraci&oacute;n
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'lista_productos' %}">Productos</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" href="#">Clientes</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" href="#">Pedidos</a></li>
+                      <div class="dropdown-divider"></div>
+                      <li><a class="dropdown-item" href="{% url 'lista_suscripciones' %}">Suscripciones</a></li>
+                    </ul>
+                  </li>
                 {% endif %}
               </ul>
 
@@ -76,13 +79,16 @@
                 {% load humanize %}
                 <div class="dropdown dropstart" style="display: inline-block;">
                   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                    Mi Cuenta
+                    @{{ user.username | title }}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item">@{{ user.username | title }}</a></li>
+                    <li><a class="dropdown-item">Mi Cuenta</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'carrito' %}">Carrito</a></li>
-                    <li><a class="dropdown-item" href="#">Mi Datos</a></li>
+                    {% if not user.is_staff %}
+                      <li><a class="dropdown-item" href="{% url 'carrito' %}">Carrito</a></li>
+                      <li><a class="dropdown-item" href="{% url 'suscribirse' %}">Suscripcion</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="#">Mis Datos</a></li>
                     <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesion</a></a></li>
                   </ul>
                 </div>
