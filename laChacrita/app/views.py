@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, DetalleCarrito, Producto
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
 
@@ -372,3 +372,43 @@ def eliminar_de_carrito(request, id):
     detalle_carrito.delete()
     messages.success(request, "Producto eliminado del carrito.")
     return redirect(to="carrito")
+
+def detalle_compra(request):
+
+    carrito = DetalleCarrito.objects.filter(comprador = request.user)
+
+    total = 0
+    for i in carrito:
+        total += i.subtotal
+
+    data = {
+        'carrito' : carrito,
+        'total' : total
+    }
+
+    # Falta generar descuento
+    descuento = 0
+
+    if(request.GET.get('comprar')):
+        # Crear compra
+        compra = Compra.objects.create(comprador = request.user, total = total)
+        compra.descuento = descuento
+        compra.valor_final = total - descuento
+        compra.save()
+
+        # Crear detalle compra
+        for i in carrito:
+            detalle_compra = DetalleCompra.objects.create(compra = compra, producto = i.producto, cantidad = i.cantidad, subtotal = i.subtotal)
+            detalle_compra.save()
+
+        # Generar pedido de compra
+        Pedido.objects.create(compra = compra)
+
+        # Eliminar carrito
+        for i in carrito:
+            i.delete()
+            
+        messages.success(request, "Compra realizada.")
+        return redirect(to="index")
+
+    return render(request, 'app/compra/detallecompra.html', data)

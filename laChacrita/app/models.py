@@ -110,3 +110,37 @@ class DetalleCarrito(models.Model):
 
     def __str__(self):
         return self.producto.nombre
+
+class Compra(models.Model):
+    comprador = models.ForeignKey(User, on_delete=models.CASCADE)
+    fecha = models.DateField(auto_now= True)
+    total = models.IntegerField(default=0)
+    descuento = models.IntegerField(default=0)
+    valor_final = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.comprador.username
+
+class DetalleCompra(models.Model):
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad = models.IntegerField(default=0)
+    subtotal = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.producto.nombre
+
+class EstadoPedido(models.Model):
+    id = models.IntegerField(primary_key=True)
+    descripcion = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.descripcion
+
+class Pedido(models.Model):
+    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
+    estado = models.ForeignKey(EstadoPedido, default = 1, on_delete=models.CASCADE)
+    fecha_cierre = models.DateField(default = None, null = True)
+
+    def __str__(self):
+        return self.compra.comprador.username

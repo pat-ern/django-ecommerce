@@ -75,7 +75,10 @@
             </div>
         {% endfor%}
         <br>
-        <h3 style="text-align:center;">Total: ${{ total | intcomma }}</h3>
+        <div style="text-align:center;">
+            <h3>Total: ${{ total | intcomma }}</h3>
+            <a href="{% url 'detalle_compra' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn">Ir a comprar -></button></a>
+        </div>
         <br>
     {% endif %}
 </main>  
