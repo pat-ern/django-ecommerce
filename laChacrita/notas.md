@@ -9,14 +9,16 @@
 # Administracion de ventas
 - [ ] Ver y modificar estado de pedidos (solo falta crear vista)
 - [ ] Ver historial de ventas realizadas (solo falta crear vista)
+
+# Administracion general
 - [ ] Generar descuentos o promociones para mostrar en index
 
 ## Proceso de compra y seguimiento
 - [x] Crear sistema de login y registro de usuario
 - [x] Agregar productos al carrito
 - [x] Realizar compra
-- [ ] Descontar de stock en la compra
-- [ ] Descuento al final de la compra para suscriptores 
+- [x] Descontar de stock en la compra
+- [x] Descuento al final de la compra para suscriptores 
 - [ ] Permitir al cliente monitorear sus pedidos (solo falta crear vista)
 
 # Servicio REST Fundacion

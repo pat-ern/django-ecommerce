@@ -72,12 +72,12 @@
                         <td>${{total | intcomma }}</td>
                     </tr>
                     <tr>
-                        <th>Descuento Suscriptor</th>
-                        <td>$0</td>
+                        <th>Descuento suscriptor "{{ tipo_suscriptor }}"</th>
+                        <td>{{ porc_descuento }}%</td>
                     </tr>
                     <tr class="bg-light">
                         <th>Precio Final</th>
-                        <td>${{total | intcomma }}</td>
+                        <td>${{ final_a_pagar | intcomma }}</td>
                     </tr>
                 </tbody>
             </table>

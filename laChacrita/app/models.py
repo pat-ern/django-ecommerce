@@ -42,10 +42,10 @@ class Calificacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     puntuacion = models.IntegerField(choices=opciones_calificacion)
     comentario = models.TextField(max_length=500)
-    fecha = models.DateField(auto_now_add = True)
+    fecha = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return self.comentario
+        return str(self.id) + str(self.idProducto) + str(self.usuario.id) + str(self.puntuacion) + str(self.fecha.strftime("%d%m%y%H%M"))
 
 # ASUNTO CONTACTO
 class AsuntoContacto(models.Model):
@@ -62,7 +62,7 @@ class Contacto(models.Model):
     correo = models.EmailField()
     mensaje = models.TextField(max_length=500)
     checkOfertas = models.BooleanField(verbose_name="Recibir informacion")
-    fecha = models.DateField(auto_now_add = True)
+    fecha = models.DateTimeField(auto_now_add = True)
     asunto = models.ForeignKey(AsuntoContacto, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -80,7 +80,7 @@ class TipoSuscripcion(models.Model):
 # SUSCRIPCION
 class Suscripcion(models.Model):
     suscriptor = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
-    fecha = models.DateField(auto_now= True)
+    fecha = models.DateTimeField(auto_now= True)
     tipo_suscripcion = models.ForeignKey(TipoSuscripcion, on_delete=models.CASCADE)
     recibe_informe = models.BooleanField(default = False, null = True)
     estado = models.BooleanField(default = True, null = True)
@@ -92,13 +92,13 @@ class Suscripcion(models.Model):
 
 # COMPRA-PRODUCTO
 
-cantidad = [
+cantidad = ([
     [1,"1"],
     [2,"2"],
     [3,"3"],
     [4,"4"],
     [5,"5"]
-]
+])
 
 class DetalleCarrito(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -111,13 +111,13 @@ class DetalleCarrito(models.Model):
 
 class Compra(models.Model):
     comprador = models.ForeignKey(User, on_delete=models.CASCADE)
-    fecha = models.DateField(auto_now= True)
+    fecha = models.DateTimeField(auto_now= True)
     total = models.IntegerField(default=0)
     descuento = models.IntegerField(default=0)
     valor_final = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'C' + str(self.id) + 'U' + str(self.comprador.id) + 'F' + str(self.fecha.strftime("%d%m%y"))
+        return str(self.id) + str(self.comprador.id) + str(self.fecha.strftime("%d%m%y%H%M"))
 
 class DetalleCompra(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
@@ -126,7 +126,7 @@ class DetalleCompra(models.Model):
     subtotal = models.IntegerField(default=0)
 
     def __str__(self):
-        return 'P' + str(self.producto.id) + str(self.compra)
+        return str(self.producto.id) + str(self.compra)
 
 class EstadoPedido(models.Model):
     id = models.IntegerField(primary_key=True)
@@ -138,7 +138,15 @@ class EstadoPedido(models.Model):
 class Pedido(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoPedido, default = 1, on_delete=models.CASCADE)
-    fecha_cierre = models.DateField(default = None, null = True)
+    fecha_cierre = models.DateTimeField(default = None, null = True)
 
     def __str__(self):
-        return 'P' + str(self.id) + str(self.compra)
+        return str(self.id) + str(self.compra)
+
+class CambioEstadoPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    nuevo_estado = models.ForeignKey(EstadoPedido, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(auto_now = True)
+
+    def __str__(self):
+        return str(self.nuevo_estado.id) + str(self.pedido)

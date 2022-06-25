@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, Pedido, Producto, Suscripcion
+from .models import Calificacion, CambioEstadoPedido, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
 
@@ -57,13 +57,17 @@ def producto(request, id):
 
         if formulario.is_valid():
             cart = formulario.save(commit=False)
-            cart.comprador = request.user
-            cart.producto = producto
-            cart.subtotal = cart.cantidad * producto.precio
-            cart.save()
-            
-            messages.success(request, "Se ha añadido al carrito correctamente.")
-            return redirect(to="producto", id=id)
+            if cart.cantidad > producto.stock:
+                messages.error(request, "No hay suficientes unidades disponibles.", extra_tags='Error')
+                return redirect(to='producto', id=id)
+            else:
+                cart.comprador = request.user
+                cart.producto = producto
+                cart.subtotal = cart.cantidad * producto.precio
+                cart.save()
+                
+                messages.success(request, "Se ha añadido al carrito correctamente.", extra_tags='Agregado')
+                return redirect(to="producto", id=id)
 
     # CALIFICACION
     if request.method == 'POST':
@@ -101,7 +105,7 @@ def eliminar_calificacion(request, id):
     
     producto.save()
 
-    messages.success(request, "Calificacion eliminada.")
+    messages.info(request, "Calificacion eliminada.", extra_tags="Eliminada")
     return redirect(to="producto", id=calificacion.idProducto)
 
 # AGREGAR PRODUCTO\
@@ -115,7 +119,7 @@ def agregarProducto(request):
         formulario = ProductoForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            messages.success(request, "Tu producto se agregó correctamente.")
+            messages.success(request, "Tu producto se agregó correctamente.", extra_tags='Agregado')
             return redirect(to="index")
         else:
             data["form"] = formulario
@@ -155,7 +159,7 @@ def modificarProducto(request, id):
         formulario = ProductoForm(data=request.POST, instance=producto, files=request.FILES)
         if formulario.is_valid():
             formulario.save()
-            messages.success(request, "Tu producto se modificó correctamente.")
+            messages.success(request, "El producto se modificó correctamente.", extra_tags='Modificado')
             return redirect(to="lista_productos")
         else:
             data["form"] = formulario
@@ -167,7 +171,7 @@ def modificarProducto(request, id):
 def eliminarProducto(request, id):
     producto = get_object_or_404(Producto, id=id)    
     producto.delete()
-    messages.success(request, "Producto eliminado correctamente.")
+    messages.info(request, "Producto eliminado correctamente.", extra_tags='Eliminado')
     return redirect(to="lista_productos")
 
 # CONOCENOS
@@ -184,7 +188,7 @@ def contacto(request):
         formulario = ContactoForm(data=request.POST)
         if formulario.is_valid():
             formulario.save()
-            messages.success(request, "Gracias por contactarte con nosotros")
+            messages.success(request, "Gracias por contactarte con nosotros", extra_tags='Enviado')
             return redirect(to="index")
         else:
             data["form"] = formulario
@@ -212,8 +216,8 @@ def crear_suscripcion(request):
     for i in suscripciones:
         if i['suscriptor'] == request.user.id:
             id = i['id']
-            url2 = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-            data['suscripcion'] = requests.get(url2, headers=headers).json()
+            url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+            data['suscripcion'] = requests.get(url_detalle, headers=headers).json()
 
     if request.method == 'POST':
         formulario = SuscripcionForm(data=request.POST)
@@ -222,7 +226,7 @@ def crear_suscripcion(request):
             copia_dict = request.POST.copy()
             copia_dict['suscriptor'] = request.user.id
             requests.post(url_lista, headers=headers, json=copia_dict)
-            messages.success(request, "Gracias por suscribirte.")
+            messages.success(request, "Gracias por ser parte de esta fundacion.", extra_tags='Suscrito')
             return redirect(to="index")
 
         else:
@@ -263,7 +267,7 @@ def cancelar_suscripcion(request, id):
     headers = {'Authorization': f'Token {token}'}
 
     requests.delete(url, headers=headers)
-    messages.success(request, "Suscripcion cancelada.")
+    messages.info(request, "Esperamos tenerte de vuelta pronto.", extra_tags='Suscripcion Cancelada')
     
     return redirect(to="lista_suscripciones")
 
@@ -285,7 +289,7 @@ def modificar_suscripcion(request, id):
         formulario = SuscripcionForm(data=request.POST)
         if formulario.is_valid():
             requests.put(url, headers=headers, json=request.POST)
-            messages.success(request, "Calificacion modificada.")
+            messages.success(request, "La suscripcion se ha modificado correctamente.", extra_tags='Modificada')
             return redirect(to="lista_suscripciones")
         else:
             data["form"] = formulario
@@ -313,7 +317,7 @@ def estado_suscripcion(request, id):
         formulario = EstadoSuscripcionForm(data=request.POST)
         if formulario.is_valid():
             requests.put(url, headers=headers, json=suscripcion)
-            messages.success(request, "Estado actualizado.")
+            messages.success(request, "Estado de suscripcion modificado correctamente", extra_tags='Estado actualizado')
             return redirect(to="lista_suscripciones")
         else:
             data["form"] = formulario
@@ -357,7 +361,7 @@ def registro_usuario(request):
             formulario.save()
             user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
             login(request, user)
-            messages.success(request, "Te has registrado correctamente.")
+            messages.success(request, "Te has registrado correctamente.", extra_tags='Registrado')
             return redirect(to='index')
         data['form'] = formulario
 
@@ -391,7 +395,7 @@ def carrito_compras(request):
 def eliminar_de_carrito(request, id):
     detalle_carrito = get_object_or_404(DetalleCarrito, id=id)    
     detalle_carrito.delete()
-    messages.success(request, "Producto eliminado del carrito.")
+    messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
     return redirect(to="carrito")
 
 def detalle_compra(request):
@@ -404,18 +408,48 @@ def detalle_compra(request):
 
     data = {
         'carrito' : carrito,
-        'total' : total
+        'total' : total,
     }
 
-    # Falta generar descuento
+    # Descuento si esta suscrito a fundacion
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion"
+
+    suscripciones = requests.get(url_lista, headers=headers).json()
+    porc_descuento = 0
     descuento = 0
+    tipo_suscriptor = ""
+
+    # Buscar si usuario esta suscrito y obtener suscripcion
+    for i in suscripciones:
+        if i['suscriptor'] == request.user.id:
+            id = i['id']
+            url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+            sub = requests.get(url_detalle, headers=headers).json()
+            if sub['tipo_suscripcion'] == 1:
+                porc_descuento = 5
+                tipo_suscriptor = "Basic"
+            elif sub['tipo_suscripcion'] == 2:
+                porc_descuento = 8
+                tipo_suscriptor = "Standard"
+            elif sub['tipo_suscripcion'] == 3:
+                porc_descuento = 10
+                tipo_suscriptor = "Premium"
+            descuento = round(total * porc_descuento/100)
+            break
+
+    final_a_pagar = total - descuento
+    data['porc_descuento'] = porc_descuento
+    data['tipo_suscriptor'] = tipo_suscriptor
+    data['final_a_pagar'] = final_a_pagar
 
     if(request.GET.get('comprar')):
 
         # Crear compra
         compra = Compra.objects.create(comprador = request.user, total = total)
         compra.descuento = descuento
-        compra.valor_final = total - descuento
+        compra.valor_final = final_a_pagar
         compra.save()
 
         # Crear detalle compra
@@ -425,6 +459,9 @@ def detalle_compra(request):
 
         # Generar pedido de compra
         Pedido.objects.create(compra = compra)
+
+        # Generar estado de pedido
+        CambioEstadoPedido.objects.create(pedido = Pedido.objects.get(compra = compra), nuevo_estado = EstadoPedido.objects.get(id = 1))
 
         # Descontar productos del inventario
         for i in carrito:
@@ -436,7 +473,7 @@ def detalle_compra(request):
         for i in carrito:
             i.delete()
             
-        messages.success(request, "Compra realizada.")
+        messages.success(request, "Tu compra se ha procesado correctamente.", extra_tags = "Compra realizada")
         return redirect(to="index")
 
     return render(request, 'app/compra/detallecompra.html', data)
