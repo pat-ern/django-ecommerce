@@ -40,10 +40,14 @@ class Index(FilteredIndex):
 # PRODUCTO
 
 def producto(request, id):
-    
-    calificaciones = Calificacion.objects.filter(idProducto=id).order_by('-id')
+
+    # Se obtiene el producto
     producto = get_object_or_404(Producto, id=id)
-    
+
+    # Se obtienen las calificaciones del producto
+    calificaciones = Calificacion.objects.filter(idProducto=id).order_by('-id')
+
+    # Se pasan datos al template
     data = {
         'producto' : producto,
         'form': CalificacionForm(),
@@ -56,11 +60,14 @@ def producto(request, id):
         formulario = DetalleCarritoForm(data=request.POST)
 
         if formulario.is_valid():
+            # Se realiza copia del formulario
             cart = formulario.save(commit=False)
+            # Se valida que el producto tenga el stock requerido
             if cart.cantidad > producto.stock:
                 messages.error(request, "No hay suficientes unidades disponibles.", extra_tags='Error')
                 return redirect(to='producto', id=id)
             else:
+                # Se termina de guardar el formulario
                 cart.comprador = request.user
                 cart.producto = producto
                 cart.subtotal = cart.cantidad * producto.precio
@@ -74,13 +81,15 @@ def producto(request, id):
         formulario = CalificacionForm(data=request.POST)
 
         if formulario.is_valid():
+            # Se realiza copia del formulario para agregar otros campos
             calificacion = formulario.save(commit=False) 
             calificacion.idProducto = producto.id 
             calificacion.usuario = request.user
             calificacion.save()
 
-            # promedio calificaciones y actualizacion de producto
+            # Se obtienen las calificaciones del producto como lista de enteros
             puntuaciones = Calificacion.objects.values_list('puntuacion', flat=True).filter(idProducto=id)
+            # Se calcula el promedio y se guarda en el producto
             prod = Producto.objects.get(id=id)
             prod.puntuacion_avg = calcular_promedio(puntuaciones)
             prod.save()
@@ -352,7 +361,7 @@ def inicio_sesion(request):
 def registro_usuario(request):
 
     data = {
-        'form' : CustomUserCreationForm
+        'form' : CustomUserCreationForm()
     }
 
     if request.method == 'POST':
@@ -372,14 +381,15 @@ def registro_usuario(request):
 
 def carrito_compras(request):
 
+    # Se obtiene total de productos en el carrito de usuario
     carrito = DetalleCarrito.objects.filter(comprador = request.user)
 
-    # contar cantidad de productos en carrito
+    # Contar cantidad de productos en carrito
     cant = 0
     for i in carrito:
         cant += i.cantidad
 
-    # calcular total
+    # Calcular total
     total = 0
     for i in carrito:
         total += i.subtotal
@@ -393,40 +403,51 @@ def carrito_compras(request):
     return render(request, 'app/usuario/carrito.html', data)
 
 def eliminar_de_carrito(request, id):
-    detalle_carrito = get_object_or_404(DetalleCarrito, id=id)    
+    # Se obtiene el producto a eliminar
+    detalle_carrito = get_object_or_404(DetalleCarrito, id=id)  
+    # Se elimina el producto del carrito  
     detalle_carrito.delete()
     messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
     return redirect(to="carrito")
 
 def detalle_compra(request):
 
+    # Calculo de total
     carrito = DetalleCarrito.objects.filter(comprador = request.user)
 
     total = 0
     for i in carrito:
         total += i.subtotal
 
+    # Se pasan variables al contexto
     data = {
         'carrito' : carrito,
         'total' : total,
     }
 
-    # Descuento si esta suscrito a fundacion
-    token = Token.objects.get(user=request.user)
+    # Se consigue token de usuario
+    token = Token.objects.get(user=request.user) 
+    # Se pasa token al header
     headers = {'Authorization': f'Token {token}'}
-    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion"
+    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion" 
+    # Se realiza consulta a api fundacion
+    suscripciones = requests.get(url_lista, headers=headers).json() 
 
-    suscripciones = requests.get(url_lista, headers=headers).json()
+    # Inicializadores
     porc_descuento = 0
     descuento = 0
     tipo_suscriptor = ""
 
-    # Buscar si usuario esta suscrito y obtener suscripcion
+    # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
+    # Iteracion dentro de suscripciones obtenidas
     for i in suscripciones:
         if i['suscriptor'] == request.user.id:
+            # Se obtiene id de suscripcion
             id = i['id']
+            # Se consulta a la api por suscripcion
             url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
             sub = requests.get(url_detalle, headers=headers).json()
+            # Consultar tipo de suscripcion
             if sub['tipo_suscripcion'] == 1:
                 porc_descuento = 5
                 tipo_suscriptor = "Basic"
@@ -436,14 +457,18 @@ def detalle_compra(request):
             elif sub['tipo_suscripcion'] == 3:
                 porc_descuento = 10
                 tipo_suscriptor = "Premium"
+            # Generar descuento
             descuento = round(total * porc_descuento/100)
             break
 
     final_a_pagar = total - descuento
+
+    # Se pasan variables al contexto
     data['porc_descuento'] = porc_descuento
     data['tipo_suscriptor'] = tipo_suscriptor
     data['final_a_pagar'] = final_a_pagar
 
+    # Click boton comprar
     if(request.GET.get('comprar')):
 
         # Crear compra
