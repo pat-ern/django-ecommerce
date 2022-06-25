@@ -4,8 +4,8 @@ from .models import Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido,
 # Register your models here.
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "categoria", "precio", "puntuacion_avg"]
-    list_editable = ["categoria","precio", "puntuacion_avg"]
+    list_display = ["nombre", "categoria", "precio", "puntuacion_avg", "stock"]
+    list_editable = ["categoria","precio", "puntuacion_avg", "stock"]
     search_fields = ["nombre"]
     list_per_page = 20
     ordering = ('-id',)
@@ -38,12 +38,19 @@ class DetalleCarritoAdmin(admin.ModelAdmin):
     list_display = ["producto", "cantidad", "comprador", "subtotal"]
 
 class CompraAdmin(admin.ModelAdmin):
-    list_display = ["comprador", "fecha", "total", "descuento", "valor_final"]
+    list_display = ["__str__", "comprador", "fecha", "total", "descuento", "valor_final"]
     ordering = ('-fecha',)
 
 class DetalleCompraAdmin(admin.ModelAdmin):
-    list_display = ["compra", "producto", "cantidad", "subtotal"]
+    list_display = ["__str__", "producto", "compra", "cantidad", "subtotal"]
     ordering = ('-id',)
+
+class EstadoPedidoAdmin(admin.ModelAdmin):
+    list_display = ["descripcion", "id"]
+    ordering = ('id',)
+
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ["__str__", "compra", "estado"]
 
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
@@ -55,5 +62,5 @@ admin.site.register(Suscripcion, SuscripcionAdmin)
 admin.site.register(DetalleCarrito, DetalleCarritoAdmin)
 admin.site.register(Compra, CompraAdmin)
 admin.site.register(DetalleCompra, DetalleCompraAdmin)
-admin.site.register(Pedido)
-admin.site.register(EstadoPedido)
+admin.site.register(Pedido, PedidoAdmin)
+admin.site.register(EstadoPedido, EstadoPedidoAdmin)

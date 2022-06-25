@@ -201,8 +201,8 @@ def crear_suscripcion(request):
     headers = {'Authorization': f'Token {token}'}
 
     # Consultar suscripciones
-    url1 = "http://127.0.0.1:8000/api/lista_suscripcion"
-    suscripciones = requests.get(url1, headers=headers).json()
+    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion"
+    suscripciones = requests.get(url_lista, headers=headers).json()
 
     data = {
         'form': SuscripcionForm()
@@ -221,11 +221,7 @@ def crear_suscripcion(request):
         if formulario.is_valid():
             copia_dict = request.POST.copy()
             copia_dict['suscriptor'] = request.user.id
-
-            url3 = "http://127.0.0.1:8000/api/lista_suscripcion"
-
-            requests.post(url3, headers=headers, json=copia_dict)
-
+            requests.post(url_lista, headers=headers, json=copia_dict)
             messages.success(request, "Gracias por suscribirte.")
             return redirect(to="index")
 
@@ -374,13 +370,20 @@ def carrito_compras(request):
 
     carrito = DetalleCarrito.objects.filter(comprador = request.user)
 
+    # contar cantidad de productos en carrito
+    cant = 0
+    for i in carrito:
+        cant += i.cantidad
+
+    # calcular total
     total = 0
     for i in carrito:
         total += i.subtotal
 
     data = {
         'carrito' : carrito,
-        'total' : total
+        'total' : total,
+        'cantidad' : cant
     }
 
     return render(request, 'app/usuario/carrito.html', data)
@@ -408,6 +411,7 @@ def detalle_compra(request):
     descuento = 0
 
     if(request.GET.get('comprar')):
+
         # Crear compra
         compra = Compra.objects.create(comprador = request.user, total = total)
         compra.descuento = descuento
@@ -421,6 +425,12 @@ def detalle_compra(request):
 
         # Generar pedido de compra
         Pedido.objects.create(compra = compra)
+
+        # Descontar productos del inventario
+        for i in carrito:
+            producto = get_object_or_404(Producto, id=i.producto.id)
+            producto.stock -= i.cantidad
+            producto.save()
 
         # Eliminar carrito
         for i in carrito:
