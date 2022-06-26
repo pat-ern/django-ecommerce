@@ -75,8 +75,21 @@
             </div>
         {% endfor%}
         <br>
-        <div style="text-align:center;">
-            <h3>Total: ${{ total | intcomma }}</h3>
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <td><h3>Total : </h3></td>
+                    <td><h3> $ {{ total | intcomma }}</h3></td>
+                </tr>
+                <tr>
+                    <td><h3>Total descuentos : </h3></td>
+                    <td><h3> $ {{ descuento | intcomma }}</h3></td>
+                </tr>
+                <tr>
+                    <td><h3>Total a pagar : </h3></td>
+                    <td><h3> $ {{ total | intcomma }}</h3></td>
+                </tr>
+            </table>
+        <div class="text-center">
             <a href="{% url 'detalle_compra' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn">Ir a comprar -></button></a>
         </div>
         <br>
