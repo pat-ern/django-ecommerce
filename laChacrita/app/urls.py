@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 from .views import \
-    detalle_compra, eliminar_calificacion, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
+    clientes, compra, compras, eliminar_calificacion, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
     estado_suscripcion, lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
-    inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito
+    inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito, ventas
 
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
@@ -29,5 +29,12 @@ urlpatterns = [
     path('eliminardecarrito/<id>/', eliminar_de_carrito, name='eliminar_de_carrito'),
 
     path('eliminarcalificacion/<id>/', eliminar_calificacion, name="eliminar_calificacion"), 
-    path('detallecompra/', detalle_compra, name="detalle_compra"), 
+    path('detallecompra/', compra, name="detalle_compra"), 
+
+    path('ventas/', ventas, name="ventas"), 
+    path('pedidos/', pedidos, name="pedidos"), 
+    path('clientes/', clientes, name="clientes"),  
+
+    path('compras/', compras, name="compras"),  
+    path('pedidos_cliente/', pedidos_cliente, name="pedidos_cliente"),  
 ]

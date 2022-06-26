@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
+from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
@@ -368,10 +369,12 @@ def registro_usuario(request):
         formulario = CustomUserCreationForm(data = request.POST)
         if formulario.is_valid():
             formulario.save()
-            user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
-            login(request, user)
+
+            #user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
+            #login(request, user)
+
             messages.success(request, "Te has registrado correctamente.", extra_tags='Registrado')
-            return redirect(to='index')
+            return redirect(to='inicio_sesion')
         data['form'] = formulario
 
 
@@ -400,7 +403,7 @@ def carrito_compras(request):
         'cantidad' : cant
     }
 
-    return render(request, 'app/usuario/carrito.html', data)
+    return render(request, 'app/compra/carrito.html', data)
 
 def eliminar_de_carrito(request, id):
     # Se obtiene el producto a eliminar
@@ -410,7 +413,7 @@ def eliminar_de_carrito(request, id):
     messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
     return redirect(to="carrito")
 
-def detalle_compra(request):
+def compra(request):
 
     # Calculo de total
     carrito = DetalleCarrito.objects.filter(comprador = request.user)
@@ -501,4 +504,68 @@ def detalle_compra(request):
         messages.success(request, "Tu compra se ha procesado correctamente.", extra_tags = "Compra realizada")
         return redirect(to="index")
 
-    return render(request, 'app/compra/detallecompra.html', data)
+    return render(request, 'app/compra/compra.html', data)
+
+
+# VENTAS
+@login_required
+def ventas(request):
+    # Se obtienen todas las ventas
+    ventas = Compra.objects.all()
+
+    data = {
+        'ventas' : ventas
+    }
+
+    return render(request, 'app/administracion/ventas.html', data)
+
+@login_required
+def pedidos(request):
+    # Se obtienen todos los pedidos
+    pedidos = Pedido.objects.all()
+
+    data = {
+        'pedidos' : pedidos
+    }
+
+    return render(request, 'app/administracion/pedidos.html', data)
+
+@login_required
+def clientes(request):
+    # Se obtienen todos los clientes
+    User = get_user_model()
+    clientes = User.objects.all().exclude(is_superuser=True)
+
+    data = {
+        'clientes' : clientes
+    }
+
+    return render(request, 'app/administracion/clientes.html', data)
+
+# VENTAS
+@login_required
+def compras(request):
+    # Se obtienen todas las compras
+    compras = Compra.objects.filter(comprador = request.user)
+
+    data = {
+        'compras' : compras
+    }
+
+    return render(request, 'app/cliente/compras.html', data)
+
+@login_required
+def pedidos_cliente(request):
+    # Se obtienen todas las compras del cliente
+    compras_usuario = Compra.objects.filter(comprador = request.user)
+
+    # Se obtienen pedidos segun compras del cliente
+    pedidos = []
+    for i in compras_usuario:
+        pedidos.append(Pedido.objects.get(compra = i))
+
+    data = {
+        'pedidos' : pedidos
+    }
+
+    return render(request, 'app/cliente/pedidos_cliente.html', data)
