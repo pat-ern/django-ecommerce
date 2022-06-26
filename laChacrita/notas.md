@@ -7,8 +7,9 @@
 - [x] Desuscribirse a donación (REST API)
 
 ## Administracion de ventas
-- [ ] Ver y modificar estado de pedidos (solo falta crear vista)
-- [ ] Ver historial de ventas realizadas (solo falta crear vista)
+- [x] Ver listado de pedidos
+- [ ] Modificar estado de pedidos
+- [x] Ver historial de ventas realizadas
 
 ## Administracion general
 - [ ] Generar descuentos o promociones para mostrar en index
@@ -19,10 +20,10 @@
 - [x] Realizar compra
 - [x] Descontar de stock en la compra
 - [x] Descuento al final de la compra para suscriptores 
-- [ ] Permitir al cliente monitorear sus pedidos (solo falta crear vista)
+- [x] Permitir al cliente monitorear sus pedidos
 
 ## Servicio REST Fundacion
+- [ ] Ingresar una nueva suscripcion (admin, por medio de API)
 - [x] Listar suscritos a la fundación (admin, por medio de API)
 - [x] Eliminar suscriptores  (admin, por medio de API)
-- [x] Ingresar una nueva suscripcion (admin, por medio de API)
-- [x] Consultar vigencia de suscriptores
+- [x] Consultar vigencia de suscriptores (admin, por medio de API)
