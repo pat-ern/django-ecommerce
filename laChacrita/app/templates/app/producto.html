@@ -48,7 +48,7 @@
         <h4 style="color: red;">No disponible</h4>
       {% endif %}
       <form class="form-group" id="anadiralcarrito" method="POST" action="">
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           {% csrf_token %}
           {{ carritoForm | crispy }}
           <br>
@@ -56,7 +56,7 @@
         {% else %}
           <button type="submit" class="btn btn-secondary mt-1" id="anadir-btn" disabled>Añadir al carrito</button>
           <br><br>
-          <p style="font-size:18px">(Inicia sesi&oacute;n para añadir al carrito)</p>
+          <p style="font-size:18px">(Inicia sesi&oacute;n como cliente para añadir al carrito)</p>
         {% endif %}
       </form>
     </div>
@@ -108,7 +108,7 @@
     </div>
 
       <div class="col-12 col-md-6 col-lg-5" style="text-align:center;">
-        {% if user.is_authenticated %} 
+        {% if user.is_authenticated and not user.is_staff %} 
         <div class="card bg-light mt-4">
           <form class="form-group" id="commentForm" method="POST" action="">
             <div class="card-body">
@@ -126,7 +126,7 @@
           </form>
         </div>
         {% else %}
-        <p style="padding-top:10%;font-size:18px;">(Inicia sesi&oacute;n para calificar este producto)</p>
+        <p style="padding-top:10%;font-size:18px;">(Inicia sesi&oacute;n como cliente para calificar este producto)</p>
       {% endif %}
       </div>
 
