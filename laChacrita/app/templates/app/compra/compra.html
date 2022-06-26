@@ -1,0 +1,95 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Listar Productos</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/listar.css'%}"/>
+{% endblock %}
+
+{% block js %}
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"warning",
+            "showCancelButton":true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#558F67",
+            "cancelButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href="/eliminar/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+<main class="container table-responsive col-lg-9">
+    <br>
+    <h1>Finalizar Compra</h1>
+    <table class="table align-middle mt-4" style="font-size:20px;">
+        <thead>
+            <tr>
+                <th scope="col">Productos</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in carrito %}
+            <tr>
+                <td>{{c.producto.nombre}}</td>
+                <td>${{c.producto.precio | intcomma }}</td>
+                <td>{{c.cantidad}}</td>
+                <td>{{c.subtotal | intcomma }}</td>
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+    <br>
+    <div class="row">
+        <div class="col-lg-6">
+           
+        </div>
+        <div class="col">
+            <table class="table align-middle m-0"  style="font-size:20px;">
+                <tbody>
+                    <tr>
+                        <th>Total</th>
+                        <td>${{total | intcomma }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descuento suscriptor "{{ tipo_suscriptor }}"</th>
+                        <td>{{ porc_descuento }}%</td>
+                    </tr>
+                    <tr class="bg-light">
+                        <th>Precio Final</th>
+                        <td>${{ final_a_pagar | intcomma }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div style="text-align:center;">
+        <a href="{% url 'carrito' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn"><- Volver al carrito</button></a>
+        <form action="#" method="GET">
+            <input type="submit" class="btn btn-primary mt-1" value="Confirmar Compra" name="comprar">
+        </form>
+    </div>
+
+</main>  
+{% endblock %}

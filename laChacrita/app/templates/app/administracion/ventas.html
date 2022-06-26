@@ -1,0 +1,68 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Ventas</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/listar.css'%}"/>
+{% endblock %}
+
+{% block js %}
+<script>
+    function eliminarProducto(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"warning",
+            "showCancelButton":true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#558F67",
+            "cancelButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href="/eliminar/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+<main class="container table-responsive col-lg-9">
+    <br>
+    <h1>Ventas</h1>
+    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
+        <thead>
+            <tr>
+                <th scope="col">ID Venta</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Descuento</th>
+                <th scope="col">Valor Final</th>
+            </tr>
+        </thead>
+            {% for v in ventas %}
+            <tr>
+                <td>{{v}}</td>
+                <td>{{v.comprador.first_name}} {{v.comprador.last_name}}</td>
+                <td>${{v.total | intcomma }}</td>
+                <td>${{v.descuento | intcomma }}</td>
+                <td>${{v.valor_final | intcomma }}</td>
+            </tr>
+            {% endfor%}
+        <t>
+    </table>
+    <div>
+        {% include 'app/snippets/paginator2.html' %}
+    </div>
+
+</main>  
+{% endblock %}
