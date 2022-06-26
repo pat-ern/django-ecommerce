@@ -395,7 +395,7 @@ def carrito_compras(request):
     # Calcular total
     total = 0
     for i in carrito:
-        total += i.subtotal
+        total += i.subtotal*i.cantidad
 
     data = {
         'carrito' : carrito,
@@ -420,7 +420,7 @@ def compra(request):
 
     total = 0
     for i in carrito:
-        total += i.subtotal
+        total += i.subtotal*i.cantidad
 
     # Se pasan variables al contexto
     data = {
@@ -461,7 +461,7 @@ def compra(request):
                 porc_descuento = 10
                 tipo_suscriptor = "Premium"
             # Generar descuento
-            descuento = round(total * porc_descuento/100)
+            descuento = round(total * (porc_descuento/100))
             break
 
     final_a_pagar = total - descuento

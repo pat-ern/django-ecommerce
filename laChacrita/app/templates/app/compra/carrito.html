@@ -86,8 +86,9 @@
                 </tr>
                 <tr>
                     <td><h3>Total a pagar : </h3></td>
-                    <td><h3> $ {{ total | intcomma }}</h3></td>
+                    <td><h3> $ {{ final_a_pagar | intcomma }}</h3></td>
                 </tr>
+                <h3> tipo: {{tipo_suscripcion}} id: {{c.id}}</h3>
             </table>
         <div class="text-center">
             <a href="{% url 'detalle_compra' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn">Ir a comprar -></button></a>
