@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import \
-    actualizar_pedido, clientes, compra, compras, eliminar_calificacion, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
+    actualizar_pedido, clientes, compra, compras, eliminar_calificacion, historial_pedido, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
     estado_suscripcion, lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
     inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito, ventas
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path('ventas/', ventas, name="ventas"), 
     path('pedidos/', pedidos, name="pedidos"), 
     path('actualizarpedido/<id>', actualizar_pedido, name="actualizarpedido"),
+    path('historial_pedido/<id>', historial_pedido, name="historial_pedido"),
     path('clientes/', clientes, name="clientes"),  
 
     path('compras/', compras, name="compras"),  

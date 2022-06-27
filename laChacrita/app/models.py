@@ -142,3 +142,11 @@ class Pedido(models.Model):
 
     def __str__(self):
         return str(self.id) + str(self.compra)
+
+class HistorialEstadoPedido(models.Model):
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    estado = models.ForeignKey(EstadoPedido, on_delete=models.CASCADE)
+    fecha = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return str(self.pedido.id) + str(self.estado.id) + str(self.fecha.strftime("%d%m%y%H%M"))

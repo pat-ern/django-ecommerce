@@ -8,12 +8,11 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
 from django.contrib.auth import get_user_model
-from django.db.models import Max
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, Producto
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
 
@@ -472,7 +471,7 @@ def compra(request):
     # Inicializadores
     porc_descuento = 0
     descuento = 0
-    tipo_suscriptor = "Sin suscripci&oacute;n"
+    tipo_suscriptor = "Sin suscripcion"
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
     # Iteracion dentro de suscripciones obtenidas
@@ -528,9 +527,6 @@ def compra(request):
         pedido.actualizacion = datetime.now()
         pedido.save()
 
-        # Generar estado de pedido
-        #CambioEstadoPedido.objects.create(pedido = Pedido.objects.get(compra = compra), nuevo_estado = EstadoPedido.objects.get(id = 1))
-
         # Descontar productos del inventario
         for i in carrito:
             producto = get_object_or_404(Producto, id=i.producto.id)
@@ -570,6 +566,19 @@ def pedidos(request):
 
     return render(request, 'app/administracion/pedidos.html', data)
 
+@login_required
+def historial_pedido(request,id):
+    # Se obtienen todos los pedidos
+    registros = HistorialEstadoPedido.objects.filter(pedido=id).order_by('-fecha')
+    pedido = get_object_or_404(Pedido, id=id)
+
+    data = {
+        'registros' : registros,
+        'pedido' : pedido,
+    }
+
+    return render(request, 'app/administracion/historial_pedido.html', data)
+
 def actualizar_pedido(request, id):
     # Se obtiene el pedido a actualizar
     pedido = get_object_or_404(Pedido, id=id)
@@ -585,6 +594,7 @@ def actualizar_pedido(request, id):
             form = formulario.save(commit=False)
             form.actualizacion = datetime.now()
             form.save()
+            HistorialEstadoPedido.objects.create(pedido = pedido, estado = form.estado, fecha = form.actualizacion)
             messages.success(request, "Estado de pedido actualizado correctamente.", extra_tags="Actualizado")
             return redirect(to="pedidos")
 
