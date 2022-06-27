@@ -8,6 +8,7 @@ django-filter==1.1
 django-flat-responsive==2.0
 django-flat-theme==1.1.4
 django-widget-tweaks==1.4.12
+django-allauth
 django-phonenumber-field[phonenumbers]
 Pillow==9.1.1
 django-rest-framework

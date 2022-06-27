@@ -56,17 +56,17 @@
                 <td>{{p.compra.fecha}}</td>  
                 <td>{{p.estado}}
                     {% if p.estado is 'Ingresado' %}
-                        <img src="{% static 'app/img/seguimiento/lista-de-deseos.png' %}" alt="" width="30" class="seguimiento">
+                        <img src="{% static 'app/img/seguimiento/lista-de-deseos.png' %}" width="30" class="seguimiento">
                     {% elif p.estado is 'Preparando' %}
-                        <img src="{% static 'app/img/seguimiento/abrir-caja.png' %}" alt="" width="30" class="seguimiento">
+                        <img src="{% static 'app/img/seguimiento/abrir-caja.png' %}" width="30" class="seguimiento">
                     {% elif p.estado is 'Enviado' %}     
-                        <img src="{% static 'app/img/seguimiento/entrega-rapida.png' %}" alt="" width="30" class="seguimiento">
+                        <img src="{% static 'app/img/seguimiento/entrega-rapida.png' %}" width="30" class="seguimiento">
                     {% elif p.estado is 'Reparto' %}
-                        <img src="{% static 'app/img/seguimiento/furgoneta-de-reparto.png' %}" alt="" width="30" class="seguimiento">
+                        <img src="{% static 'app/img/seguimiento/furgoneta-de-reparto.png' %}" width="30" class="seguimiento">
                     {% elif p.estado is 'Entregado' %}
-                        <img src="{% static 'app/img/seguimiento/caja-de-entrega.png' %}" alt="" width="30" class="seguimiento"></td>
+                        <img src="{% static 'app/img/seguimiento/caja-de-entrega.png' %}" width="30" class="seguimiento"></td>
                     {% endif %}
-                    <img src="{% static 'app/img/seguimiento/caja-de-entrega.png' %}" alt="" width="30" class="seguimiento"></td>
+                    <img src="{% static 'app/img/seguimiento/caja-de-entrega.png' %}" width="30" class="seguimiento"></td>
                 <td>{{p.actualizacion}}</td>
             </tr>
             {% endfor%}
