@@ -461,13 +461,7 @@ def compra(request):
 
     total = 0
     for i in carrito:
-        total += i.subtotal
-
-    # Se pasan variables al contexto
-    data = {
-        'carrito' : carrito,
-        'total' : total,
-    }
+        total += i.subtotal*i.cantidad
 
     # Se consigue token de usuario
     token = Token.objects.get(user=request.user) 
@@ -505,15 +499,17 @@ def compra(request):
             descuento = round(total * (porc_descuento/100))
             break
 
-        final_a_pagar = total - descuento
+    final_a_pagar = total - descuento
 
-        # Se pasan variables al contexto
-        data = {
-            'porc_descuento' : porc_descuento,
-            'tipo_suscriptor' : tipo_suscriptor,
-            'final_a_pagar' : final_a_pagar,
-            'descuento' : descuento,
-        }
+    # Se pasan variables al contexto
+    data = {
+        'carrito' : carrito,
+        'total' : total,
+        'porc_descuento' : porc_descuento,
+        'tipo_suscriptor' : tipo_suscriptor,
+        'final_a_pagar' : final_a_pagar,
+        'descuento' : descuento,
+    }
 
     # Click boton comprar
     if(request.GET.get('comprar')):
