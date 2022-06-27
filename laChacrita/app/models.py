@@ -80,7 +80,7 @@ class TipoSuscripcion(models.Model):
 # SUSCRIPCION
 class Suscripcion(models.Model):
     suscriptor = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
-    fecha = models.DateTimeField(auto_now= True)
+    fecha = models.DateField(auto_now= True)
     tipo_suscripcion = models.ForeignKey(TipoSuscripcion, on_delete=models.CASCADE)
     recibe_informe = models.BooleanField(default = False, null = True)
     estado = models.BooleanField(default = True, null = True)

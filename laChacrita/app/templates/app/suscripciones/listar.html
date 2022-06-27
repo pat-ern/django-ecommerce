@@ -37,16 +37,15 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container table-responsive col-lg-9">
+<main class="container table-responsive col-lg-7">
     <br>
     <h1>Suscripciones</h1>
-    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
+    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:17px;">
         <thead>
             <tr>
-                <th scope="col">ID</th>
                 <th scope="col">Suscriptor</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Suscripci&oacute;n</th>
+                <th scope="col">Tipo Suscripci&oacute;n</th>
                 <th scope="col">Estado</th>
                 <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
             </tr>
@@ -55,18 +54,16 @@
         <tbody>
             {% for su in suscripciones %}
                 <tr>
-                    <td>{{su.id}}</td>
-                    <td>{{su.suscriptor}}</td>
+                    <td>{{su.suscriptor_nombre}}</td>
                     <td>{{su.fecha}}</td>
-                    <td>        
-                        {% if su.tipo_suscripcion == 1 %}
-                            Basica
-                        {% elif su.tipo_suscripcion == 2 %}
-                            Estandar
-                        {% elif su.tipo_suscripcion == 3 %}
-                            Premium
-                        {% endif %}
-                    </td>
+
+                    {% if su.tipo_suscripcion == 1 %}
+                        <td>Basica</td>
+                    {% elif su.tipo_suscripcion == 2%}
+                        <td>Standard</td>
+                    {% elif su.tipo_suscripcion == 3%}
+                        <td>Premium</td>
+                    {% endif %}</td>
 
                     {% if su.estado == True %}
                         <td id="activa"><a href="{% url 'estado_suscripcion' su.id %}">Activa</a></td>
@@ -75,9 +72,9 @@
                     {% endif %}
                     
                     <td style="text-align:center;">
-                        <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>
+                        <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="22" height="auto" title="Editar"></a>
                         &nbsp;
-                        <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a>
+                        <a href="#" onclick="eliminarSuscripcion({{ su.id }})"><img src="{% static 'app/img/delete.png' %}" width="22" height="auto" title="Eliminar"></a>
                     </td>
                 </tr>
             {% endfor%}

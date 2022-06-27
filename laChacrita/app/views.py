@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
@@ -255,6 +256,7 @@ def lista_suscripciones(request):
 
     suscripciones = requests.get(url, headers=headers).json()
     page = request.GET.get('page', 1)
+
 
     try:
         paginator = Paginator(suscripciones, 5)
@@ -603,7 +605,6 @@ def actualizar_pedido(request, id):
 @login_required
 def clientes(request):
     # Se obtienen todos los clientes
-    User = get_user_model()
     clientes = User.objects.all().exclude(is_superuser=True)
 
     data = {

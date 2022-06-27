@@ -1,15 +1,10 @@
 from rest_framework import serializers
-from app.models import Producto, Suscripcion
-
-class ProductoSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Producto
-        fields = "__all__"
+from app.models import Suscripcion
 
 class SuscripcionSerializer(serializers.ModelSerializer):
     
+    suscriptor_nombre = serializers.CharField(read_only = True, source = 'suscriptor.username')
+
     class Meta:
         model = Suscripcion
         fields = "__all__"
-        

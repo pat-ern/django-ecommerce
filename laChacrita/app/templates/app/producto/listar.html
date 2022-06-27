@@ -39,7 +39,7 @@
 <main class="container table-responsive col-lg-9">
     <br>
     <h1>Productos</h1>
-    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
+    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:17px;">
         <thead>
             <tr>
                 <th scope="col">Producto</th>
@@ -55,8 +55,8 @@
                 <td>{{p.categoria}}</td>
                 <td>${{p.precio | intcomma }}</td>
                 <td>{{p.stock}}</td>
-                <td style="text-align:center;"><a href="{% url 'modificar_producto' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="30" height="auto" title="Editar"></a>&nbsp;&nbsp;
-                <a href="#" onclick="eliminarProducto({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="30" height="auto" title="Eliminar"></a></td>
+                <td style="text-align:center;"><a href="{% url 'modificar_producto' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="22" height="auto" title="Editar"></a>&nbsp;&nbsp;
+                <a href="#" onclick="eliminarProducto({{ p.id }})"> <img src="{% static 'app/img/delete.png' %}" width="22" height="auto" title="Eliminar"></a></td>
             </tr>
             {% endfor%}
             <tr>

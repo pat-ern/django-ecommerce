@@ -50,11 +50,6 @@ class ContactoForm(forms.ModelForm):
         }
 
 class SuscripcionForm(forms.ModelForm):
-    
-    #nombre = forms.CharField(min_length=5)
-    #telefono = forms.IntegerField(widget=forms.TextInput(
-    #    attrs={'placeholder': ('123456789'), 'pattern' : ("[0-9]{9}")}), 
-    #    label= ("Tel&eacute;fono"))  
 
     class Meta:
         model = Suscripcion
@@ -72,7 +67,7 @@ class EstadoSuscripcionForm(forms.ModelForm):
         fields = ["estado"]
 
         labels = {
-                'estado' : 'Suscripci&oacute;n activa'
+                'estado' : 'Suscripcion activa'
             }
 
 

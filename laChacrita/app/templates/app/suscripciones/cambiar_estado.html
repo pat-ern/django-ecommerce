@@ -20,28 +20,34 @@
 
 {% block contenido %}
 {% load crispy_forms_tags %}
-<main class="container" id="donaciones">
+
+<main class="container col-lg-8" id="donaciones">
     <div class="row g-4">
-        <div class="col" id="donativos">
-            <h1 class="mt-3" style="font-weight: bold; color: #444444;">Modificar estado suscripci&oacute;n</h1>
-            <p>Suscriptor: {{ suscripcion.suscriptor }}</p>
-            <p>Suscrito desde: {{ suscripcion.fecha }}</p>
-            <p>               
-                {% if suscripcion.tipo_suscripcion == 1 %}
-                    <p>Tipo: Basica</p>
-                {% elif suscripcion.tipo_suscripcion == 2 %}
-                    <p>Tipo: Estandar</p>
-                {% elif suscripcion.tipo_suscripcion == 3 %}
-                    <p>Tipo: Premium</p>
-                {% endif %}
-            </p>
-            {% if suscripcion.estado == true %}
-                <p>Estado: Activa</p>
-            {% else %}
-                <p>Estado: Inactiva</p>
-            {% endif %}
+        <div class="col-12 col-lg-6" id="">
+            <div class="container table-responsive col-lg-12">
+                <table class="table table-bordered table-light border-secondary align-middle mt-4" id="categorias" style="font-size:18px;">
+                    <tr>
+                        <td>Suscriptor: {{ suscripcion.suscriptor.username }}</td>
+                    </tr>
+                    <tr>
+                        <td>Suscrito desde: {{ suscripcion.fecha }}</td>
+                    </tr>
+                    <tr>
+                        <td>Nivel: {{suscripcion.tipo_suscripcion.nombre}}</td>   
+                    </tr> 
+                    <tr>
+                        <td>
+                            {% if suscripcion.estado == true %}
+                                Estado: Activa
+                            {% else %}
+                                Estado: Inactiva
+                            {% endif %}
+                        </td>
+                    </tr>  
+                </table>
+            </div>  
         </div>
-        <div class="col-12 col-lg-5">
+        <div class="col-12 col-lg-6 mt-5">
             <form action="" enctype="multipart/form-data" method="POST" class="formulario" id="formulario">
                 {% csrf_token %}
                 {{ form | crispy }}
@@ -54,4 +60,5 @@
         </div>
     </div><br>
 </main> 
+
 {% endblock %}
