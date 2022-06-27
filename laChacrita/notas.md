@@ -8,7 +8,7 @@
 
 ## Administracion de ventas
 - [x] Ver listado de pedidos
-- [ ] Modificar estado de pedidos
+- [x] Modificar estado de pedidos
 - [x] Ver historial de ventas realizadas
 
 ## Administracion general
