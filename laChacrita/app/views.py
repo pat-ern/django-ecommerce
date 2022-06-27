@@ -474,7 +474,7 @@ def compra(request):
     # Inicializadores
     porc_descuento = 0
     descuento = 0
-    tipo_suscriptor = "Sin suscripci&oacute;n"
+    tipo_suscriptor = "Sin suscripción"
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
     # Iteracion dentro de suscripciones obtenidas

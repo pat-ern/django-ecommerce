@@ -79,6 +79,24 @@
             <div class="col-md-3 text-end">
               {% if user.is_authenticated %} 
 
+              <div class="dropdown dropstart" style="display: inline-block;">
+                  {% if not user.is_staff %}
+                    <a class="dropdown-item" href="{% url 'carrito' %}"><img src="{% static 'app/img/carrito.png' %}" alt="" width="40" height="auto"></a>
+                    <h5 style="background: red; border-radius: 0.8em;
+                      color: #ffffff;
+                      display: inline-block;
+                      position: absolute;
+                      font-weight: bold;
+                      line-height: 1.0em;
+                      margin-right: 5px;
+                      text-align: center;
+                      width: 1.0em; 
+                      left: 50px;
+                      top: 24px;
+                    }"><span>{{ cantidad }}</span></h5>
+                  {% endif %}
+              </div>
+
                 <div class="dropdown dropstart" style="display: inline-block;">
                   <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     @{{ user.username | title }}
@@ -87,7 +105,6 @@
                     <li><a class="dropdown-item" href="#">Mis Datos</a></li>
                     {% if not user.is_staff %}
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="{% url 'carrito' %}">Carrito</a></li>
                       <li><a class="dropdown-item" href="{% url 'pedidos_cliente' %}">Pedidos</a></li>
                       <li><a class="dropdown-item" href="{% url 'compras' %}">Compras</a></li>
                       <li><a class="dropdown-item" href="{% url 'suscribirse' %}">Suscripcion</a></li>
