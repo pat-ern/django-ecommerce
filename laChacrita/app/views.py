@@ -396,39 +396,8 @@ def carrito_compras(request):
     total = 0
     for i in carrito:
         total += i.subtotal*i.cantidad
-
-    data = {
-        'carrito' : carrito,
-        'total' : total,
-        'cantidad' : cant
-    }
-
-    return render(request, 'app/compra/carrito.html', data)
-
-def eliminar_de_carrito(request, id):
-    # Se obtiene el producto a eliminar
-    detalle_carrito = get_object_or_404(DetalleCarrito, id=id)  
-    # Se elimina el producto del carrito  
-    detalle_carrito.delete()
-    messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
-    return redirect(to="carrito")
-
-def compra(request):
-
-    # Calculo de total
-    carrito = DetalleCarrito.objects.filter(comprador = request.user)
-
-    total = 0
-    for i in carrito:
-        total += i.subtotal*i.cantidad
-
-    # Se pasan variables al contexto
-    data = {
-        'carrito' : carrito,
-        'total' : total,
-    }
-
-    # Se consigue token de usuario
+        
+    # Calcular descuento en carrito de compras
     token = Token.objects.get(user=request.user) 
     # Se pasa token al header
     headers = {'Authorization': f'Token {token}'}
@@ -439,6 +408,7 @@ def compra(request):
     # Inicializadores
     porc_descuento = 0
     descuento = 0
+    final_a_pagar = 0
     tipo_suscriptor = ""
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
@@ -466,10 +436,84 @@ def compra(request):
 
     final_a_pagar = total - descuento
 
+    data = {
+        'carrito' : carrito,
+        'total' : total,
+        'cantidad' : cant,
+        'descuento' : descuento,
+        'final_a_pagar' : final_a_pagar,
+    }
+
+    return render(request, 'app/compra/carrito.html', data)
+
+def eliminar_de_carrito(request, id):
+    # Se obtiene el producto a eliminar
+    detalle_carrito = get_object_or_404(DetalleCarrito, id=id)  
+    # Se elimina el producto del carrito  
+    detalle_carrito.delete()
+    messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
+    return redirect(to="carrito")
+
+def compra(request):
+
+    # Calculo de total
+    carrito = DetalleCarrito.objects.filter(comprador = request.user)
+
+    total = 0
+    for i in carrito:
+        total += i.subtotal
+
     # Se pasan variables al contexto
-    data['porc_descuento'] = porc_descuento
-    data['tipo_suscriptor'] = tipo_suscriptor
-    data['final_a_pagar'] = final_a_pagar
+    data = {
+        'carrito' : carrito,
+        'total' : total,
+    }
+
+    # Se consigue token de usuario
+    token = Token.objects.get(user=request.user) 
+    # Se pasa token al header
+    headers = {'Authorization': f'Token {token}'}
+    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion" 
+    # Se realiza consulta a api fundacion
+    suscripciones = requests.get(url_lista, headers=headers).json() 
+
+    # Inicializadores
+    porc_descuento = 0
+    descuento = 0
+    tipo_suscriptor = "Sin suscripci&oacute;n"
+
+    # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
+    # Iteracion dentro de suscripciones obtenidas
+    for i in suscripciones:
+        if i['suscriptor'] == request.user.id:
+            # Se obtiene id de suscripcion
+            id = i['id']
+            # Se consulta a la api por suscripcion
+            url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+            sub = requests.get(url_detalle, headers=headers).json()
+            # Consultar tipo de suscripcion
+            if sub['tipo_suscripcion'] == 1:
+                porc_descuento = 5
+                tipo_suscriptor = "Basic"
+            elif sub['tipo_suscripcion'] == 2:
+                porc_descuento = 8
+                tipo_suscriptor = "Standard"
+            elif sub['tipo_suscripcion'] == 3:
+                porc_descuento = 10
+                tipo_suscriptor = "Premium"
+            # Generar descuento
+            descuento = round(total * (porc_descuento/100))
+            break
+
+        final_a_pagar = total - descuento
+
+        # Se pasan variables al contexto
+        data = {
+            'porc_descuento' : porc_descuento,
+            'tipo_suscriptor' : tipo_suscriptor,
+            'final_a_pagar' : final_a_pagar,
+            'descuento' : descuento,
+        }
 
     # Click boton comprar
     if(request.GET.get('comprar')):
