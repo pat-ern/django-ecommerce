@@ -1,0 +1,59 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Actualizar Pedido</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/validaciones.css' %}">
+{% endblock %}
+
+{% block js %}
+<script>
+    function back(){
+        window.location.href="/pedidos/"
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+<main class="container" id="donaciones">
+    <div class="row g-4">
+        <div class="col-12 col-lg-6" id="">
+            <div class="container table-responsive col-lg-12">
+                <table class="table table-bordered table-success border-light align-middle mt-4" id="categorias" style="font-size:20px;">
+                    <tr>
+                        <td>Pedido: {{pedido}}</td>
+                    </tr>
+                    <tr>
+                        <td>Compra: {{pedido.compra}}</td>
+                    </tr>
+                    <tr>
+                        <td>Fecha: {{pedido.compra.fecha}}</td>   
+                    </tr> 
+                    <tr>
+                        <td>Estado: {{pedido.estado}}</td>   
+                    </tr>  
+                    <tr>
+                        <td>Ultima Actualizaci&oacute;n: {{pedido.actualizacion}}</td> 
+                    </tr>
+                </table>
+            </div>  
+        </div>
+        <div class="col-12 col-lg-6 mt-5">
+            <form action="" enctype="multipart/form-data" method="POST" class="formulario" id="formulario">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div class="d-flex justify-content-end me-2 my-3">
+                    <button type="reset" class="btn btn-primary" id="cancelar" onclick="back()">Cancelar</button>
+                     &nbsp;
+                    <button type="submit" class="btn btn-primary" id="enviar-btn">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div><br>
+</main> 
+{% endblock %}

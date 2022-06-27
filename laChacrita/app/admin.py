@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import \
-    CambioEstadoPedido, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, \
+    Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, \
     TipoSuscripcion, CategoriaProducto, Producto, Calificacion, AsuntoContacto, Contacto, \
     TipoSuscripcion, Suscripcion
 
@@ -55,10 +55,6 @@ class EstadoPedidoAdmin(admin.ModelAdmin):
 class PedidoAdmin(admin.ModelAdmin):
     list_display = ["__str__", "compra", "estado"]
 
-class CambioEstadoPedidoAdmin(admin.ModelAdmin):
-    list_display = ["__str__", "pedido", "nuevo_estado", "fecha"]
-    ordering = ('-id',)
-
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Calificacion, CalificacionAdmin)
@@ -71,4 +67,3 @@ admin.site.register(Compra, CompraAdmin)
 admin.site.register(DetalleCompra, DetalleCompraAdmin)
 admin.site.register(Pedido, PedidoAdmin)
 admin.site.register(EstadoPedido, EstadoPedidoAdmin)
-admin.site.register(CambioEstadoPedido, CambioEstadoPedidoAdmin)

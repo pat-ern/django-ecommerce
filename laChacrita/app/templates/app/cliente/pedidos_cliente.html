@@ -39,13 +39,14 @@
 <main class="container table-responsive col-lg-9">
     <br>
     <h1>Mis Pedidos</h1>
-    <table class="table table-striped align-middle mt-4" id="categorias" style="font-size:20px;">
+    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:20px;">
         <thead>
             <tr>
                 <th scope="col">ID Pedido</th>
                 <th scope="col">ID Compra</th>
                 <th scope="col">Fecha Pedido</th>
                 <th scope="col">Estado Pedido</th>
+                <th scope="col">Ultima Actualizaci&oacute;n</th>
             </tr>
         </thead>
             {% for p in pedidos %}
@@ -54,6 +55,7 @@
                 <td>{{p.compra}}</td>
                 <td>{{p.compra.fecha}}</td>  
                 <td>{{p.estado}}</td>
+                <td>{{p.actualizacion}}</td>
             </tr>
             {% endfor%}
         <t>

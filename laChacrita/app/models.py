@@ -107,7 +107,7 @@ class DetalleCarrito(models.Model):
     subtotal = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.producto
+        return self.producto.nombre
 
 class Compra(models.Model):
     comprador = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -138,15 +138,7 @@ class EstadoPedido(models.Model):
 class Pedido(models.Model):
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
     estado = models.ForeignKey(EstadoPedido, default = 1, on_delete=models.CASCADE)
-    fecha_cierre = models.DateTimeField(default = None, null = True)
+    actualizacion = models.DateTimeField(null=True)
 
     def __str__(self):
         return str(self.id) + str(self.compra)
-
-class CambioEstadoPedido(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    nuevo_estado = models.ForeignKey(EstadoPedido, on_delete=models.CASCADE)
-    fecha = models.DateTimeField(auto_now = True)
-
-    def __str__(self):
-        return str(self.nuevo_estado.id) + str(self.pedido)

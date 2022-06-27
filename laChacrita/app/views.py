@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -7,11 +8,12 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
 from django.contrib.auth import get_user_model
+from django.db.models import Max
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
-from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, CambioEstadoPedido, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, Producto
+from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
 
@@ -395,7 +397,7 @@ def carrito_compras(request):
     # Calcular total
     total = 0
     for i in carrito:
-        total += i.subtotal*i.cantidad
+        total += i.subtotal#*i.cantidad (subtotal es igual al precio unitario * cantidad)
         
     # Calcular descuento en carrito de compras
     token = Token.objects.get(user=request.user) 
@@ -409,7 +411,6 @@ def carrito_compras(request):
     porc_descuento = 0
     descuento = 0
     final_a_pagar = 0
-    tipo_suscriptor = ""
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
     # Iteracion dentro de suscripciones obtenidas
@@ -423,13 +424,10 @@ def carrito_compras(request):
             # Consultar tipo de suscripcion
             if sub['tipo_suscripcion'] == 1:
                 porc_descuento = 5
-                tipo_suscriptor = "Basic"
             elif sub['tipo_suscripcion'] == 2:
                 porc_descuento = 8
-                tipo_suscriptor = "Standard"
             elif sub['tipo_suscripcion'] == 3:
                 porc_descuento = 10
-                tipo_suscriptor = "Premium"
             # Generar descuento
             descuento = round(total * (porc_descuento/100))
             break
@@ -461,7 +459,7 @@ def compra(request):
 
     total = 0
     for i in carrito:
-        total += i.subtotal*i.cantidad
+        total += i.subtotal#*i.cantidad (subtotal es igual al precio unitario * cantidad)
 
     # Se consigue token de usuario
     token = Token.objects.get(user=request.user) 
@@ -474,7 +472,7 @@ def compra(request):
     # Inicializadores
     porc_descuento = 0
     descuento = 0
-    tipo_suscriptor = "Sin suscripción"
+    tipo_suscriptor = "Sin suscripci&oacute;n"
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
     # Iteracion dentro de suscripciones obtenidas
@@ -526,10 +524,12 @@ def compra(request):
             detalle_compra.save()
 
         # Generar pedido de compra
-        Pedido.objects.create(compra = compra)
+        pedido = Pedido.objects.create(compra = compra)
+        pedido.actualizacion = datetime.now()
+        pedido.save()
 
         # Generar estado de pedido
-        CambioEstadoPedido.objects.create(pedido = Pedido.objects.get(compra = compra), nuevo_estado = EstadoPedido.objects.get(id = 1))
+        #CambioEstadoPedido.objects.create(pedido = Pedido.objects.get(compra = compra), nuevo_estado = EstadoPedido.objects.get(id = 1))
 
         # Descontar productos del inventario
         for i in carrito:
@@ -565,10 +565,30 @@ def pedidos(request):
     pedidos = Pedido.objects.all()
 
     data = {
-        'pedidos' : pedidos
+        'pedidos' : pedidos,
     }
 
     return render(request, 'app/administracion/pedidos.html', data)
+
+def actualizar_pedido(request, id):
+    # Se obtiene el pedido a actualizar
+    pedido = get_object_or_404(Pedido, id=id)
+
+    data = {
+        'pedido' : pedido,
+        'form' : PedidoForm(instance=pedido),
+    }
+
+    if request.method == 'POST':
+        formulario = PedidoForm(request.POST, instance=pedido)
+        if formulario.is_valid():
+            form = formulario.save(commit=False)
+            form.actualizacion = datetime.now()
+            form.save()
+            messages.success(request, "Estado de pedido actualizado correctamente.", extra_tags="Actualizado")
+            return redirect(to="pedidos")
+
+    return render(request, 'app/administracion/actualizar_pedido.html', data)
 
 @login_required
 def clientes(request):
