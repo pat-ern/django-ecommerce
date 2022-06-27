@@ -81,19 +81,13 @@
 
               <div class="dropdown dropstart" style="display: inline-block;">
                   {% if not user.is_staff %}
-                    <a class="dropdown-item" href="{% url 'carrito' %}"><img src="{% static 'app/img/carrito.png' %}" alt="" width="40" height="auto"></a>
-                    <h5 style="background: red; border-radius: 0.8em;
-                      color: #ffffff;
-                      display: inline-block;
-                      position: absolute;
-                      font-weight: bold;
-                      line-height: 1.0em;
-                      margin-right: 5px;
-                      text-align: center;
-                      width: 1.0em; 
-                      left: 50px;
-                      top: 24px;
-                    }"><span>{{ cantidad }}</span></h5>
+                    <a class="dropdown-item" href="{% url 'carrito' %}">
+                      {% if cantidad is not 0 %}
+                        <img src="{% static 'app/img/carrito-de-compras.png' %}" alt="" width="40" height="auto">
+                      {% else %}
+                        <img src="{% static 'app/img/carrito-va.png' %}" alt="" width="35" height="auto">
+                    {% endif %}
+                    </a>
                   {% endif %}
               </div>
 
