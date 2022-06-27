@@ -529,6 +529,9 @@ def compra(request):
         pedido.actualizacion = datetime.now()
         pedido.save()
 
+        # Generar historial de pedido
+        HistorialEstadoPedido.objects.create(pedido = pedido, estado = pedido.estado, fecha = pedido.actualizacion)
+
         # Descontar productos del inventario
         for i in carrito:
             producto = get_object_or_404(Producto, id=i.producto.id)
