@@ -85,8 +85,10 @@
     </div>
     <br>
     <div style="text-align:center;">
-        <a href="{% url 'carrito' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn"><- Volver al carrito</button></a>
+        
         <form action="#" method="GET">
+            <a href="{% url 'carrito' %}"><button type="button" class="btn btn-primary mt-1" id="limpiar-btn">Volver al carrito</button></a>
+            &nbsp;&nbsp;
             <input type="submit" class="btn btn-primary mt-1" value="Confirmar Compra" name="comprar">
         </form>
     </div>
