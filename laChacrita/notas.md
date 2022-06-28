@@ -1,7 +1,7 @@
 # Entrega 4
 
 - [x] Campo stock de producto
-- [ ] Iniciar sesion con Google
+- [x] Iniciar sesion con Google
 
 - [x] Suscribirse con una donacion (REST API)
 - [x] Desuscribirse a donación (REST API)
