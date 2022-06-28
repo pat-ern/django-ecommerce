@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
-from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
+from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
 from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
@@ -227,32 +227,37 @@ def crear_suscripcion(request):
     suscripciones = requests.get(url_lista, headers=headers).json()
 
     data = {
-        'form': SuscripcionForm()
+        'form': CrearSuscripcionForm()
     }
 
-    # Buscar si usuario esta suscrito y obtener suscripcion
-    for i in suscripciones:
-        if i['suscriptor'] == request.user.id:
-            id = i['id']
-            url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-            data['suscripcion'] = requests.get(url_detalle, headers=headers).json()
-
     if request.method == 'POST':
-        formulario = SuscripcionForm(data=request.POST)
+        formulario = CrearSuscripcionForm(data=request.POST)
 
         if formulario.is_valid():
-            copia_dict = request.POST.copy()
-            copia_dict['suscriptor'] = request.user.id
-            requests.post(url_lista, headers=headers, json=copia_dict)
-            messages.success(request, "Gracias por ser parte de esta fundacion.", extra_tags='Suscrito')
-            return redirect(to="index")
+            nuevo_suscriptor = formulario.cleaned_data['suscriptor']
+
+            # Buscar si usuario seleccionado esta suscrito ya
+            no_existe = True
+
+            for i in suscripciones:
+                if i['suscriptor_nombre'] == nuevo_suscriptor:
+                    no_existe = False
+                    break
+
+            if no_existe:
+                messages.error(request, "Este cliente ya se ha suscrito.", extra_tags='Ya existe')
+                return redirect(to="crear_suscripcion")
+            else:
+                requests.post(url_lista, headers=headers, json=request.POST)
+                messages.success(request, "Suscripcion creada correctamente.", extra_tags='Ingresado')
+                return redirect(to="lista_suscripciones")
 
         else:
             data['form'] = formulario
 
-    return render(request, 'app/suscripcion.html', data)
+    return render(request, 'app/suscripciones/crear_suscripcion.html', data)
 
-# CREAR SUSCRIPCION - POR CLIENTE (REST)
+# SUSCRIBIRSE - POR CLIENTE (REST)
 @login_required
 def suscripcion(request):
 
@@ -289,7 +294,7 @@ def suscripcion(request):
 
     return render(request, 'app/cliente/suscripcion.html', data)
 
-# LISTAR SUSCRIPCIONES (REST)
+# LISTAR SUSCRIPCIONES - ADMIN (REST)
 @login_required
 def lista_suscripciones(request):
 
@@ -323,7 +328,7 @@ def cancelar_suscripcion(request, id):
     headers = {'Authorization': f'Token {token}'}
 
     requests.delete(url, headers=headers)
-    messages.info(request, "Esperamos tenerte de vuelta pronto.", extra_tags='Suscripcion Cancelada')
+    messages.info(request, "Se ha eliminado la suscripcion del cliente.", extra_tags='Eliminada')
     
     return redirect(to="lista_suscripciones")
 

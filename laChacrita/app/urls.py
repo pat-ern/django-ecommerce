@@ -16,15 +16,12 @@ urlpatterns = [
     path('modificar/<id>/', modificarProducto, name="modificar_producto"), 
     path('eliminar/<id>/', eliminarProducto, name="eliminar_producto"), 
 
-
-
-    path('crearsuscripcion/', crear_suscripcion, name="crear_suscripcion"), 
-    path('cambiarsuscripcion/<id>/', cambiar_suscripcion, name="cambiar_suscripcion"), 
-
     path('suscripcion/', suscripcion, name="suscripcion"), 
+    path('cambiarsuscripcion/<id>/', cambiar_suscripcion, name="cambiar_suscripcion"), 
     path('desuscribirse/<id>/', desuscribirse, name="desuscribirse"), 
 
     path('suscripciones/', lista_suscripciones, name="lista_suscripciones"), 
+    path('crearsuscripcion/', crear_suscripcion, name="crear_suscripcion"), 
     path('cancelarsuscripcion/<id>/', cancelar_suscripcion, name="cancelar"), 
     path('modificarsuscripcion/<id>/', modificar_suscripcion, name="modificar_suscripcion"), 
     path('cambiarestado/<id>/', estado_suscripcion, name="estado_suscripcion"), 

@@ -60,6 +60,16 @@ class SuscripcionForm(forms.ModelForm):
             'tipo_suscripcion' : 'Tipo de suscripci&oacute;n',
         }
 
+class CrearSuscripcionForm(forms.ModelForm):
+
+    class Meta:
+        model = Suscripcion
+        exclude = ["estado"]
+
+        labels = {
+            'suscriptor' : 'Seleccionar cliente'
+        }
+
 class EstadoSuscripcionForm(forms.ModelForm): 
 
     class Meta:
