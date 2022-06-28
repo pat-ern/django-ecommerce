@@ -3,13 +3,11 @@
 {%load socialaccount %}
 {% providers_media_js %}
 
-{% block titulo %}
-<title>Inicio de Sesion</title>
-{% endblock %}
+{% block titulo %}<title>Inicio de Sesion</title>{% endblock %}
 
 {% block contenido %}
     {% load crispy_forms_tags %}
-        <br><br><br>
+        <br><br>
         <div class="d-flex justify-content-center row">
             <div class="col-xs-12 col-sm-9 col-md-8 col-lg-5">
                 <div class="card">
@@ -19,12 +17,12 @@
                         <form action="" method="POST">
                             {% csrf_token %}
                             {{ form | crispy }}
-                            <div class="d-flex justify-content-end me-2 mt-3 mb-2">
+                            <div class="d-flex justify-content-end me-2 mt-2 mb-2">
                                 <input type="submit" value="Ingresar" class="btn btn-success float-right">
                             </div>
                             <a href="{% url 'index' %}">Ir al inicio</a> |
                             <a href="{% url 'registro_usuario' %}">Registrarse</a> |
-                            Entra con <a class="text-danger" aria-hidden="true" href="{% provider_login_url "google" %}">Google</a>
+                            Acceder con <a class="text-danger" aria-hidden="true" href="{% provider_login_url "google" %}">Google</a>
                         </form>
                     </div>
                 </div>
