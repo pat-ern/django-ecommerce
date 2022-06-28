@@ -1,5 +1,8 @@
 {% extends 'app/baselogin.html' %}
 
+{%load socialaccount %}
+{% providers_media_js %}
+
 {% block titulo %}
 <title>Registro de usuario</title>
 {% endblock %}
@@ -20,7 +23,8 @@
                                 <input type="submit" value="Registrarse" class="btn btn-success float-right">
                             </div>
                             <a href="{% url 'index' %}">Ir al inicio</a> | 
-                            <a href="{% url 'inicio_sesion' %}">Iniciar Sesion</a>
+                            <a href="{% url 'inicio_sesion' %}">Iniciar Sesion</a> |
+                            Entra con <a class="text-danger" aria-hidden="true" href="{% provider_login_url "google" %}">Google</a>
                         </form>
                     </div>
                 </div>

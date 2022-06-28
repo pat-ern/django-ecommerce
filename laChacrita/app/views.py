@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.dispatch import receiver
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -16,6 +17,12 @@ from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, Pedi
 from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
+from allauth.account.signals import user_logged_in
+
+# Funcion que se trigerea despues de cualquier login
+@receiver(user_logged_in, dispatch_uid="unique")
+def user_logged_in_(request, user, **kwargs):
+    Token.objects.get_or_create(user = user)
 
 # INDEX
 class FilteredIndex(ListView):
