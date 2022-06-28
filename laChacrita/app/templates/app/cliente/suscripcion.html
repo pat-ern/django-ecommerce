@@ -26,7 +26,7 @@
         })
         .then(function(result){
             if(result.isConfirmed){
-                window.location.href="/cancelarsuscripcion/"+id+"/"
+                window.location.href="/desuscribirse/"+id+"/"
             }
         })
     }
@@ -94,14 +94,17 @@
         <br>
         <div class="d-flex justify-content-center row mt-5">
             <div class="col-xs-12 col-sm-9 col-md-7 col-lg-5" style="text-align:center;">
-                <div class="alert alert-secondary" role="alert" >
-                    <h4 class="alert-heading"><b>¡Ya te has suscrito!</b></h4>
-                    <p>Te mantendremos informado sobre nuestras actividades.</p>
-                    <hr>
-                    <a href="{% url 'modificar_suscripcion' suscripcion.id %}"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Modificar Suscripcion</button></a>
-                    &nbsp;&nbsp;
-                    <a href="#" onclick="eliminarSuscripcion({{ suscripcion.id }})"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Cancelar Suscripcion</button></a>
-                </div>
+              <div class="card bg-light p-3">
+                <h4 class="card-head mt-2"><b>¡Gracias por ser un suscriptor {{suscripcion.suscripcion_nombre}}!</b></h4>
+                <div class="card-body text-center">
+                  <div class="alert alert-secondary" role="alert" >
+                      <p>Sigue disfrutando de un {{suscripcion.suscripcion_desc}}% de descuento en tus compras</p>
+                  </div>
+                  <a href="{% url 'cambiar_suscripcion' suscripcion.id %}"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Modificar Suscripcion</button></a>
+                  &nbsp;&nbsp;
+                  <a href="#" onclick="eliminarSuscripcion({{ suscripcion.id }})"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Cancelar Suscripcion</button></a>
+              </div>
+              </div>
             </div>
         </div
     </main>

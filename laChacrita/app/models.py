@@ -73,6 +73,7 @@ class TipoSuscripcion(models.Model):
     id = models.IntegerField(primary_key=True, verbose_name="Id tipo de suscripcion")
     nombre = models.CharField(max_length=50, verbose_name="Nombre tipo de suscripcion")
     monto = models.IntegerField(default = 0, verbose_name="Monto de suscripcion")
+    desc = models.IntegerField(default = 0, verbose_name="Porcentaje de descuento")
 
     def __str__(self):
         return self.nombre

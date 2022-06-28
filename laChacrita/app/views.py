@@ -215,7 +215,7 @@ def contacto(request):
 
 # --------------------------CONSUMO DE API--------------------------
 
-# CREAR SUSCRIPCION (REST)
+# CREAR SUSCRIPCION - POR ADMIN (REST)
 @login_required
 def crear_suscripcion(request):
 
@@ -252,6 +252,43 @@ def crear_suscripcion(request):
 
     return render(request, 'app/suscripcion.html', data)
 
+# CREAR SUSCRIPCION - POR CLIENTE (REST)
+@login_required
+def suscripcion(request):
+
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    # Consultar suscripciones
+    url_lista = "http://127.0.0.1:8000/api/lista_suscripcion"
+    suscripciones = requests.get(url_lista, headers=headers).json()
+
+    data = {
+        'form': SuscripcionForm()
+    }
+
+    # Buscar si usuario esta suscrito y obtener suscripcion
+    for i in suscripciones:
+        if i['suscriptor'] == request.user.id:
+            id = i['id']
+            url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+            data['suscripcion'] = requests.get(url_detalle, headers=headers).json()
+
+    if request.method == 'POST':
+        formulario = SuscripcionForm(data=request.POST)
+
+        if formulario.is_valid():
+            copia_dict = request.POST.copy()
+            copia_dict['suscriptor'] = request.user.id
+            requests.post(url_lista, headers=headers, json=copia_dict)
+            messages.success(request, "Gracias por ser parte de esta fundacion.", extra_tags='Suscrito')
+            return redirect(to="suscripcion")
+
+        else:
+            data['form'] = formulario
+
+    return render(request, 'app/cliente/suscripcion.html', data)
+
 # LISTAR SUSCRIPCIONES (REST)
 @login_required
 def lista_suscripciones(request):
@@ -277,7 +314,7 @@ def lista_suscripciones(request):
 
     return render(request, 'app/suscripciones/listar.html', data)
 
-# CANCELAR SUSCRIPCION (REST)
+# CANCELAR SUSCRIPCION - ADMIN (REST)
 @login_required
 def cancelar_suscripcion(request, id): 
 
@@ -290,7 +327,20 @@ def cancelar_suscripcion(request, id):
     
     return redirect(to="lista_suscripciones")
 
-# MODIFICAR SUSCRIPCION (REST)
+# CANCELAR SUSCRIPCION - CLIENTE (REST)
+@login_required
+def desuscribirse(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    requests.delete(url, headers=headers)
+    messages.info(request, "Esperamos tenerte de vuelta pronto.", extra_tags='Suscripcion Cancelada')
+    
+    return redirect(to="suscripcion")
+
+# MODIFICAR SUSCRIPCION - ADMIN (REST)
 @login_required
 def modificar_suscripcion(request, id): 
 
@@ -314,6 +364,31 @@ def modificar_suscripcion(request, id):
             data["form"] = formulario
     
     return render(request, 'app/suscripciones/modificar.html', data)
+
+# MODIFICAR SUSCRIPCION - CLIENTE (REST)
+@login_required
+def cambiar_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripcion = requests.get(url, headers=headers).json()
+    
+    data = {
+        'form' : SuscripcionForm(data=suscripcion)
+    }
+
+    if request.method == 'POST':
+        formulario = SuscripcionForm(data=request.POST)
+        if formulario.is_valid():
+            requests.put(url, headers=headers, json=request.POST)
+            messages.success(request, "La suscripcion se ha modificado correctamente.", extra_tags='Modificada')
+            return redirect(to="suscripcion")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/cliente/cambiar_suscripcion.html', data)
 
 # MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
 @login_required
