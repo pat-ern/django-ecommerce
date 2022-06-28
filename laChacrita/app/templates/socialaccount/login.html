@@ -16,23 +16,16 @@
       <div class="card bg-light">
           <div class="card-body text-center">
             <img src="{% static 'app/img/google.png' %}" alt="Logo" class="img mb-3" width="100px">
-            {% if process == "connect" %}
-            <h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
-            <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
-            {% else %}
-            <h1 style="text-align:center">{% blocktrans with provider.name as provider %}Inicia sesion con {{ provider }}{% endblocktrans %}</h1>
-            <p style="text-align:center">{% blocktrans with provider.name as provider %}Estás a punto de iniciar sesión con una cuenta de terceros de {{ provider }}.{% endblocktrans %}</p>
-            {% endif %}
-
+            <h1 style="text-align:center">Inicia sesion con Google</h1>
+            <p style="text-align:center">Estás a punto de iniciar sesión con una cuenta de terceros de Google.</p>
             <div class="d-flex justify-content-center me-2 my-3">
               <form class="form" method="post">
                 {% csrf_token %}
-                <button class="btn btn-primary" type="submit">{% trans "Continuar" %}</button>
+                <button class="btn btn-primary" type="submit">Continuar</button>
               </form>
               &nbsp;
               <a href="{% url 'inicio_sesion' %}"><button type="reset" class="btn btn-secondary">Volver</button></a>
             </div>
-            
         </div>
       </div>
   </div>
