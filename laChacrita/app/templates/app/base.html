@@ -92,7 +92,7 @@
                 {% endif %}
 
                 <div class="dropdown dropstart" style="display: inline-block;">
-                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="btn boton-custom-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     @{{ user.username | title }}
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -109,8 +109,8 @@
                 </div>
                 
               {% else %}
-                  <a href="{% url 'inicio_sesion' %}"><button type="button" class="btn me-2" id="mi-cuenta">Iniciar Sesion</button></a>
-                  <a href="{% url 'registro_usuario' %}"><button type="button" class="btn me-2" id="mi-cuenta">Registrarse</button></a>
+                  <a href="{% url 'inicio_sesion' %}"><button type="button" class="btn boton-custom-primary me-2" id="mi-cuenta">Iniciar Sesion</button></a>
+                  <a href="{% url 'registro_usuario' %}"><button type="button" class="btn boton-custom-primary me-2" id="mi-cuenta">Registrarse</button></a>
               {% endif %}
             </div>
 

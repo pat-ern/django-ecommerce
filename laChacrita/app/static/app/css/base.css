@@ -21,9 +21,17 @@ body {
 
 /*Boton Mi Cuenta*/
 
-.btn {
+.boton-custom-primary {
     min-width: 100px;
     background-color: #7FA78D;
+    font-size: 20px;
+    color: white;
+    border: none;
+}
+
+.boton-custom-secondary {
+    min-width: 100px;
+    background-color: #969696;
     font-size: 20px;
     color: white;
     border: none;
