@@ -37,12 +37,12 @@
                 {{ form | crispy }}
                 <div class="d-flex justify-content-end me-2 my-3">
                     {% if user.is_staff %}
-                        <a href="#" onclick="backStaff()"><button type="reset" class="btn btn-primary" id="volver-btn">Volver</button></a>
+                        <a href="#" onclick="backStaff()"><button type="reset" class="btn boton-custom-secondary" id="volver-btn">Volver</button></a>
                     {% else %}
-                        <a href="#" onclick="back()"><button type="reset" class="btn btn-primary" id="volver-btn">Volver</button></a>
+                        <a href="#" onclick="back()"><button type="reset" class="btn boton-custom-secondary" id="volver-btn">Volver</button></a>
                     {% endif %}
                     &nbsp;
-                    <button type="submit" class="btn btn-primary" id="enviar-btn">Modificar</button>
+                    <button type="submit" class="btn boton-custom-primary" id="enviar-btn">Modificar</button>
                 </div>
             </form>
         </div>

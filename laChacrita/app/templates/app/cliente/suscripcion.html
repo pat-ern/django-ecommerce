@@ -80,7 +80,7 @@
                             <div class="d-flex justify-content-center my-3 me-2">
                               {% block boton_volver %}{% endblock boton_volver %}
                               &nbsp;&nbsp;
-                              <button type="submit" class="btn btn-primary" id="enviar-btn">Guardar</button>
+                              <button type="submit" class="btn boton-custom-primary" id="enviar-btn">Guardar</button>
                             </div>
                         </form>
                       </div>
@@ -101,9 +101,9 @@
                   <div class="alert alert-secondary" role="alert" >
                       <p>Sigue disfrutando de un {{suscripcion.suscripcion_desc}}% de descuento en tus compras</p>
                   </div>
-                  <a href="{% url 'cambiar_suscripcion' suscripcion.id %}"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Modificar Suscripcion</button></a>
+                  <a href="{% url 'cambiar_suscripcion' suscripcion.id %}"><button type="button" class="btn boton-custom-primary mt-2" id="enviar-btn">Modificar Suscripcion</button></a>
                   &nbsp;&nbsp;
-                  <a href="#" onclick="eliminarSuscripcion({{ suscripcion.id }})"><button type="button" class="btn btn-primary mt-2" id="enviar-btn">Cancelar Suscripcion</button></a>
+                  <a href="#" onclick="eliminarSuscripcion({{ suscripcion.id }})"><button type="button" class="btn boton-custom-danger mt-2" id="enviar-btn">Cancelar Suscripcion</button></a>
               </div>
               </div>
             </div>

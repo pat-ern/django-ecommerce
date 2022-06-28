@@ -37,9 +37,24 @@ body {
     border: none;
 }
 
+.boton-custom-danger {
+    min-width: 100px;
+    background-color: #8b5a5a;
+    font-size: 20px;
+    color: white;
+    border: none;
+}
+
+
 .btn:hover {
     background-color: white;
     color: #7FA78D;
+}
+
+
+.boton-custom-danger:hover {
+    background-color: white;
+    color: #770a0a;
 }
 
 /* Carrito */

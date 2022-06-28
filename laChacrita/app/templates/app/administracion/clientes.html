@@ -21,8 +21,8 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Usuario</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Apellido</th>
+                <th scope="col">Nombre(s)</th>
+                <th scope="col">Apellido(s)</th>
                 <th scope="col">Email</th>
                 <th scope="col">Fecha Registro</th>
                 <th scope="col">Ultimo Login</th>
@@ -32,8 +32,8 @@
             <tr>
                 <td>{{c.id}}</td>
                 <td>{{c.username}}</td>
-                <td>{{c.first_name}}</td>
-                <td>{{c.last_name}}</td>
+                <td>{{c.first_name | title}}</td>
+                <td>{{c.last_name | title}}</td>
                 <td>{{c.email}}</td>
                 <td>{{c.date_joined}}</td>
                 <td>{{c.last_login}}</td>

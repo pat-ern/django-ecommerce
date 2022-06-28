@@ -42,7 +42,7 @@
     <h1 style="text-align:center;">Carrito: {{ cantidad }} productos</h1>
     <hr>
     {% if not carrito %}
-        <h3 style="text-align:center;">No hay productos en el carrito :c</h3>
+        <h3 style="text-align:center;">No hay productos en el carrito.</h3>
     {% else %}
         
         <div class="row cart-item">
@@ -89,7 +89,7 @@
                     </tr>
                 </table>
                 <div class="text-center">
-                    <a href="{% url 'detalle_compra' %}"><button type="reset" class="btn btn-primary mt-1" id="limpiar-btn">Ir a comprar</button></a>
+                    <a href="{% url 'detalle_compra' %}"><button type="reset" class="btn boton-custom-primary mt-1" id="limpiar-btn">Ir a comprar</button></a>
                 </div>
             </div>
 
