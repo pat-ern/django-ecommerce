@@ -19,7 +19,7 @@ from rest_framework.permissions import IsAuthenticated
 def lista_suscripcion(request):
     #discriminar si es GET o POST
     if request.method == 'GET':
-        suscripciones = Suscripcion.objects.all().order_by('id')
+        suscripciones = Suscripcion.objects.all().order_by('-id')
         serializer = SuscripcionSerializer(suscripciones, many = True)
         return Response(serializer.data)
     

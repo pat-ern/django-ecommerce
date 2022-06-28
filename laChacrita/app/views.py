@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.dispatch import receiver
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -7,7 +8,6 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
@@ -16,6 +16,12 @@ from .forms import ContactoForm, DetalleCarritoForm, EstadoSuscripcionForm, Pedi
 from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
+from allauth.account.signals import user_logged_in
+
+# Funcion que se trigerea despues de cualquier login
+@receiver(user_logged_in, dispatch_uid="unique")
+def user_logged_in_(request, user, **kwargs):
+    Token.objects.get_or_create(user = user)
 
 # INDEX
 class FilteredIndex(ListView):
@@ -552,7 +558,7 @@ def compra(request):
 @login_required
 def ventas(request):
     # Se obtienen todas las ventas
-    ventas = Compra.objects.all()
+    ventas = Compra.objects.all().order_by('-fecha')
 
     data = {
         'ventas' : ventas
@@ -563,7 +569,7 @@ def ventas(request):
 @login_required
 def pedidos(request):
     # Se obtienen todos los pedidos
-    pedidos = Pedido.objects.all()
+    pedidos = Pedido.objects.all().order_by('-actualizacion')
 
     data = {
         'pedidos' : pedidos,
