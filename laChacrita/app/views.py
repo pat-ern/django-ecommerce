@@ -541,7 +541,7 @@ def compra(request):
 
     total = 0
     for i in carrito:
-        total += i.subtotal#*i.cantidad (subtotal es igual al precio unitario * cantidad)
+        total += i.subtotal
 
     # Se consigue token de usuario
     token = Token.objects.get(user=request.user) 
@@ -557,25 +557,17 @@ def compra(request):
     tipo_suscriptor = "Sin suscripcion"
 
     # Buscar si usuario esta suscrito, obtener suscripcion, generar descuento
-    # Iteracion dentro de suscripciones obtenidas
     for i in suscripciones:
         if i['suscriptor'] == request.user.id:
             # Se obtiene id de suscripcion
             id = i['id']
             # Se consulta a la api por suscripcion
             url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-            sub = requests.get(url_detalle, headers=headers).json()
-            # Consultar tipo de suscripcion
-            if sub['tipo_suscripcion'] == 1:
-                porc_descuento = 5
-                tipo_suscriptor = "Basic"
-            elif sub['tipo_suscripcion'] == 2:
-                porc_descuento = 8
-                tipo_suscriptor = "Standard"
-            elif sub['tipo_suscripcion'] == 3:
-                porc_descuento = 10
-                tipo_suscriptor = "Premium"
+            suscripcion = requests.get(url_detalle, headers=headers).json()
             # Generar descuento
+            print(suscripcion)
+            tipo_suscriptor = suscripcion['suscripcion_nombre']
+            porc_descuento = int(suscripcion['suscripcion_desc'])
             descuento = round(total * (porc_descuento/100))
             break
 
@@ -585,10 +577,9 @@ def compra(request):
     data = {
         'carrito' : carrito,
         'total' : total,
-        'porc_descuento' : porc_descuento,
         'tipo_suscriptor' : tipo_suscriptor,
+        'porc_descuento' : porc_descuento,
         'final_a_pagar' : final_a_pagar,
-        'descuento' : descuento,
     }
 
     # Click boton comprar
