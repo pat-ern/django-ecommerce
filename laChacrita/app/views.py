@@ -558,7 +558,7 @@ def compra(request):
 @login_required
 def ventas(request):
     # Se obtienen todas las ventas
-    ventas = Compra.objects.all()
+    ventas = Compra.objects.all().order_by('-fecha')
 
     data = {
         'ventas' : ventas
@@ -569,7 +569,7 @@ def ventas(request):
 @login_required
 def pedidos(request):
     # Se obtienen todos los pedidos
-    pedidos = Pedido.objects.all()
+    pedidos = Pedido.objects.all().order_by('-actualizacion')
 
     data = {
         'pedidos' : pedidos,
