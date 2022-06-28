@@ -18,7 +18,7 @@ class AsuntoAdmin(admin.ModelAdmin):
     ordering = ('id',)
 
 class TipoSuscripcionAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "id", "monto"]
+    list_display = ["nombre", "id", "monto", "desc"]
     ordering = ('id',)
 
 class SuscripcionAdmin(admin.ModelAdmin):
