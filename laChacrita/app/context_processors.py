@@ -1,4 +1,5 @@
-from app.models import DetalleCarrito, TipoSuscripcion
+import random
+from app.models import DetalleCarrito, Promocion, TipoSuscripcion
 
 def cart_processor(request):
     cant = 0
@@ -11,3 +12,9 @@ def cart_processor(request):
 def tipo_subs_processor(request):
     tipo_subs = TipoSuscripcion.objects.all()
     return {'tipo_subs': tipo_subs}
+
+def promociones_processor(request):
+
+    promociones = Promocion.objects.exclude(nombre = 'sin promocion')
+    random_promo = random.choice(promociones)
+    return {'promo': random_promo}
