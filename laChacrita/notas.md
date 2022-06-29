@@ -12,7 +12,7 @@
 - [x] Ver historial de ventas realizadas
 
 ## Administracion general
-- [ ] Generar descuentos o promociones para mostrar en index
+- [x] Generar descuentos o promociones para mostrar en index
 
 ## Proceso de compra y seguimiento
 - [x] Crear sistema de login y registro de usuario
