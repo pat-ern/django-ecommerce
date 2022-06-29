@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Contacto, DetalleCarrito, Pedido, Producto, Calificacion, Suscripcion
+from .models import Contacto, DetalleCarrito, Pedido, Producto, Calificacion, Promocion, Suscripcion
 from .validators import MaxSizeFileValidator
 
 class ProductoForm(forms.ModelForm):
@@ -116,3 +116,10 @@ class PedidoForm(forms.ModelForm):
         labels = {
                 'estado' : 'Cambiar estado del pedido'
             }
+    
+class PromocionForm(forms.ModelForm):
+
+    class Meta:
+        model = Promocion
+
+        fields = ["id", "nombre", "descuento", "mensaje"]

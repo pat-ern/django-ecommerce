@@ -15,8 +15,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
-from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, ModificarSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto, TipoSuscripcion
+from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, ModificarSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, PromocionForm, SuscripcionForm, CustomUserCreationForm
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto, Promocion, TipoSuscripcion
 from .operaciones import calcular_promedio
 import requests
 from allauth.account.signals import user_logged_in
@@ -205,6 +205,85 @@ def eliminarProducto(request, id):
     producto.delete()
     messages.info(request, "Producto eliminado correctamente.", extra_tags='Eliminado')
     return redirect(to="lista_productos")
+
+# --------------------------GESTION PROMOCIONES --------------------------
+
+@staff_member_required
+def lista_promociones(request):
+    promociones = Promocion.objects.all()
+
+    data = {
+        "promociones" : promociones,
+    }
+    
+    return render(request, 'app/administracion/lista_promociones.html', data)
+
+@staff_member_required
+def crear_promocion(request):
+
+    data = {
+        'form': PromocionForm()
+    }
+    
+    if request.method == 'POST':
+        formulario = PromocionForm(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "La promoción se agregó correctamente.", extra_tags='Agregado')
+            return redirect(to="lista_promociones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/administracion/crear_promocion.html', data)
+
+@staff_member_required
+def modificar_promocion(request, id):
+    promocion = get_object_or_404(Promocion, id=id)
+    data = {
+        'form': PromocionForm(instance=promocion),
+        'promocion' : promocion
+    }
+    
+    if request.method == 'POST':
+        formulario = PromocionForm(data=request.POST, instance=promocion)
+        if formulario.is_valid():
+            formulario.save()
+
+            # Actualizar productos que se afectaran con la modificacion de la promocion
+            productos_asociados = Producto.objects.filter(promocion=id)
+            updated_promo = get_object_or_404(Promocion, id=id)
+            if len(productos_asociados) != 0:
+                for i in productos_asociados:
+                    i.promocion = updated_promo
+                    i.precio_promocional = i.precio - round(i.precio * updated_promo.descuento/100)
+                    i.save() 
+
+            messages.success(request, "La promoción se modificó correctamente.", extra_tags='Modificado')
+            return redirect(to="lista_promociones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/administracion/modificar_promocion.html', data)
+
+@staff_member_required
+def eliminar_promocion(request, id):
+
+    # Actualizar productos que se afectaran con la eliminacion
+    productos_asociados = Producto.objects.filter(promocion=id)
+
+    # Promocion por defecto
+    promocion_defecto = Promocion.objects.get(id=1)
+
+    if len(productos_asociados) != 0:
+        for i in productos_asociados:
+            i.promocion = promocion_defecto
+            i.precio_promocional = i.precio
+            i.save()
+
+    promocion = get_object_or_404(Promocion, id=id)
+    promocion.delete()
+    messages.info(request, "Promoción eliminada correctamente.", extra_tags='Eliminado')
+    return redirect(to="lista_promociones")
 
 # --------------------------PAGINAS PUBLICAS --------------------------
 
@@ -537,18 +616,28 @@ def registro_usuario(request):
 @login_required
 def carrito_compras(request):
 
-    # Se obtiene total de productos en el carrito de usuario
+    # Actualizar el carrito de compras
+
+    # Se obtiene carrito de usuario (si existe)
     carrito = DetalleCarrito.objects.filter(comprador = request.user)
+
+    for i in carrito:
+        producto = Producto.objects.get(id=i.producto.id)
+        i.subtotal = i.cantidad * producto.precio_promocional
+        i.save()
+
+    # Se consulta carrito actualizado
+    updated_cart = DetalleCarrito.objects.filter(comprador = request.user)
 
     # Contar cantidad de productos en carrito
     cant = 0
-    for i in carrito:
+    for i in updated_cart:
         cant += i.cantidad
 
     # Calcular total
     total = 0
-    for i in carrito:
-        total += i.subtotal#*i.cantidad (subtotal es igual al precio unitario * cantidad)
+    for i in updated_cart:
+        total += i.subtotal
         
     # Calcular descuento en carrito de compras
     token = Token.objects.get(user=request.user) 
@@ -690,7 +779,7 @@ def compra(request):
 @login_required
 def compras(request):
     # Se obtienen todas las compras
-    compras = Compra.objects.filter(comprador = request.user)
+    compras = Compra.objects.filter(comprador = request.user).order_by('-fecha')
 
     data = {
         'compras' : compras
@@ -702,7 +791,7 @@ def compras(request):
 @login_required
 def pedidos_cliente(request):
     # Se obtienen todas las compras del cliente
-    compras_usuario = Compra.objects.filter(comprador = request.user)
+    compras_usuario = Compra.objects.filter(comprador = request.user).order_by('-id')
 
     # Se obtienen pedidos segun compras del cliente
     pedidos = []

@@ -1,0 +1,80 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Suscripciones</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/listar_subs.css'%}"/>
+{% endblock css %}
+
+{% block js %}
+<script src="{% static 'app/js/suscripciones.js' %}"></script> 
+<script>
+    function eliminarPromocion(id){
+        Swal.fire({
+            "title":"¿Estás seguro?",
+            "text":"Esta acción no se puede deshacer",
+            "icon":"warning",
+            "showCancelButton":true,
+            "cancelButtonText": "No, cancelar",
+            "confirmButtonText": "Si, eliminar",
+            "reverseButtons":true,
+            "confirmButtonColor":"#558F67",
+            "cancelButtonColor":"#dc3545"
+        })
+        .then(function(result){
+            if(result.isConfirmed){
+                window.location.href="/eliminarpromocion/"+id+"/"
+            }
+        })
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+<main class="container table-responsive col-lg-7">
+    <br>
+    <div class="row">
+        <div text-align="center" class="col">
+            <h1>Suscripciones</h1>
+        </div>
+        <div align="right" class="col">
+            <a href = "{% url 'crear_promocion' %}">
+                <button class="btn boton-custom-primary" type="button" float="right">Crear Promocion</button>
+            </a>
+        </div>
+    </div>
+    <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:17px;">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descuento</th>
+                <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in promociones %}
+                <tr>
+                    <td>{{p.id}}</td>
+                    <td>{{p.nombre}}</td>
+                    <td>{{p.descuento}}</td>
+                    <td style="text-align:center;">
+                        <a href="{% url 'modificar_promocion' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="22" height="auto" title="Editar"></a>
+                        &nbsp;
+                        <a href="#" onclick="eliminarPromocion({{ p.id }})"><img src="{% static 'app/img/delete.png' %}" width="22" height="auto" title="Eliminar"></a>
+                    </td>
+                </tr>
+            {% endfor%}
+        </tbody>         
+    </table>
+</main>  
+<div>
+    {% include 'app/snippets/paginator3.html' %}
+</div>
+{% endblock %}

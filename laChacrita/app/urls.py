@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import \
-    actualizar_pedido, cambiar_suscripcion, clientes, compra, compras, desuscribirse, eliminar_calificacion, historial_pedido, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
+    actualizar_pedido, cambiar_suscripcion, clientes, compra, compras, crear_promocion, desuscribirse, eliminar_calificacion, eliminar_promocion, historial_pedido, lista_promociones, modificar_promocion, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
     lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
     inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito, suscripcion, ventas
 
@@ -15,6 +15,11 @@ urlpatterns = [
     path('productos/', lista_productos, name="lista_productos"), 
     path('modificar/<id>/', modificarProducto, name="modificar_producto"), 
     path('eliminar/<id>/', eliminarProducto, name="eliminar_producto"), 
+    # CRUD PROMOCIONES
+    path('listapromociones/', lista_promociones, name="lista_promociones"),
+    path('crearpromocion/', crear_promocion, name="crear_promocion"),
+    path('modificarpromocion/<id>/', modificar_promocion, name="modificar_promocion"),
+    path('eliminarpromocion/<id>/', eliminar_promocion, name="eliminar_promocion"),
     # CRUD SUSCRIPCIONES CLIENTE
     path('suscripcion/', suscripcion, name="suscripcion"), 
     path('cambiarsuscripcion/<id>/', cambiar_suscripcion, name="cambiar_suscripcion"), 

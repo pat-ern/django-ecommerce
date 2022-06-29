@@ -1,0 +1,49 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block titulo %}
+<title>Modificar Promocion</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'app/css/formularios.css' %}">
+<link rel="stylesheet" href="{% static 'app/css/validaciones.css' %}">
+{% endblock %}
+
+{% block js %}
+<script>
+    function back(){
+        window.location.href="/listapromociones/"
+    }
+</script>
+{% endblock %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+
+<main class="container col-lg-10">
+    <div class="d-flex justify-content-center row mt-5">
+        <div class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+            <div class="card bg-light p-3">
+                <div class="card-head text-center mt-3">
+                    <h3 class="card-title"><b>Modificar Promocion</b></h3>
+                </div>
+                <div class="card-body text-center">
+                  <div class="d-flex justify-content-center me-2">
+                    <form action="" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        <div class="d-flex justify-content-end m-4">
+                            <a href="{% url 'lista_promociones' %}"><button type="button" class="btn boton-custom-secondary" id="volver">Volver</button></a>
+                            &nbsp;&nbsp;
+                            <button type="submit" class="btn boton-custom-primary" id="enviar-btn">Confirmar</button>
+                        </div>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main> 
+
+{% endblock %}

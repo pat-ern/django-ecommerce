@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -5,7 +6,7 @@ from django.contrib.auth.models import User
 class Promocion(models.Model):
     id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=20)
-    descuento = models.IntegerField(default=0)
+    descuento = models.IntegerField()
     mensaje = models.CharField(max_length=100)
 
     def __str__(self):
@@ -19,22 +20,18 @@ class CategoriaProducto(models.Model):
     def __str__(self):
         return self.nombreCategoria
 
-# Promocion por defecto
-
-default_promo = Promocion.objects.get(id=1)
-
 # PRODUCTO
 class Producto(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     precio = models.IntegerField(null=True)
-    precio_promocional = models.IntegerField(null=True)
+    precio_promocional = models.IntegerField(default=precio, null=True)
     descripcion = models.TextField(max_length=500)
     categoria = models.ForeignKey(CategoriaProducto, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to="productos", null=True)
     puntuacion_avg = models.IntegerField(default=True, null=True)
     stock = models.IntegerField(default=1)
-    promocion = models.ForeignKey(Promocion, default = default_promo, null=True, on_delete=models.SET_DEFAULT)
+    promocion = models.ForeignKey(Promocion, default = NULL, null=True, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return self.nombre
