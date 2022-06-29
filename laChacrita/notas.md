@@ -23,7 +23,7 @@
 - [x] Permitir al cliente monitorear sus pedidos
 
 ## Servicio REST Fundacion
-- [ ] Ingresar una nueva suscripcion (admin, por medio de API)
+- [x] Ingresar una nueva suscripcion (admin, por medio de API)
 - [x] Listar suscritos a la fundación (admin, por medio de API)
 - [x] Eliminar suscriptores  (admin, por medio de API)
 - [x] Consultar vigencia de suscriptores (admin, por medio de API)
