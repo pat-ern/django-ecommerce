@@ -9,11 +9,13 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.views.generic import ListView
 from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
+
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Producto
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
 from allauth.account.signals import user_logged_in
@@ -108,6 +110,8 @@ def producto(request, id):
 
     return render(request, 'app/producto.html', data)
 
+# ELIMINAR CALIFICACION EN PRODUCTO  - CLIENTE
+@login_required
 def eliminar_calificacion(request, id):
     # eliminar calificacion
     calificacion = get_object_or_404(Calificacion, id=id)    
@@ -126,7 +130,9 @@ def eliminar_calificacion(request, id):
     messages.info(request, "Calificacion eliminada.", extra_tags="Eliminada")
     return redirect(to="producto", id=calificacion.idProducto)
 
-# AGREGAR PRODUCTO\
+# --------------------------GESTION DE PRODUCTOS - ADMIN --------------------------
+
+# ADMIN - AGREGAR PRODUCTO
 @permission_required('app.add_producto')
 def agregarProducto(request):
     data = {
@@ -144,8 +150,8 @@ def agregarProducto(request):
     
     return render(request, 'app/producto/agregar.html', data)
 
-# LISTA
-@permission_required('app.view_producto')
+# ADMIN - VER LISTA PRODUCTOS
+@staff_member_required
 def lista_productos(request):
     productos = Producto.objects.all().order_by('-id')
     page = request.GET.get('page', 1)
@@ -162,7 +168,7 @@ def lista_productos(request):
     
     return render(request, 'app/producto/listar.html', data)
 
-# MODIFICAR
+# ADMIN - MODIFICAR PRODUCTOS
 @permission_required('app.change_producto')
 def modificarProducto(request, id):
     
@@ -184,13 +190,15 @@ def modificarProducto(request, id):
     
     return render(request, 'app/producto/modificar.html', data)
 
-# ELIMINAR
+# ADMIN - ELIMINAR PRODUCTOS
 @permission_required('app.delete_producto')
 def eliminarProducto(request, id):
     producto = get_object_or_404(Producto, id=id)    
     producto.delete()
     messages.info(request, "Producto eliminado correctamente.", extra_tags='Eliminado')
     return redirect(to="lista_productos")
+
+# --------------------------PAGINAS PUBLICAS --------------------------
 
 # CONOCENOS
 def conocenos(request):
@@ -213,10 +221,10 @@ def contacto(request):
 
     return render(request, 'app/contacto.html', data)
 
-# --------------------------CONSUMO DE API--------------------------
+# --------------------------CONSUMO DE API - ADMIN --------------------------
 
 # CREAR SUSCRIPCION - POR ADMIN (REST)
-@login_required
+@staff_member_required
 def crear_suscripcion(request):
 
     token = Token.objects.get(user=request.user)
@@ -257,6 +265,99 @@ def crear_suscripcion(request):
 
     return render(request, 'app/suscripciones/crear_suscripcion.html', data)
 
+# LISTAR SUSCRIPCIONES - ADMIN (REST)
+@staff_member_required
+def lista_suscripciones(request):
+
+    url = "http://127.0.0.1:8000/api/lista_suscripcion"
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripciones = requests.get(url, headers=headers).json()
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(suscripciones, 5)
+        suscripciones = paginator.page(page)
+    except:
+        raise Http404
+
+    data = {
+        'suscripciones' : suscripciones,
+        "paginator" : paginator
+    }
+
+    return render(request, 'app/suscripciones/listar.html', data)
+
+# CANCELAR SUSCRIPCION - ADMIN (REST)
+@staff_member_required
+def cancelar_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    requests.delete(url, headers=headers)
+    messages.info(request, "Se ha eliminado la suscripcion del cliente.", extra_tags='Eliminada')
+    
+    return redirect(to="lista_suscripciones")
+
+
+# MODIFICAR SUSCRIPCION - ADMIN (REST)
+@staff_member_required
+def modificar_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripcion = requests.get(url, headers=headers).json()
+    
+    data = {
+        'form' : SuscripcionForm(data=suscripcion)
+    }
+
+    if request.method == 'POST':
+        formulario = SuscripcionForm(data=request.POST)
+        if formulario.is_valid():
+            requests.put(url, headers=headers, json=request.POST)
+            messages.success(request, "La suscripcion se ha modificado correctamente.", extra_tags='Modificada')
+            return redirect(to="lista_suscripciones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/suscripciones/modificar.html', data)
+
+# ADMIN - MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
+@staff_member_required
+def estado_suscripcion(request, id): 
+
+    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
+    token = Token.objects.get(user=request.user)
+    headers = {'Authorization': f'Token {token}'}
+
+    suscripcion = requests.get(url, headers=headers).json()
+    
+    data = {
+        'form' : EstadoSuscripcionForm(data=suscripcion),
+        'suscripcion' : suscripcion
+    }
+
+    suscripcion['estado'] = request.POST.get('estado')
+
+    if request.method == 'POST':
+        formulario = EstadoSuscripcionForm(data=request.POST)
+        if formulario.is_valid():
+            requests.put(url, headers=headers, json=suscripcion)
+            messages.success(request, "Estado de suscripcion modificado correctamente", extra_tags='Estado actualizado')
+            return redirect(to="lista_suscripciones")
+        else:
+            data["form"] = formulario
+    
+    return render(request, 'app/suscripciones/cambiar_estado.html', data)
+
+# --------------------------CONSUMO DE API - CLIENTE --------------------------
+
 # SUSCRIBIRSE - POR CLIENTE (REST)
 @login_required
 def suscripcion(request):
@@ -294,45 +395,7 @@ def suscripcion(request):
 
     return render(request, 'app/cliente/suscripcion.html', data)
 
-# LISTAR SUSCRIPCIONES - ADMIN (REST)
-@login_required
-def lista_suscripciones(request):
-
-    url = "http://127.0.0.1:8000/api/lista_suscripcion"
-    token = Token.objects.get(user=request.user)
-    headers = {'Authorization': f'Token {token}'}
-
-    suscripciones = requests.get(url, headers=headers).json()
-    page = request.GET.get('page', 1)
-
-
-    try:
-        paginator = Paginator(suscripciones, 5)
-        suscripciones = paginator.page(page)
-    except:
-        raise Http404
-
-    data = {
-        'suscripciones' : suscripciones,
-        "paginator" : paginator
-    }
-
-    return render(request, 'app/suscripciones/listar.html', data)
-
-# CANCELAR SUSCRIPCION - ADMIN (REST)
-@login_required
-def cancelar_suscripcion(request, id): 
-
-    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    token = Token.objects.get(user=request.user)
-    headers = {'Authorization': f'Token {token}'}
-
-    requests.delete(url, headers=headers)
-    messages.info(request, "Se ha eliminado la suscripcion del cliente.", extra_tags='Eliminada')
-    
-    return redirect(to="lista_suscripciones")
-
-# CANCELAR SUSCRIPCION - CLIENTE (REST)
+# DESUSCRIBIRSE - CLIENTE (REST)
 @login_required
 def desuscribirse(request, id): 
 
@@ -344,31 +407,6 @@ def desuscribirse(request, id):
     messages.info(request, "Esperamos tenerte de vuelta pronto.", extra_tags='Suscripcion Cancelada')
     
     return redirect(to="suscripcion")
-
-# MODIFICAR SUSCRIPCION - ADMIN (REST)
-@login_required
-def modificar_suscripcion(request, id): 
-
-    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    token = Token.objects.get(user=request.user)
-    headers = {'Authorization': f'Token {token}'}
-
-    suscripcion = requests.get(url, headers=headers).json()
-    
-    data = {
-        'form' : SuscripcionForm(data=suscripcion)
-    }
-
-    if request.method == 'POST':
-        formulario = SuscripcionForm(data=request.POST)
-        if formulario.is_valid():
-            requests.put(url, headers=headers, json=request.POST)
-            messages.success(request, "La suscripcion se ha modificado correctamente.", extra_tags='Modificada')
-            return redirect(to="lista_suscripciones")
-        else:
-            data["form"] = formulario
-    
-    return render(request, 'app/suscripciones/modificar.html', data)
 
 # MODIFICAR SUSCRIPCION - CLIENTE (REST)
 @login_required
@@ -395,33 +433,80 @@ def cambiar_suscripcion(request, id):
     
     return render(request, 'app/cliente/cambiar_suscripcion.html', data)
 
-# MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
-@login_required
-def estado_suscripcion(request, id): 
+# --------------------------COMERCIO - ADMIN--------------------------
 
-    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    token = Token.objects.get(user=request.user)
-    headers = {'Authorization': f'Token {token}'}
+# ADMIN - VER VENTAS
+@staff_member_required
+def ventas(request):
+    # Se obtienen todas las ventas
+    ventas = Compra.objects.all().order_by('-fecha')
 
-    suscripcion = requests.get(url, headers=headers).json()
-    
     data = {
-        'form' : EstadoSuscripcionForm(data=suscripcion),
-        'suscripcion' : suscripcion
+        'ventas' : ventas
     }
 
-    suscripcion['estado'] = request.POST.get('estado')
+    return render(request, 'app/administracion/ventas.html', data)
+
+# ADMIN - VER PEDIDOS
+@staff_member_required
+def pedidos(request):
+    # Se obtienen todos los pedidos
+    pedidos = Pedido.objects.all().order_by('-actualizacion')
+
+    data = {
+        'pedidos' : pedidos,
+    }
+
+    return render(request, 'app/administracion/pedidos.html', data)
+
+# ADMIN - VER HISTORIAL DE UN PEDIDO
+@staff_member_required
+def historial_pedido(request,id):
+    # Se obtienen todos los pedidos
+    registros = HistorialEstadoPedido.objects.filter(pedido=id).order_by('-fecha')
+    pedido = get_object_or_404(Pedido, id=id)
+
+    data = {
+        'registros' : registros,
+        'pedido' : pedido,
+    }
+
+    return render(request, 'app/administracion/historial_pedido.html', data)
+
+# ADMIN - ACTUALIZAR ESTADO PEDIDO
+@staff_member_required
+def actualizar_pedido(request, id):
+    # Se obtiene el pedido a actualizar
+    pedido = get_object_or_404(Pedido, id=id)
+
+    data = {
+        'pedido' : pedido,
+        'form' : PedidoForm(instance=pedido),
+    }
 
     if request.method == 'POST':
-        formulario = EstadoSuscripcionForm(data=request.POST)
+        formulario = PedidoForm(request.POST, instance=pedido)
         if formulario.is_valid():
-            requests.put(url, headers=headers, json=suscripcion)
-            messages.success(request, "Estado de suscripcion modificado correctamente", extra_tags='Estado actualizado')
-            return redirect(to="lista_suscripciones")
-        else:
-            data["form"] = formulario
-    
-    return render(request, 'app/suscripciones/cambiar_estado.html', data)
+            form = formulario.save(commit=False)
+            form.actualizacion = datetime.now()
+            form.save()
+            HistorialEstadoPedido.objects.create(pedido = pedido, estado = form.estado, fecha = form.actualizacion)
+            messages.success(request, "Estado de pedido actualizado correctamente.", extra_tags="Actualizado")
+            return redirect(to="pedidos")
+
+    return render(request, 'app/administracion/actualizar_pedido.html', data)
+
+# ADMIN - VER CLIENTES REGISTRADOS
+@staff_member_required
+def clientes(request):
+    # Se obtienen todos los clientes
+    clientes = User.objects.all().exclude(is_superuser=True)
+
+    data = {
+        'clientes' : clientes
+    }
+
+    return render(request, 'app/administracion/clientes.html', data)
 
 # -------------------------- LOGIN Y REGISTRO --------------------------
 
@@ -466,11 +551,12 @@ def registro_usuario(request):
             return redirect(to='inicio_sesion')
         data['form'] = formulario
 
-
     return render(request, 'registration/registro.html', data)
 
-# CARRITO DE COMPRAS
+# --------------------------CLIENTE--------------------------
 
+# CARRITO DE COMPRAS
+@login_required
 def carrito_compras(request):
 
     # Se obtiene total de productos en el carrito de usuario
@@ -531,6 +617,8 @@ def carrito_compras(request):
 
     return render(request, 'app/compra/carrito.html', data)
 
+# CLIENTE - ELIMINAR ITEM DE CARRITO
+@login_required
 def eliminar_de_carrito(request, id):
     # Se obtiene el producto a eliminar
     detalle_carrito = get_object_or_404(DetalleCarrito, id=id)  
@@ -539,6 +627,8 @@ def eliminar_de_carrito(request, id):
     messages.info(request, "Producto eliminado del carrito.", extra_tags="Eliminado")
     return redirect(to="carrito")
 
+# CLIENTE - REALIZAR COMPRA
+@login_required
 def compra(request):
 
     # Calculo de total
@@ -624,76 +714,7 @@ def compra(request):
 
     return render(request, 'app/compra/compra.html', data)
 
-
-# VENTAS
-@login_required
-def ventas(request):
-    # Se obtienen todas las ventas
-    ventas = Compra.objects.all().order_by('-fecha')
-
-    data = {
-        'ventas' : ventas
-    }
-
-    return render(request, 'app/administracion/ventas.html', data)
-
-@login_required
-def pedidos(request):
-    # Se obtienen todos los pedidos
-    pedidos = Pedido.objects.all().order_by('-actualizacion')
-
-    data = {
-        'pedidos' : pedidos,
-    }
-
-    return render(request, 'app/administracion/pedidos.html', data)
-
-@login_required
-def historial_pedido(request,id):
-    # Se obtienen todos los pedidos
-    registros = HistorialEstadoPedido.objects.filter(pedido=id).order_by('-fecha')
-    pedido = get_object_or_404(Pedido, id=id)
-
-    data = {
-        'registros' : registros,
-        'pedido' : pedido,
-    }
-
-    return render(request, 'app/administracion/historial_pedido.html', data)
-
-def actualizar_pedido(request, id):
-    # Se obtiene el pedido a actualizar
-    pedido = get_object_or_404(Pedido, id=id)
-
-    data = {
-        'pedido' : pedido,
-        'form' : PedidoForm(instance=pedido),
-    }
-
-    if request.method == 'POST':
-        formulario = PedidoForm(request.POST, instance=pedido)
-        if formulario.is_valid():
-            form = formulario.save(commit=False)
-            form.actualizacion = datetime.now()
-            form.save()
-            HistorialEstadoPedido.objects.create(pedido = pedido, estado = form.estado, fecha = form.actualizacion)
-            messages.success(request, "Estado de pedido actualizado correctamente.", extra_tags="Actualizado")
-            return redirect(to="pedidos")
-
-    return render(request, 'app/administracion/actualizar_pedido.html', data)
-
-@login_required
-def clientes(request):
-    # Se obtienen todos los clientes
-    clientes = User.objects.all().exclude(is_superuser=True)
-
-    data = {
-        'clientes' : clientes
-    }
-
-    return render(request, 'app/administracion/clientes.html', data)
-
-# VENTAS
+# CLIENTE - VER COMPRAS
 @login_required
 def compras(request):
     # Se obtienen todas las compras
@@ -705,6 +726,7 @@ def compras(request):
 
     return render(request, 'app/cliente/compras.html', data)
 
+# CLIENTE - VER PEDIDOS
 @login_required
 def pedidos_cliente(request):
     # Se obtienen todas las compras del cliente

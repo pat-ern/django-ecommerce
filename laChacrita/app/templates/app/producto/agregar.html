@@ -27,6 +27,8 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <div class="d-flex justify-content-end me-2 my-3">
+                    <a href="{% url 'lista_productos' %}"><button type="button" class="btn boton-custom-secondary" id="volver">Volver</button></a>
+                    &nbsp;&nbsp;
                     <button type="reset" class="btn boton-custom-secondary" id="limpiar">Limpiar</button>
                     &nbsp;&nbsp;
                     <button type="submit" class="btn boton-custom-primary" id="enviar">Enviar</button>
