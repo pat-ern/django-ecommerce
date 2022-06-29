@@ -41,7 +41,15 @@
       <hr>
       <h4>Descripción:</h4>
       <p class="descripcion-producto">{{producto.descripcion}}</p>
-      <h3>${{producto.precio | intcomma }}</h3>
+      
+      {% if producto.promocion.nombre != 'sin promocion' %}
+        <h4 class="card-text mx-2 my-0" id="precio-antes">Antes ${{ producto.precio | intcomma }}</h4>
+        <h3 class="card-text mx-2 my-0">Ahora ${{ producto.precio_promocional | intcomma }} (¡{{ producto.promocion.descuento}}% de descuento!)</h3>
+      {% else %}
+        <h3>${{producto.precio | intcomma }}</h3>
+      {% endif %}
+
+      <br>
       {% if producto.stock > 0 %}
         <h4 style="color: green;">Disponible: <p class="stock">{{producto.stock}}<p></h4>
       {% else %}

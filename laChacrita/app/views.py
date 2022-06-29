@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from datetime import datetime
 from django.dispatch import receiver
 from django.shortcuts import redirect, render, get_object_or_404
@@ -81,7 +82,10 @@ def producto(request, id):
                 # Se termina de guardar el formulario
                 cart.comprador = request.user
                 cart.producto = producto
-                cart.subtotal = cart.cantidad * producto.precio
+                if producto.promocion.nombre is 'sin promocion':
+                    cart.subtotal = cart.cantidad * producto.precio
+                else:
+                    cart.subtotal = cart.cantidad * producto.precio_promocional 
                 cart.save()
                 
                 messages.success(request, "Se ha añadido al carrito correctamente.", extra_tags='Agregado')
@@ -142,7 +146,9 @@ def agregarProducto(request):
     if request.method == 'POST':
         formulario = ProductoForm(data=request.POST, files=request.FILES)
         if formulario.is_valid():
-            formulario.save()
+            form = formulario.save(commit=False)
+            form.precio_promocional = form.precio - round(form.precio * form.promocion.descuento/100)
+            form.save()
             messages.success(request, "Tu producto se agregó correctamente.", extra_tags='Agregado')
             return redirect(to="index")
         else:
@@ -567,7 +573,7 @@ def carrito_compras(request):
             url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
             sub = requests.get(url_detalle, headers=headers).json()
 
-            porc_descuento = sub['suscripcion_desc']
+            porc_descuento = int(sub['suscripcion_desc'])
             descuento = round(total * (porc_descuento/100))
             break
 

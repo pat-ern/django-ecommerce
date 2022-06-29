@@ -60,7 +60,11 @@
                                 <img src="{{ c.producto.imagen.url }}" class="img-fluid" alt="...">
                             </div>
                             <div class="col">
+                                {% if producto.promocion.nombre != 'sin promocion' %}
+                                <p class="card-title">Precio: ${{c.producto.precio_promocional | intcomma }}</p>
+                                {% else %}
                                 <p class="card-title">Precio: ${{c.producto.precio | intcomma }}</p>
+                                {% endif %}
                                 <p class="card-text">Cant: {{c.cantidad}}</p>
                             </div>
                             <div class="col">

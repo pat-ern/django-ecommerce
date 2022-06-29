@@ -7,8 +7,8 @@ from .models import \
 # Register your models here.
 
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "categoria", "precio", "puntuacion_avg", "stock"]
-    list_editable = ["categoria","precio", "puntuacion_avg", "stock"]
+    list_display = ["nombre", "categoria", "precio", "puntuacion_avg", "stock", "promocion", "precio_promocional"]
+    list_editable = ["categoria","precio", "puntuacion_avg", "stock", "promocion","precio_promocional"]
     search_fields = ["nombre"]
     list_per_page = 20
     ordering = ('-id',)
@@ -60,7 +60,8 @@ class HistorialEstadoPedidoAdmin(admin.ModelAdmin):
     ordering = ('-fecha',)
 
 class PromocionAdmin(admin.ModelAdmin):
-    list_display = ["nombre", "descuento", "mensaje"]
+    list_display = ["id", "nombre", "descuento", "mensaje"]
+    list_editable = ["nombre", "descuento", "mensaje"]
 
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)

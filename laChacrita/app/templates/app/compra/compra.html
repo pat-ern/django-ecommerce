@@ -29,7 +29,11 @@
             {% for c in carrito %}
             <tr>
                 <td>{{c.producto.nombre}}</td>
+                {% if producto.promocion.nombre != 'sin promocion' %}
+                <td>${{c.producto.precio_promocional | intcomma }}</td>
+                {% else %}
                 <td>${{c.producto.precio | intcomma }}</td>
+                {% endif %}
                 <td>{{c.cantidad}}</td>
                 <td>{{c.subtotal | intcomma }}</td>
             </tr>

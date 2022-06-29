@@ -66,7 +66,7 @@
       <div class="col">
         <a href="#" onclick="abrirProducto({{p.id}})">
           <div class="card text-dark mb-2">
-            {% if p.promocion %}
+            {% if p.promocion and p.promocion.nombre != 'sin promocion' %}
               <div class="alert alert-primary m-0 py-0" style="text-align:center;">
                 <p class="mb-0">¡{{ p.promocion.descuento}}% descuento!</p>
               </div>
@@ -77,7 +77,7 @@
             
             <div class="card-body pb-0">
               <p class="card-text mb-1" style="font-weight: bold;">{{ p.nombre | capfirst }}</p>   <!-- o tambien " | title " -->
-              {% if p.promocion %}
+              {% if p.promocion and p.promocion.nombre != 'sin promocion'%}
               <p class="card-text mx-2 my-0" style="text-align:right;" id="precio-antes">Antes ${{ p.precio | intcomma }}</p>
               <p class="card-text mx-2 my-0" style="font-size:25px;text-align:right;font-weight:bold;">Ahora ${{ p.precio_promocional | intcomma }}</p>
               {% else %}

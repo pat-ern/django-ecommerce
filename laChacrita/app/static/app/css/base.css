@@ -107,6 +107,10 @@ button > svg:hover {
 
 /* MAIN */
 
+#precio-antes {
+    text-decoration-line: line-through;
+}
+
 label {
     font-size: 17px;
 }
