@@ -86,11 +86,11 @@
             <div class="card">
               <div class="card-header">
                 {% if c.usuario.first_name %}
-                  {{c.usuario.first_name}} {{c.usuario.last_name}}
+                  {{c.usuario.first_name | title}} {{c.usuario.last_name | title}}
                 {% else %}
-                  {{c.usuario}}
-                {% endif %}
-                {% if user.id == c.usuario.id %} el {{c.fecha }}
+                  {{c.usuario | title}}
+                {% endif %}el {{c.fecha }}
+                {% if user.id == c.usuario.id %}
                 <a class="float-end" href="#" onclick="eliminarCalificacion({{ c.id }})"><img src="{% static 'app/img/delete.png' %}" width="25" height="auto" title="Eliminar"></a>
                 {% endif %}
               </div>
