@@ -29,7 +29,7 @@
             {% for v in ventas %}
             <tr>
                 <td>{{v}}</td>
-                <td>{{v.comprador.first_name}} {{v.comprador.last_name}}</td>
+                <td>{{v.comprador.first_name | title}} {{v.comprador.last_name | title}}</td>
                 <td>${{v.total | intcomma }}</td>
                 <td>${{v.descuento | intcomma }}</td>
                 <td>${{v.valor_final | intcomma }}</td>

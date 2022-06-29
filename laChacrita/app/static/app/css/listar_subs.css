@@ -1,11 +1,7 @@
-tr > td > a {
-    text-decoration-line: none; 
-}
-
-#activa > a {
+#activa {
     color: green;
 }
 
-#inactiva > a {
+#inactiva {
     color: red;
 }

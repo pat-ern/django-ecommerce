@@ -14,7 +14,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
-from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, EstadoSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
+from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, ModificarSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
 from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto
 from .operaciones import calcular_promedio
 import requests
@@ -314,47 +314,20 @@ def modificar_suscripcion(request, id):
     suscripcion = requests.get(url, headers=headers).json()
     
     data = {
-        'form' : SuscripcionForm(data=suscripcion)
+        'form' : ModificarSuscripcionForm(data=suscripcion),
+        'suscripcion' : suscripcion
     }
 
     if request.method == 'POST':
-        formulario = SuscripcionForm(data=request.POST)
+        formulario = ModificarSuscripcionForm(data=request.POST)
         if formulario.is_valid():
             requests.put(url, headers=headers, json=request.POST)
-            messages.success(request, "La suscripcion se ha modificado correctamente.", extra_tags='Modificada')
+            messages.success(request, "Suscripcion modificada correctamente", extra_tags='Modificada')
             return redirect(to="lista_suscripciones")
         else:
             data["form"] = formulario
     
     return render(request, 'app/suscripciones/modificar.html', data)
-
-# ADMIN - MODIFICAR SOLO ESTADO DE SUSCRIPCION (REST)
-@staff_member_required
-def estado_suscripcion(request, id): 
-
-    url = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
-    token = Token.objects.get(user=request.user)
-    headers = {'Authorization': f'Token {token}'}
-
-    suscripcion = requests.get(url, headers=headers).json()
-    
-    data = {
-        'form' : EstadoSuscripcionForm(data=suscripcion),
-        'suscripcion' : suscripcion
-    }
-
-    suscripcion['estado'] = request.POST.get('estado')
-
-    if request.method == 'POST':
-        formulario = EstadoSuscripcionForm(data=request.POST)
-        if formulario.is_valid():
-            requests.put(url, headers=headers, json=suscripcion)
-            messages.success(request, "Estado de suscripcion modificado correctamente", extra_tags='Estado actualizado')
-            return redirect(to="lista_suscripciones")
-        else:
-            data["form"] = formulario
-    
-    return render(request, 'app/suscripciones/cambiar_estado.html', data)
 
 # --------------------------CONSUMO DE API - CLIENTE --------------------------
 

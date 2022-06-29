@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from .views import \
     actualizar_pedido, cambiar_suscripcion, clientes, compra, compras, desuscribirse, eliminar_calificacion, historial_pedido, pedidos, pedidos_cliente, producto, conocenos, contacto, agregarProducto, lista_productos, modificarProducto, eliminarProducto, \
-    estado_suscripcion, lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
+    lista_suscripciones, crear_suscripcion, cancelar_suscripcion, modificar_suscripcion, \
     inicio_sesion, registro_usuario, carrito_compras, eliminar_de_carrito, suscripcion, ventas
 
 urlpatterns = [
@@ -24,7 +24,6 @@ urlpatterns = [
     path('crearsuscripcion/', crear_suscripcion, name="crear_suscripcion"), 
     path('cancelarsuscripcion/<id>/', cancelar_suscripcion, name="cancelar"), 
     path('modificarsuscripcion/<id>/', modificar_suscripcion, name="modificar_suscripcion"), 
-    path('cambiarestado/<id>/', estado_suscripcion, name="estado_suscripcion"), 
     # LOGIN Y REGISTRO
     path('iniciosesion/', inicio_sesion, name="inicio_sesion"),
     path('registro/', registro_usuario, name="registro_usuario"), 
