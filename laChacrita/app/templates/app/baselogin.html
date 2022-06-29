@@ -57,21 +57,6 @@
     <!-- Sweet Alert -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {% if messages %}
-      {% for m in messages %}
-        <script>
-          Swal.fire({
-            "title":"Enviado",
-            "text":"{{m}}",
-            "icon":"success",
-            "confirmButtonColor":"#558F67"
-          })
-        </script>
-        <!-- Include this after the sweet alert js file -->
-
-      {% endfor %}
-    {% endif %}
-
     {% block js %}
     {% endblock %}
   </body>

@@ -35,7 +35,7 @@
                 {% csrf_token %}
                 {{ form | crispy }}
                 <div class="d-flex justify-content-end me-2 my-3">
-                    <button type="reset" class="btn boton-custom-secondary" id="cancelar" onclick="back()">Volver</button>
+                    <button type="button" class="btn boton-custom-secondary" id="cancelar" onclick="back()">Volver</button>
                     &nbsp;
                     <button type="submit" class="btn boton-custom-primary" id="enviar">Modificar</button>
                 </div>

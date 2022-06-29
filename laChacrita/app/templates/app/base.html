@@ -154,6 +154,16 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
       {% for m in messages %}
+        {% if m.extra_tags == None and  m.tags == 'success' %}
+        <script>
+          Swal.fire({
+            "title":"Bienvenido/a",
+            "text":"{{m}}",
+            "icon":"{{m.level_tag}}",
+            "confirmButtonColor":"#558F67"
+          })
+        </script>
+        {% else %}
         <script>
           Swal.fire({
             "title":"{{m.extra_tags | title }}",
@@ -162,6 +172,7 @@
             "confirmButtonColor":"#558F67"
           })
         </script>
+        {% endif %}
       {% endfor %}
 
     {% block js %}

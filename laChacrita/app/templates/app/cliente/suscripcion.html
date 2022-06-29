@@ -35,6 +35,7 @@
 
 {% block contenido %}
 {% load crispy_forms_tags %}
+{% load humanize %}
 
 {% if not suscripcion %}
 {% block susc_ver_modificar %}
@@ -50,25 +51,17 @@
                               <tr>
                                 <th scope="col">Nivel</th>
                                 <th scope="col">Valor c/mes</th>
-                                <th scope="col">Descuentos</th>
+                                <th scope="col">Descuento</th>
                               </tr>
                             </thead>
                             <tbody>
+                              {% for t in tipo_subs %}
                               <tr>
-                                <td>Basica</td>
-                                <td>$3.000</td>
-                                <td>5%</td>
+                                <td>{{t.nombre}}</td>
+                                <td>${{t.monto | intcomma }}</td>
+                                <td>{{t.desc}}%</td>
                               </tr>
-                              <tr>
-                                <td>Standard</td>
-                                <td>$5.000</td>
-                                <td>8%</td>
-                              </tr>
-                              <tr>
-                                <td>Premium</td>
-                                <td>$8.000</td>
-                                <td>10%</td>
-                              </tr>
+                              {% endfor %}
                             </tbody>
                           </table>
                       </div>

@@ -15,7 +15,7 @@ from rest_framework.authtoken.models import Token
 
 from .filters import IndexFilter
 from .forms import ContactoForm, CrearSuscripcionForm, DetalleCarritoForm, ModificarSuscripcionForm, PedidoForm, ProductoForm, CalificacionForm, SuscripcionForm, CustomUserCreationForm
-from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto
+from .models import Calificacion, Compra, DetalleCarrito, DetalleCompra, HistorialEstadoPedido, Pedido, Producto, TipoSuscripcion
 from .operaciones import calcular_promedio
 import requests
 from allauth.account.signals import user_logged_in
@@ -516,11 +516,8 @@ def registro_usuario(request):
         formulario = CustomUserCreationForm(data = request.POST)
         if formulario.is_valid():
             formulario.save()
-
-            #user = authenticate(username = formulario.cleaned_data["username"], password = formulario.cleaned_data["password1"])
-            #login(request, user)
-
-            messages.success(request, "Te has registrado correctamente.", extra_tags='Registrado')
+            username = formulario.cleaned_data.get('username')
+            messages.success(request, f"Te has registrado correctamente {username}.", extra_tags='Registrado')
             return redirect(to='inicio_sesion')
         data['form'] = formulario
 
@@ -567,14 +564,8 @@ def carrito_compras(request):
             # Se consulta a la api por suscripcion
             url_detalle = f'http://127.0.0.1:8000/api/detalle_suscripcion/{id}'
             sub = requests.get(url_detalle, headers=headers).json()
-            # Consultar tipo de suscripcion
-            if sub['tipo_suscripcion'] == 1:
-                porc_descuento = 5
-            elif sub['tipo_suscripcion'] == 2:
-                porc_descuento = 8
-            elif sub['tipo_suscripcion'] == 3:
-                porc_descuento = 10
-            # Generar descuento
+
+            porc_descuento = sub['suscripcion_desc']
             descuento = round(total * (porc_descuento/100))
             break
 
