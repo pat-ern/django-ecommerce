@@ -17,7 +17,7 @@ class ProductoForm(forms.ModelForm):
     
     class Meta:
         model = Producto
-        fields = ["nombre", "categoria", "precio", "stock", "descripcion", "imagen"]
+        exclude = ['puntuacion_avg', 'precio_promocional']
         
         widgets = {
             'descripcion' : forms.Textarea(attrs={

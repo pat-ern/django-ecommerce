@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-from requests import request
+
+# Promocion
+class Promocion(models.Model):
+    nombre = models.CharField(max_length=20)
+    descuento = models.IntegerField(default=0)
+    mensaje = models.TextField(max_length=500)
+
+    def __str__(self):
+        return self.nombre
 
 # CATEGORIA PRODUCTO
 class CategoriaProducto(models.Model):
@@ -15,11 +23,13 @@ class Producto(models.Model):
     id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     precio = models.IntegerField(null=True)
+    precio_promocional = models.IntegerField(null=True)
     descripcion = models.TextField(max_length=500)
     categoria = models.ForeignKey(CategoriaProducto, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to="productos", null=True)
     puntuacion_avg = models.IntegerField(default=True, null=True)
     stock = models.IntegerField(default=1)
+    promocion = models.ForeignKey(Promocion, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.nombre
@@ -151,3 +161,4 @@ class HistorialEstadoPedido(models.Model):
 
     def __str__(self):
         return str(self.pedido.id) + str(self.estado.id) + str(self.fecha.strftime("%d%m%y%H%M"))
+

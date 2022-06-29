@@ -182,7 +182,9 @@ def modificarProducto(request, id):
     if request.method == 'POST':
         formulario = ProductoForm(data=request.POST, instance=producto, files=request.FILES)
         if formulario.is_valid():
-            formulario.save()
+            form = formulario.save(commit=False)
+            form.precio_promocional = form.precio - round(form.precio * form.promocion.descuento/100)
+            form.save()
             messages.success(request, "El producto se modificó correctamente.", extra_tags='Modificado')
             return redirect(to="lista_productos")
         else:

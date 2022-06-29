@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import \
-    Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, \
+    Compra, DetalleCarrito, DetalleCompra, EstadoPedido, HistorialEstadoPedido, Pedido, Promocion, \
     TipoSuscripcion, CategoriaProducto, Producto, Calificacion, AsuntoContacto, Contacto, \
     TipoSuscripcion, Suscripcion
 
@@ -59,6 +59,9 @@ class HistorialEstadoPedidoAdmin(admin.ModelAdmin):
     list_display = ["__str__", "pedido", "estado", "fecha"]
     ordering = ('-fecha',)
 
+class PromocionAdmin(admin.ModelAdmin):
+    list_display = ["nombre", "descuento", "mensaje"]
+
 admin.site.register(CategoriaProducto, CategoriaProductoAdmin)
 admin.site.register(Producto, ProductoAdmin)
 admin.site.register(Calificacion, CalificacionAdmin)
@@ -72,3 +75,4 @@ admin.site.register(DetalleCompra, DetalleCompraAdmin)
 admin.site.register(Pedido, PedidoAdmin)
 admin.site.register(EstadoPedido, EstadoPedidoAdmin)
 admin.site.register(HistorialEstadoPedido, HistorialEstadoPedidoAdmin)
+admin.site.register(Promocion, PromocionAdmin)

@@ -8,6 +8,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'app/css/index.css'%}"/>
+
 {% endblock %}
 
 {% block js %}
@@ -69,9 +70,17 @@
               <img src="{{ p.imagen.url }}" class="card-img-top" alt="...">
               {% endif %}
             
-            <div class="card-body">
+            <div class="card-body pb-0">
               <p class="card-text">{{ p.nombre | capfirst }}</p>   <!-- o tambien " | title " -->
-                <p class="card-text" style="text-align:left;font-weight: bold;">${{ p.precio | intcomma }}</h5>
+
+              {% if p.promocion %}
+              <p class="card-text mx-2 my-0" style="text-align:right;font-weight: bold;">${{ p.precio_promocional | intcomma }}</p>
+              <div class="alert alert-primary m-0 py-0" style="text-align:center;">
+                <p class="mb-0">¡{{ p.promocion.descuento}}% descuento!</p>
+              </div>
+              {% else %}
+              <p class="card-text mx-2 my-0" style="text-align:right;font-weight: bold;">${{ p.precio | intcomma }}</p>
+              {% endif %}
             </div>
           </div>
         </a>
