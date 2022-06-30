@@ -13,14 +13,14 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container table-responsive col-lg-8">
+<main class="container table-responsive col-lg-7">
     <br>
     <h1>Pedidos</h1>
     <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:17px;">
         <thead>
             <tr>
                 <th scope="col">ID Pedido</th>
-                <th scope="col">Fecha</th>
+                <th scope="col">Fecha Compra</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Actualizaci&oacute;n</th>
                 <th scope="col">Detalles</th>
@@ -29,9 +29,9 @@
             {% for p in pedidos %}
             <tr>
                 <td>{{p}}</td>
-                <td>{{p.compra.fecha}}</td>    
+                <td>{{p.compra.fecha  | date:"d-M-y H:m"}}</td>    
                 <td><a href="{% url 'actualizarpedido' p.id %}">{{p.estado}} <img src="{% static 'app/img/crayon.png' %}" width="20" height="auto" title="Editar"></a></td>     
-                <td>{{p.actualizacion}}</td> 
+                <td>{{p.actualizacion  | date:"d-M-y H:m"}}</td> 
                 <td><a href="{% url 'historial_pedido' p.id %}">Historial</a></td>     
             </tr>
             {% endfor%}

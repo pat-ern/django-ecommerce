@@ -13,7 +13,7 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container table-responsive col-lg-6">
+<main class="container table-responsive col-lg-7">
     <br>
     <h1>Ventas</h1>
     <table class="table table-striped table-hover align-middle mt-4" id="categorias" style="font-size:17px;">
@@ -23,13 +23,13 @@
                 <th scope="col">Cliente</th>
                 <th scope="col">Subtotal</th>
                 <th scope="col">Descuento</th>
-                <th scope="col">Valor Final</th>
+                <th scope="col">Monto</th>
             </tr>
         </thead>
             {% for v in ventas %}
             <tr>
                 <td>{{v}}</td>
-                <td>{{v.comprador.first_name | title}} {{v.comprador.last_name | title}}</td>
+                <td>{{v.comprador.first_name | title | truncatewords:1 }} {{v.comprador.last_name | title | truncatewords:1 }}</td>
                 <td>${{v.total | intcomma }}</td>
                 <td>${{v.descuento | intcomma }}</td>
                 <td>${{v.valor_final | intcomma }}</td>

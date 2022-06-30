@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titulo %}
-<title>Suscripciones</title>
+<title>Promociones</title>
 {% endblock %}
 
 {% block css %}
@@ -37,11 +37,11 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container table-responsive col-lg-7">
+<main class="container table-responsive col-lg-6">
     <br>
     <div class="row">
         <div text-align="center" class="col">
-            <h1>Suscripciones</h1>
+            <h1>Promociones</h1>
         </div>
         <div align="right" class="col">
             <a href = "{% url 'crear_promocion' %}">
@@ -62,8 +62,8 @@
             {% for p in promociones %}
                 <tr>
                     <td>{{p.id}}</td>
-                    <td>{{p.nombre}}</td>
-                    <td>{{p.descuento}}</td>
+                    <td>{{p.nombre | title }}</td>
+                    <td>{{p.descuento}}%</td>
                     <td style="text-align:center;">
                         <a href="{% url 'modificar_promocion' p.id %}"><img src="{% static 'app/img/crayon.png' %}" width="22" height="auto" title="Editar"></a>
                         &nbsp;
