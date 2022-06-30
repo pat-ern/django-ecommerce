@@ -1,4 +1,3 @@
-from asyncio.windows_events import NULL
 from datetime import datetime
 from django.dispatch import receiver
 from django.shortcuts import redirect, render, get_object_or_404
@@ -82,7 +81,7 @@ def producto(request, id):
                 # Se termina de guardar el formulario
                 cart.comprador = request.user
                 cart.producto = producto
-                if producto.promocion.nombre is 'sin promocion':
+                if producto.promocion.nombre == 'sin promocion':
                     cart.subtotal = cart.cantidad * producto.precio
                 else:
                     cart.subtotal = cart.cantidad * producto.precio_promocional 

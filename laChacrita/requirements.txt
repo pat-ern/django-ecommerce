@@ -4,7 +4,7 @@ django-bootstrap-form==3.4
 django-bootstrap-forms==0.1
 django-colorfield==0.7.0
 django-crispy-forms==1.14.0
-django-filter==1.1
+django-filter==22.1
 django-flat-responsive==2.0
 django-flat-theme==1.1.4
 django-widget-tweaks==1.4.12

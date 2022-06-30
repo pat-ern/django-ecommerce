@@ -8,7 +8,7 @@ from .models import \
 
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ["nombre", "categoria", "precio", "puntuacion_avg", "stock", "promocion", "precio_promocional"]
-    list_editable = ["categoria","precio", "puntuacion_avg", "stock", "promocion","precio_promocional"]
+    list_editable = ["categoria","precio", "stock"]
     search_fields = ["nombre"]
     list_per_page = 20
     ordering = ('-id',)
