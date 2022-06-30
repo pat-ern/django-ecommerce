@@ -64,7 +64,7 @@ class CrearSuscripcionForm(forms.ModelForm):
 
     class Meta:
         model = Suscripcion
-        exclude = ["estado"]
+        fields = ["suscriptor", "tipo_suscripcion", "recibe_informe"]
 
         labels = {
             'suscriptor' : 'Seleccionar cliente'
@@ -75,10 +75,6 @@ class ModificarSuscripcionForm(forms.ModelForm):
     class Meta:
         model = Suscripcion
         exclude = ["suscriptor"]
-
-        labels = {
-                'estado' : 'Suscripcion activa'
-            }
 
 class CalificacionForm(forms.ModelForm):
 

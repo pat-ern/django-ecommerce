@@ -37,7 +37,7 @@
 {% load crispy_forms_tags %}
 {% load humanize %}
 
-<main class="container table-responsive col-lg-7">
+<main class="container table-responsive col-lg-6">
     <br>
     <div class="row">
         <div text-align="center" class="col">
@@ -55,7 +55,6 @@
                 <th scope="col">Suscriptor</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Tipo Suscripci&oacute;n</th>
-                <th scope="col">Estado</th>
                 <th scope="col" style="text-align:center;min-width:100px;">Acci&oacute;n</th>
             </tr>
         </thead>
@@ -65,11 +64,6 @@
                     <td>{{su.suscriptor_nombre}}</td>
                     <td>{{su.fecha}}</td>
                     <td>{{su.suscripcion_nombre}}</td>
-                    {% if su.estado == True %}
-                        <td id="activa">Activa</td>
-                    {% elif su.estado == False %}
-                        <td id="inactiva">Inactiva</td>
-                    {% endif %}
                     <td style="text-align:center;">
                         <a href="{% url 'modificar_suscripcion' su.id %}"><img src="{% static 'app/img/crayon.png' %}" width="22" height="auto" title="Editar"></a>
                         &nbsp;

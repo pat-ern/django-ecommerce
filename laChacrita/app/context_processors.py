@@ -14,7 +14,6 @@ def tipo_subs_processor(request):
     return {'tipo_subs': tipo_subs}
 
 def promociones_processor(request):
-
     promociones = Promocion.objects.exclude(nombre = 'sin promocion')
     random_promo = random.choice(promociones)
     return {'promo': random_promo}
