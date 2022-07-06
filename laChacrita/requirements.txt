@@ -1,5 +1,5 @@
 Django==4.0.4
-django-admin-interface==0.19.1
+django-admin-interface
 django-bootstrap-form==3.4
 django-bootstrap-forms==0.1
 django-colorfield==0.7.0
@@ -13,4 +13,3 @@ django-phonenumber-field[phonenumbers]
 Pillow==9.1.1
 django-rest-framework
 requests
-django-allauth
