@@ -22,7 +22,7 @@ def lista_suscripcion(request):
         suscripciones = Suscripcion.objects.all().order_by('-id')
         serializer = SuscripcionSerializer(suscripciones, many = True)
         return Response(serializer.data)
-    
+
     elif request.method=='POST':
         data=JSONParser().parse(request)
         serializer=SuscripcionSerializer(data=data)
@@ -45,17 +45,17 @@ def detalle_suscripcion(request, id):
     if request.method == 'GET': #se obtienen datos de UN producto por id
         serializer = SuscripcionSerializer(suscripcion)
         return Response(serializer.data)
-    
+
     if request.method == 'PUT': #se actualizan datos de UN producto por id
         data = JSONParser().parse(request)
         serializer = SuscripcionSerializer(suscripcion, data = data)
-       
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         else: 
             return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
-        
+
     elif request.method == 'DELETE': #elimino 1 producto por su id
         suscripcion.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)
