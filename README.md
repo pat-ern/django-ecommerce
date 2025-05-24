@@ -9,5 +9,11 @@ Proyecto semestral de asignatura Desarrollo WEB Duoc UC
 - Activar entorno virtual
 >source venv/bin/activate
 
+- Instalar dependencias
+>pip install -r requirements.txt
+
 - Correr servidor de desarrollo
 >python3 manage.py runserver
+
+- Desactivar entorno virtual
+>deactivate 
