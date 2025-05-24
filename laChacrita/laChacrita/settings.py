@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'colorfield', #admin interface
     'django.contrib.humanize', #filtro
     'crispy_forms',
+    'crispy_bootstrap5',
     'django_filters',
     'widget_tweaks',
     'bootstrapform',
@@ -69,7 +70,7 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 SILENCED_SYSTEM_CHECKS = ["security.W019"]
