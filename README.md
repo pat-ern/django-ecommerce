@@ -1,7 +1,5 @@
-# la-chacrita-sitio-web-ecommerce
-Proyecto semestral de asignatura Desarrollo WEB Duoc UC
-- Desarrollado en Django
-
+# Proyecto semestral de asignatura Desarrollo WEB Duoc UC
+Desarrollado en django / django-rest / sqlite
 
 - Agregar entorno virtual
 > python3 -m venv venv
